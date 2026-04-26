@@ -1,0 +1,47 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+
+# Virtual environment
+venv/
+env/
+.venv/
+
+# Django
+*.log
+local_settings.py
+db.sqlite3
+staticfiles/
+media/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Docker
+.docker/
+
+# macOS
+.DS_Store
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# pytest
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Migrations (keep these — they're intentional)
+# !*/migrations/*.py
+
+# Node (for frontend)
+node_modules/
+dist/
+build/
+.next/
