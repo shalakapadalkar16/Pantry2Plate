@@ -4,9 +4,9 @@
 export interface User {
   id: string
   email: string
-  username: string
-  timezone: string
-  date_joined: string
+  first_name: string
+  last_name: string
+  created_at: string
 }
 
 // what Django returns when you log in: two tokens - access (short-lived) and refresh (long-lived)
@@ -18,7 +18,8 @@ export interface AuthTokens {
 // what we send to Django when someone registers
 export interface RegisterPayload {
   email: string
-  username: string
+  first_name: string
+  last_name: string
   password: string
 }
 

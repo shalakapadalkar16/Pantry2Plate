@@ -92,7 +92,7 @@ export function LoginPage() {
 export function RegisterPage() {
   const { register, isLoading, error, clearError } = useAuthStore()
   const navigate = useNavigate()
-  const [form, setForm] = useState({ email: '', username: '', password: '' })
+  const [form, setForm] = useState({ email: '', first_name: '', last_name: '', password: '' })
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -127,12 +127,23 @@ export function RegisterPage() {
         </div>
 
         <div>
-          <label className="block text-xs font-medium text-stone-600 mb-1">Username</label>
+          <label className="block text-xs font-medium text-stone-600 mb-1">First name</label>
           <input
             className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
-            placeholder="chef_shalaka"
-            value={form.username}
-            onChange={(e) => setForm((f) => ({ ...f, username: e.target.value }))}
+            placeholder="Shalaka"
+            value={form.first_name}
+            onChange={(e) => setForm((f) => ({ ...f, first_name: e.target.value }))}
+            required
+          />
+        </div>
+
+        <div>
+          <label className="block text-xs font-medium text-stone-600 mb-1">Last name</label>
+          <input
+            className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
+            placeholder="Padalkar"
+            value={form.last_name}
+            onChange={(e) => setForm((f) => ({ ...f, last_name: e.target.value }))}
             required
           />
         </div>

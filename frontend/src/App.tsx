@@ -12,6 +12,13 @@ function RequireAuth({ children }: { children: React.ReactNode }) {
   return <>{children}</>
 }
 
+// If the user IS authenticated, redirect away from login/register
+function RedirectIfAuth({ children }: { children: React.ReactNode }) {
+  const { isAuthenticated } = useAuthStore()
+  if (isAuthenticated) return <Navigate to="/pantry" replace />
+  return <>{children}</>
+}
+
 // ── Placeholder for pages we build in later sprints ───────────────────────────
 function PantryPage() {
   return <div className="p-8 text-stone-700">🥦 Pantry page — coming in Sprint 2</div>
@@ -30,8 +37,16 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         {/* Public routes — anyone can access */}
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/login" element={
+          <RedirectIfAuth>
+            <LoginPage />
+          </RedirectIfAuth>
+        } />
+        <Route path="/register" element={
+          <RedirectIfAuth>
+            <RegisterPage />
+          </RedirectIfAuth>
+        } />
 
         {/* Protected routes — must be logged in */}
         <Route
