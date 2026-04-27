@@ -1,26 +1,46 @@
-# Dependencies
+# ── Frontend ──────────────────────────────────────────────────────────────────
 node_modules/
-
-# Build output
 dist/
 build/
+.next/
 
-# Environment files — never commit these
+# ── Python ────────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+
+# ── Virtual environment ───────────────────────────────────────────────────────
+venv/
+env/
+.venv/
+
+# ── Django ────────────────────────────────────────────────────────────────────
+*.log
+local_settings.py
+db.sqlite3
+staticfiles/
+media/
+
+# ── Testing ───────────────────────────────────────────────────────────────────
+.pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# ── Environment variables — never commit .env ─────────────────────────────────
 .env
 .env.*
 !.env.example
 
-# Python
-__pycache__/
-*.py[cod]
-*.pyo
-.mypy_cache/
-.pytest_cache/
-.coverage
-venv/
-*.egg-info/
-
-# IDE
+# ── IDE & OS ──────────────────────────────────────────────────────────────────
 .vscode/
+*.code-workspace
 .idea/
 .DS_Store
+.docker/
+
+# ── Migrations (keep these — they're intentional) ─────────────────────────────
+# !*/migrations/*.py
