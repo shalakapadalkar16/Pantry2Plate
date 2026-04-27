@@ -1,47 +1,46 @@
-# Python
+# ── Frontend ──────────────────────────────────────────────────────────────────
+node_modules/
+dist/
+build/
+.next/
+
+# ── Python ────────────────────────────────────────────────────────────────────
 __pycache__/
 *.py[cod]
 *.pyo
 *.pyd
 .Python
+*.egg-info/
 
-# Virtual environment
+# ── Virtual environment ───────────────────────────────────────────────────────
 venv/
 env/
 .venv/
 
-# Django
+# ── Django ────────────────────────────────────────────────────────────────────
 *.log
 local_settings.py
 db.sqlite3
 staticfiles/
 media/
 
-# Environment variables
+# ── Testing ───────────────────────────────────────────────────────────────────
+.pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# ── Environment variables — never commit .env ─────────────────────────────────
 .env
 .env.*
 !.env.example
 
-# Docker
-.docker/
-
-# macOS
-.DS_Store
-
-# VS Code
+# ── IDE & OS ──────────────────────────────────────────────────────────────────
 .vscode/
 *.code-workspace
+.idea/
+.DS_Store
+.docker/
 
-# pytest
-.pytest_cache/
-.coverage
-htmlcov/
-
-# Migrations (keep these — they're intentional)
+# ── Migrations (keep these — they're intentional) ─────────────────────────────
 # !*/migrations/*.py
-
-# Node (for frontend)
-node_modules/
-dist/
-build/
-.next/
