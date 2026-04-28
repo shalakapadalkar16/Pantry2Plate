@@ -2,10 +2,11 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { useEffect } from 'react'
 import { useAuthStore } from './store/authStore'
 import { LoginPage, RegisterPage } from './pages/AuthPages'
+import PantryPage from './pages/PantryPage'
+import AuditLogPage from './pages/AuditLogPage'
+import Layout from './components/layout/Layout'
 
-// ── Protected route guard ─────────────────────────────────────────────────────
 // If the user is not authenticated, redirect to /login
-// Otherwise render whatever is inside it
 function RequireAuth({ children }: { children: React.ReactNode }) {
   const { isAuthenticated } = useAuthStore()
   if (!isAuthenticated) return <Navigate to="/login" replace />
@@ -19,12 +20,6 @@ function RedirectIfAuth({ children }: { children: React.ReactNode }) {
   return <>{children}</>
 }
 
-// ── Placeholder for pages we build in later sprints ───────────────────────────
-function PantryPage() {
-  return <div className="p-8 text-stone-700">🥦 Pantry page — coming in Sprint 2</div>
-}
-
-// ── App ───────────────────────────────────────────────────────────────────────
 export default function App() {
   const { isAuthenticated, loadProfile } = useAuthStore()
 
@@ -36,27 +31,23 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Public routes — anyone can access */}
+        {/* Public routes */}
         <Route path="/login" element={
-          <RedirectIfAuth>
-            <LoginPage />
-          </RedirectIfAuth>
+          <RedirectIfAuth><LoginPage /></RedirectIfAuth>
         } />
         <Route path="/register" element={
-          <RedirectIfAuth>
-            <RegisterPage />
-          </RedirectIfAuth>
+          <RedirectIfAuth><RegisterPage /></RedirectIfAuth>
         } />
 
-        {/* Protected routes — must be logged in */}
-        <Route
-          path="/pantry"
-          element={
-            <RequireAuth>
-              <PantryPage />
-            </RequireAuth>
-          }
-        />
+        {/* Protected routes — Layout wraps all of them, RequireAuth guards the parent */}
+        <Route element={
+          <RequireAuth>
+            <Layout />
+          </RequireAuth>
+        }>
+          <Route path="/pantry" element={<PantryPage />} />
+          <Route path="/logs" element={<AuditLogPage />} />
+        </Route>
 
         {/* Default — redirect root to pantry */}
         <Route path="*" element={<Navigate to="/pantry" replace />} />
