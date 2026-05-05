@@ -28,3 +28,39 @@ export interface LoginPayload {
   email: string
   password: string
 }
+
+// the shape of one ingredient row that the backend sends back
+export interface PantryItem {
+  id: string;
+  ingredient_name: string;
+  quantity: number;
+  unit: string;
+  expires_at: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+// what your frontend sends to the backend when adding a new item
+export interface PantryItemCreatePayload {
+  ingredient_name: string;
+  quantity: number;
+  unit?: string;
+  expires_at?: string;
+}
+
+// what you send on edit. ingredient_name is not here because you can't rename an ingredient, only change its quantity/unit/expiry
+export interface PantryItemUpdatePayload {
+  quantity: number;
+  unit?: string;
+  expires_at?: string;
+}
+
+// shape of one audit log row
+export interface IngredientLog {
+  id: string;
+  ingredient_name: string;
+  action: "ADD" | "REMOVE" | "UPDATE";
+  quantity_change: number;
+  unit: string;
+  created_at: string;
+}
