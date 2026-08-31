@@ -22,6 +22,7 @@ INSTALLED_APPS = [
     # Local
     "core",
     "users",
+    "ingredients",
     "pantry",
     "recipes",
     "recommendations",
