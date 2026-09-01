@@ -1,152 +1,3454 @@
 {
-  "_comment": "Starter vocabulary. Real coverage comes from mining the recipe corpus - see build_vocabulary command. Staples are assumed present in every kitchen and are excluded from missing-ingredient counts.",
+  "_comment": "Canonical ingredient vocabulary, curated against Food.com corpus frequency. Ambiguous aliases resolved for American usage, matching the corpus: 'tomato sauce' is canned tomato not ketchup, 'summer squash' is the soft-skinned group not butternut, 'bouillon' is the cube not stock.",
   "ingredients": [
-    {"canonical_name": "salt", "display_name": "Salt", "category": "spice", "default_unit": "tsp", "is_staple": true, "aliases": ["table salt", "kosher salt", "sea salt", "fine salt", "coarse salt", "iodized salt"]},
-    {"canonical_name": "black-pepper", "display_name": "Black Pepper", "category": "spice", "default_unit": "tsp", "is_staple": true, "aliases": ["pepper", "ground black pepper", "cracked black pepper", "peppercorn", "freshly ground pepper"]},
-    {"canonical_name": "water", "display_name": "Water", "category": "beverage", "default_unit": "ml", "is_staple": true, "aliases": ["cold water", "warm water", "hot water", "boiling water", "ice water"]},
-    {"canonical_name": "vegetable-oil", "display_name": "Vegetable Oil", "category": "oil", "default_unit": "tbsp", "is_staple": true, "aliases": ["cooking oil", "canola oil", "sunflower oil", "neutral oil", "corn oil"]},
-    {"canonical_name": "olive-oil", "display_name": "Olive Oil", "category": "oil", "default_unit": "tbsp", "is_staple": true, "aliases": ["extra virgin olive oil", "evoo", "virgin olive oil", "light olive oil"]},
-    {"canonical_name": "sugar", "display_name": "Sugar", "category": "baking", "default_unit": "g", "is_staple": true, "aliases": ["white sugar", "granulated sugar", "caster sugar", "superfine sugar", "cane sugar"]},
-
-    {"canonical_name": "onion", "display_name": "Onion", "category": "produce", "default_unit": "piece", "is_staple": false, "aliases": ["yellow onion", "white onion", "brown onion", "red onion", "spanish onion", "chopped onion", "diced onion"]},
-    {"canonical_name": "garlic", "display_name": "Garlic", "category": "produce", "default_unit": "clove", "is_staple": false, "aliases": ["garlic clove", "minced garlic", "garlic cloves", "fresh garlic", "crushed garlic"]},
-    {"canonical_name": "ginger", "display_name": "Ginger", "category": "produce", "default_unit": "g", "is_staple": false, "aliases": ["fresh ginger", "ginger root", "grated ginger", "minced ginger"]},
-    {"canonical_name": "tomato", "display_name": "Tomato", "category": "produce", "default_unit": "piece", "is_staple": false, "aliases": ["tomatoes", "fresh tomato", "roma tomato", "plum tomato", "cherry tomato", "vine tomato"]},
-    {"canonical_name": "canned-tomato", "display_name": "Canned Tomatoes", "category": "produce", "default_unit": "g", "is_staple": false, "aliases": ["crushed tomatoes", "diced tomatoes", "canned tomatoes", "tinned tomatoes", "chopped tomatoes", "whole peeled tomatoes"]},
-    {"canonical_name": "tomato-paste", "display_name": "Tomato Paste", "category": "condiment", "default_unit": "tbsp", "is_staple": false, "aliases": ["tomato puree", "tomato concentrate"]},
-    {"canonical_name": "potato", "display_name": "Potato", "category": "produce", "default_unit": "piece", "is_staple": false, "aliases": ["potatoes", "russet potato", "yukon gold potato", "white potato", "baking potato"]},
-    {"canonical_name": "sweet-potato", "display_name": "Sweet Potato", "category": "produce", "default_unit": "piece", "is_staple": false, "aliases": ["sweet potatoes", "yam"]},
-    {"canonical_name": "carrot", "display_name": "Carrot", "category": "produce", "default_unit": "piece", "is_staple": false, "aliases": ["carrots", "baby carrot", "grated carrot", "sliced carrot"]},
-    {"canonical_name": "celery", "display_name": "Celery", "category": "produce", "default_unit": "piece", "is_staple": false, "aliases": ["celery stalk", "celery rib", "chopped celery"]},
-    {"canonical_name": "bell-pepper", "display_name": "Bell Pepper", "category": "produce", "default_unit": "piece", "is_staple": false, "aliases": ["capsicum", "red bell pepper", "green bell pepper", "yellow bell pepper", "sweet pepper"]},
-    {"canonical_name": "chili-pepper", "display_name": "Chilli Pepper", "category": "produce", "default_unit": "piece", "is_staple": false, "aliases": ["chili", "chilli", "green chili", "red chili", "jalapeno", "serrano pepper", "bird eye chili"]},
-    {"canonical_name": "mushroom", "display_name": "Mushroom", "category": "produce", "default_unit": "g", "is_staple": false, "aliases": ["mushrooms", "button mushroom", "cremini mushroom", "portobello", "shiitake"]},
-    {"canonical_name": "spinach", "display_name": "Spinach", "category": "produce", "default_unit": "g", "is_staple": false, "aliases": ["baby spinach", "fresh spinach", "frozen spinach"]},
-    {"canonical_name": "broccoli", "display_name": "Broccoli", "category": "produce", "default_unit": "g", "is_staple": false, "aliases": ["broccoli florets"]},
-    {"canonical_name": "cauliflower", "display_name": "Cauliflower", "category": "produce", "default_unit": "g", "is_staple": false, "aliases": ["cauliflower florets"]},
-    {"canonical_name": "cabbage", "display_name": "Cabbage", "category": "produce", "default_unit": "g", "is_staple": false, "aliases": ["green cabbage", "red cabbage", "shredded cabbage", "napa cabbage"]},
-    {"canonical_name": "zucchini", "display_name": "Zucchini", "category": "produce", "default_unit": "piece", "is_staple": false, "aliases": ["courgette", "summer squash"]},
-    {"canonical_name": "cucumber", "display_name": "Cucumber", "category": "produce", "default_unit": "piece", "is_staple": false, "aliases": ["cucumbers", "english cucumber"]},
-    {"canonical_name": "lettuce", "display_name": "Lettuce", "category": "produce", "default_unit": "g", "is_staple": false, "aliases": ["romaine lettuce", "iceberg lettuce", "salad greens", "mixed greens"]},
-    {"canonical_name": "green-bean", "display_name": "Green Beans", "category": "produce", "default_unit": "g", "is_staple": false, "aliases": ["green beans", "string beans", "french beans"]},
-    {"canonical_name": "peas", "display_name": "Peas", "category": "produce", "default_unit": "g", "is_staple": false, "aliases": ["green peas", "frozen peas", "garden peas"]},
-    {"canonical_name": "corn", "display_name": "Corn", "category": "produce", "default_unit": "g", "is_staple": false, "aliases": ["sweetcorn", "corn kernels", "frozen corn", "canned corn"]},
-    {"canonical_name": "eggplant", "display_name": "Eggplant", "category": "produce", "default_unit": "piece", "is_staple": false, "aliases": ["aubergine", "brinjal"]},
-    {"canonical_name": "avocado", "display_name": "Avocado", "category": "produce", "default_unit": "piece", "is_staple": false, "aliases": ["avocados", "ripe avocado"]},
-    {"canonical_name": "scallion", "display_name": "Spring Onion", "category": "produce", "default_unit": "piece", "is_staple": false, "aliases": ["green onion", "spring onion", "scallions", "green onions"]},
-    {"canonical_name": "leek", "display_name": "Leek", "category": "produce", "default_unit": "piece", "is_staple": false, "aliases": ["leeks"]},
-    {"canonical_name": "shallot", "display_name": "Shallot", "category": "produce", "default_unit": "piece", "is_staple": false, "aliases": ["shallots"]},
-
-    {"canonical_name": "lemon", "display_name": "Lemon", "category": "produce", "default_unit": "piece", "is_staple": false, "aliases": ["lemons", "lemon juice", "fresh lemon juice", "lemon zest"]},
-    {"canonical_name": "lime", "display_name": "Lime", "category": "produce", "default_unit": "piece", "is_staple": false, "aliases": ["limes", "lime juice", "fresh lime juice", "lime zest"]},
-    {"canonical_name": "orange", "display_name": "Orange", "category": "produce", "default_unit": "piece", "is_staple": false, "aliases": ["oranges", "orange juice", "orange zest"]},
-    {"canonical_name": "apple", "display_name": "Apple", "category": "produce", "default_unit": "piece", "is_staple": false, "aliases": ["apples", "granny smith apple", "green apple"]},
-    {"canonical_name": "banana", "display_name": "Banana", "category": "produce", "default_unit": "piece", "is_staple": false, "aliases": ["bananas", "ripe banana"]},
-    {"canonical_name": "strawberry", "display_name": "Strawberry", "category": "produce", "default_unit": "g", "is_staple": false, "aliases": ["strawberries", "fresh strawberries", "frozen strawberries"]},
-    {"canonical_name": "blueberry", "display_name": "Blueberry", "category": "produce", "default_unit": "g", "is_staple": false, "aliases": ["blueberries", "fresh blueberries", "frozen blueberries"]},
-
-    {"canonical_name": "cilantro", "display_name": "Coriander Leaves", "category": "produce", "default_unit": "g", "is_staple": false, "aliases": ["coriander", "fresh coriander", "coriander leaves", "fresh cilantro", "chinese parsley"]},
-    {"canonical_name": "parsley", "display_name": "Parsley", "category": "produce", "default_unit": "g", "is_staple": false, "aliases": ["fresh parsley", "flat leaf parsley", "italian parsley", "chopped parsley"]},
-    {"canonical_name": "basil", "display_name": "Basil", "category": "produce", "default_unit": "g", "is_staple": false, "aliases": ["fresh basil", "basil leaves", "sweet basil", "dried basil"]},
-    {"canonical_name": "mint", "display_name": "Mint", "category": "produce", "default_unit": "g", "is_staple": false, "aliases": ["fresh mint", "mint leaves"]},
-    {"canonical_name": "thyme", "display_name": "Thyme", "category": "spice", "default_unit": "tsp", "is_staple": false, "aliases": ["dried thyme", "fresh thyme"]},
-    {"canonical_name": "rosemary", "display_name": "Rosemary", "category": "spice", "default_unit": "tsp", "is_staple": false, "aliases": ["dried rosemary", "fresh rosemary"]},
-    {"canonical_name": "oregano", "display_name": "Oregano", "category": "spice", "default_unit": "tsp", "is_staple": false, "aliases": ["dried oregano", "fresh oregano"]},
-    {"canonical_name": "bay-leaf", "display_name": "Bay Leaf", "category": "spice", "default_unit": "piece", "is_staple": false, "aliases": ["bay leaves", "dried bay leaf"]},
-
-    {"canonical_name": "cumin", "display_name": "Cumin", "category": "spice", "default_unit": "tsp", "is_staple": false, "aliases": ["ground cumin", "cumin seeds", "jeera"]},
-    {"canonical_name": "coriander-seed", "display_name": "Coriander Powder", "category": "spice", "default_unit": "tsp", "is_staple": false, "aliases": ["ground coriander", "coriander powder", "coriander seeds", "dhania"]},
-    {"canonical_name": "turmeric", "display_name": "Turmeric", "category": "spice", "default_unit": "tsp", "is_staple": false, "aliases": ["ground turmeric", "turmeric powder", "haldi"]},
-    {"canonical_name": "paprika", "display_name": "Paprika", "category": "spice", "default_unit": "tsp", "is_staple": false, "aliases": ["sweet paprika", "smoked paprika"]},
-    {"canonical_name": "chili-powder", "display_name": "Chilli Powder", "category": "spice", "default_unit": "tsp", "is_staple": false, "aliases": ["chili powder", "red chili powder", "cayenne pepper", "cayenne"]},
-    {"canonical_name": "garam-masala", "display_name": "Garam Masala", "category": "spice", "default_unit": "tsp", "is_staple": false, "aliases": ["garam masala powder"]},
-    {"canonical_name": "cinnamon", "display_name": "Cinnamon", "category": "spice", "default_unit": "tsp", "is_staple": false, "aliases": ["ground cinnamon", "cinnamon stick", "cinnamon powder"]},
-    {"canonical_name": "nutmeg", "display_name": "Nutmeg", "category": "spice", "default_unit": "tsp", "is_staple": false, "aliases": ["ground nutmeg", "grated nutmeg"]},
-    {"canonical_name": "cardamom", "display_name": "Cardamom", "category": "spice", "default_unit": "tsp", "is_staple": false, "aliases": ["green cardamom", "cardamom pods", "elaichi"]},
-    {"canonical_name": "clove-spice", "display_name": "Cloves", "category": "spice", "default_unit": "tsp", "is_staple": false, "aliases": ["whole cloves", "ground cloves"]},
-    {"canonical_name": "mustard-seed", "display_name": "Mustard Seeds", "category": "spice", "default_unit": "tsp", "is_staple": false, "aliases": ["black mustard seeds", "rai"]},
-    {"canonical_name": "curry-powder", "display_name": "Curry Powder", "category": "spice", "default_unit": "tsp", "is_staple": false, "aliases": ["madras curry powder"]},
-    {"canonical_name": "italian-seasoning", "display_name": "Italian Seasoning", "category": "spice", "default_unit": "tsp", "is_staple": false, "aliases": ["mixed herbs", "herbes de provence"]},
-
-    {"canonical_name": "chicken-breast", "display_name": "Chicken Breast", "category": "meat", "default_unit": "g", "is_staple": false, "aliases": ["boneless skinless chicken breast", "chicken breasts", "skinless chicken breast", "chicken breast halves"]},
-    {"canonical_name": "chicken-thigh", "display_name": "Chicken Thigh", "category": "meat", "default_unit": "g", "is_staple": false, "aliases": ["chicken thighs", "boneless chicken thighs", "chicken drumstick"]},
-    {"canonical_name": "chicken", "display_name": "Chicken", "category": "meat", "default_unit": "g", "is_staple": false, "aliases": ["whole chicken", "chicken pieces", "cooked chicken", "shredded chicken"]},
-    {"canonical_name": "ground-beef", "display_name": "Ground Beef", "category": "meat", "default_unit": "g", "is_staple": false, "aliases": ["minced beef", "beef mince", "hamburger meat", "lean ground beef"]},
-    {"canonical_name": "beef", "display_name": "Beef", "category": "meat", "default_unit": "g", "is_staple": false, "aliases": ["beef chuck", "stewing beef", "beef steak", "sirloin"]},
-    {"canonical_name": "pork", "display_name": "Pork", "category": "meat", "default_unit": "g", "is_staple": false, "aliases": ["pork chop", "pork loin", "pork shoulder", "ground pork"]},
-    {"canonical_name": "bacon", "display_name": "Bacon", "category": "meat", "default_unit": "g", "is_staple": false, "aliases": ["bacon strips", "streaky bacon", "bacon rashers"]},
-    {"canonical_name": "sausage", "display_name": "Sausage", "category": "meat", "default_unit": "g", "is_staple": false, "aliases": ["italian sausage", "pork sausage", "chorizo"]},
-    {"canonical_name": "lamb", "display_name": "Lamb", "category": "meat", "default_unit": "g", "is_staple": false, "aliases": ["ground lamb", "lamb chops", "mutton"]},
-    {"canonical_name": "shrimp", "display_name": "Shrimp", "category": "seafood", "default_unit": "g", "is_staple": false, "aliases": ["prawns", "prawn", "shrimps", "peeled shrimp"]},
-    {"canonical_name": "salmon", "display_name": "Salmon", "category": "seafood", "default_unit": "g", "is_staple": false, "aliases": ["salmon fillet", "salmon fillets"]},
-    {"canonical_name": "tuna", "display_name": "Tuna", "category": "seafood", "default_unit": "g", "is_staple": false, "aliases": ["canned tuna", "tuna steak"]},
-    {"canonical_name": "white-fish", "display_name": "White Fish", "category": "seafood", "default_unit": "g", "is_staple": false, "aliases": ["cod", "tilapia", "haddock", "fish fillet", "white fish fillet"]},
-
-    {"canonical_name": "egg", "display_name": "Egg", "category": "dairy", "default_unit": "piece", "is_staple": false, "aliases": ["eggs", "large egg", "large eggs", "egg white", "egg yolk", "beaten egg"]},
-    {"canonical_name": "milk", "display_name": "Milk", "category": "dairy", "default_unit": "ml", "is_staple": false, "aliases": ["whole milk", "skim milk", "low fat milk", "2 percent milk"]},
-    {"canonical_name": "butter", "display_name": "Butter", "category": "dairy", "default_unit": "g", "is_staple": false, "aliases": ["unsalted butter", "salted butter", "melted butter", "softened butter"]},
-    {"canonical_name": "heavy-cream", "display_name": "Heavy Cream", "category": "dairy", "default_unit": "ml", "is_staple": false, "aliases": ["double cream", "whipping cream", "heavy whipping cream", "thickened cream"]},
-    {"canonical_name": "sour-cream", "display_name": "Sour Cream", "category": "dairy", "default_unit": "g", "is_staple": false, "aliases": ["creme fraiche"]},
-    {"canonical_name": "yogurt", "display_name": "Yogurt", "category": "dairy", "default_unit": "g", "is_staple": false, "aliases": ["plain yogurt", "greek yogurt", "yoghurt", "curd", "natural yogurt"]},
-    {"canonical_name": "cheddar", "display_name": "Cheddar Cheese", "category": "dairy", "default_unit": "g", "is_staple": false, "aliases": ["cheddar", "sharp cheddar", "grated cheddar", "shredded cheddar"]},
-    {"canonical_name": "mozzarella", "display_name": "Mozzarella", "category": "dairy", "default_unit": "g", "is_staple": false, "aliases": ["mozzarella cheese", "shredded mozzarella", "fresh mozzarella"]},
-    {"canonical_name": "parmesan", "display_name": "Parmesan", "category": "dairy", "default_unit": "g", "is_staple": false, "aliases": ["parmesan cheese", "grated parmesan", "parmigiano reggiano"]},
-    {"canonical_name": "cream-cheese", "display_name": "Cream Cheese", "category": "dairy", "default_unit": "g", "is_staple": false, "aliases": ["philadelphia cheese", "soft cheese"]},
-    {"canonical_name": "feta", "display_name": "Feta", "category": "dairy", "default_unit": "g", "is_staple": false, "aliases": ["feta cheese", "crumbled feta"]},
-    {"canonical_name": "paneer", "display_name": "Paneer", "category": "dairy", "default_unit": "g", "is_staple": false, "aliases": ["indian cottage cheese"]},
-
-    {"canonical_name": "all-purpose-flour", "display_name": "All Purpose Flour", "category": "grain", "default_unit": "g", "is_staple": true, "aliases": ["flour", "plain flour", "white flour", "maida"]},
-    {"canonical_name": "whole-wheat-flour", "display_name": "Whole Wheat Flour", "category": "grain", "default_unit": "g", "is_staple": false, "aliases": ["wholemeal flour", "atta", "wheat flour"]},
-    {"canonical_name": "rice", "display_name": "Rice", "category": "grain", "default_unit": "g", "is_staple": false, "aliases": ["white rice", "basmati rice", "long grain rice", "jasmine rice", "cooked rice"]},
-    {"canonical_name": "brown-rice", "display_name": "Brown Rice", "category": "grain", "default_unit": "g", "is_staple": false, "aliases": ["wholegrain rice"]},
-    {"canonical_name": "pasta", "display_name": "Pasta", "category": "grain", "default_unit": "g", "is_staple": false, "aliases": ["spaghetti", "penne", "fusilli", "macaroni", "linguine", "noodles", "rigatoni"]},
-    {"canonical_name": "bread", "display_name": "Bread", "category": "grain", "default_unit": "slice", "is_staple": false, "aliases": ["white bread", "sliced bread", "bread slices", "sandwich bread"]},
-    {"canonical_name": "breadcrumbs", "display_name": "Breadcrumbs", "category": "grain", "default_unit": "g", "is_staple": false, "aliases": ["bread crumbs", "panko", "panko breadcrumbs"]},
-    {"canonical_name": "oats", "display_name": "Oats", "category": "grain", "default_unit": "g", "is_staple": false, "aliases": ["rolled oats", "porridge oats", "old fashioned oats", "oatmeal"]},
-    {"canonical_name": "quinoa", "display_name": "Quinoa", "category": "grain", "default_unit": "g", "is_staple": false, "aliases": []},
-    {"canonical_name": "tortilla", "display_name": "Tortilla", "category": "grain", "default_unit": "piece", "is_staple": false, "aliases": ["tortillas", "flour tortilla", "corn tortilla"]},
-    {"canonical_name": "cornstarch", "display_name": "Cornstarch", "category": "baking", "default_unit": "tbsp", "is_staple": false, "aliases": ["corn flour", "cornflour", "corn starch"]},
-
-    {"canonical_name": "black-bean", "display_name": "Black Beans", "category": "legume", "default_unit": "g", "is_staple": false, "aliases": ["black beans", "canned black beans"]},
-    {"canonical_name": "chickpea", "display_name": "Chickpeas", "category": "legume", "default_unit": "g", "is_staple": false, "aliases": ["chickpeas", "garbanzo beans", "chana", "canned chickpeas"]},
-    {"canonical_name": "kidney-bean", "display_name": "Kidney Beans", "category": "legume", "default_unit": "g", "is_staple": false, "aliases": ["kidney beans", "rajma", "red kidney beans"]},
-    {"canonical_name": "lentil", "display_name": "Lentils", "category": "legume", "default_unit": "g", "is_staple": false, "aliases": ["lentils", "red lentils", "green lentils", "dal", "masoor dal", "toor dal"]},
-    {"canonical_name": "tofu", "display_name": "Tofu", "category": "legume", "default_unit": "g", "is_staple": false, "aliases": ["firm tofu", "silken tofu", "extra firm tofu"]},
-    {"canonical_name": "peanut-butter", "display_name": "Peanut Butter", "category": "condiment", "default_unit": "tbsp", "is_staple": false, "aliases": ["creamy peanut butter", "crunchy peanut butter"]},
-
-    {"canonical_name": "soy-sauce", "display_name": "Soy Sauce", "category": "condiment", "default_unit": "tbsp", "is_staple": false, "aliases": ["light soy sauce", "dark soy sauce", "shoyu", "tamari"]},
-    {"canonical_name": "vinegar", "display_name": "Vinegar", "category": "condiment", "default_unit": "tbsp", "is_staple": false, "aliases": ["white vinegar", "distilled vinegar"]},
-    {"canonical_name": "balsamic-vinegar", "display_name": "Balsamic Vinegar", "category": "condiment", "default_unit": "tbsp", "is_staple": false, "aliases": ["balsamic"]},
-    {"canonical_name": "apple-cider-vinegar", "display_name": "Apple Cider Vinegar", "category": "condiment", "default_unit": "tbsp", "is_staple": false, "aliases": ["cider vinegar", "acv"]},
-    {"canonical_name": "rice-vinegar", "display_name": "Rice Vinegar", "category": "condiment", "default_unit": "tbsp", "is_staple": false, "aliases": ["rice wine vinegar"]},
-    {"canonical_name": "mustard", "display_name": "Mustard", "category": "condiment", "default_unit": "tsp", "is_staple": false, "aliases": ["dijon mustard", "yellow mustard", "wholegrain mustard"]},
-    {"canonical_name": "ketchup", "display_name": "Ketchup", "category": "condiment", "default_unit": "tbsp", "is_staple": false, "aliases": ["tomato ketchup", "tomato sauce"]},
-    {"canonical_name": "mayonnaise", "display_name": "Mayonnaise", "category": "condiment", "default_unit": "tbsp", "is_staple": false, "aliases": ["mayo"]},
-    {"canonical_name": "honey", "display_name": "Honey", "category": "condiment", "default_unit": "tbsp", "is_staple": false, "aliases": ["raw honey", "runny honey"]},
-    {"canonical_name": "maple-syrup", "display_name": "Maple Syrup", "category": "condiment", "default_unit": "tbsp", "is_staple": false, "aliases": ["pure maple syrup"]},
-    {"canonical_name": "worcestershire", "display_name": "Worcestershire Sauce", "category": "condiment", "default_unit": "tsp", "is_staple": false, "aliases": ["worcestershire"]},
-    {"canonical_name": "hot-sauce", "display_name": "Hot Sauce", "category": "condiment", "default_unit": "tsp", "is_staple": false, "aliases": ["tabasco", "sriracha", "chili sauce"]},
-    {"canonical_name": "coconut-milk", "display_name": "Coconut Milk", "category": "condiment", "default_unit": "ml", "is_staple": false, "aliases": ["canned coconut milk", "full fat coconut milk", "coconut cream"]},
-    {"canonical_name": "stock", "display_name": "Stock", "category": "condiment", "default_unit": "ml", "is_staple": false, "aliases": ["chicken stock", "chicken broth", "vegetable stock", "vegetable broth", "beef stock", "beef broth", "bouillon"]},
-    {"canonical_name": "sesame-oil", "display_name": "Sesame Oil", "category": "oil", "default_unit": "tsp", "is_staple": false, "aliases": ["toasted sesame oil"]},
-
-    {"canonical_name": "baking-powder", "display_name": "Baking Powder", "category": "baking", "default_unit": "tsp", "is_staple": false, "aliases": []},
-    {"canonical_name": "baking-soda", "display_name": "Baking Soda", "category": "baking", "default_unit": "tsp", "is_staple": false, "aliases": ["bicarbonate of soda", "sodium bicarbonate", "bicarb"]},
-    {"canonical_name": "yeast", "display_name": "Yeast", "category": "baking", "default_unit": "tsp", "is_staple": false, "aliases": ["active dry yeast", "instant yeast", "dried yeast"]},
-    {"canonical_name": "vanilla-extract", "display_name": "Vanilla Extract", "category": "baking", "default_unit": "tsp", "is_staple": false, "aliases": ["vanilla", "vanilla essence", "pure vanilla extract"]},
-    {"canonical_name": "brown-sugar", "display_name": "Brown Sugar", "category": "baking", "default_unit": "g", "is_staple": false, "aliases": ["light brown sugar", "dark brown sugar", "muscovado"]},
-    {"canonical_name": "powdered-sugar", "display_name": "Powdered Sugar", "category": "baking", "default_unit": "g", "is_staple": false, "aliases": ["icing sugar", "confectioners sugar"]},
-    {"canonical_name": "cocoa-powder", "display_name": "Cocoa Powder", "category": "baking", "default_unit": "g", "is_staple": false, "aliases": ["unsweetened cocoa powder", "cacao powder"]},
-    {"canonical_name": "chocolate", "display_name": "Chocolate", "category": "baking", "default_unit": "g", "is_staple": false, "aliases": ["dark chocolate", "chocolate chips", "semisweet chocolate", "milk chocolate"]},
-
-    {"canonical_name": "almond", "display_name": "Almonds", "category": "other", "default_unit": "g", "is_staple": false, "aliases": ["almonds", "sliced almonds", "almond flakes"]},
-    {"canonical_name": "walnut", "display_name": "Walnuts", "category": "other", "default_unit": "g", "is_staple": false, "aliases": ["walnuts", "chopped walnuts"]},
-    {"canonical_name": "cashew", "display_name": "Cashews", "category": "other", "default_unit": "g", "is_staple": false, "aliases": ["cashews", "cashew nuts"]},
-    {"canonical_name": "peanut", "display_name": "Peanuts", "category": "other", "default_unit": "g", "is_staple": false, "aliases": ["peanuts", "roasted peanuts"]},
-    {"canonical_name": "sesame-seed", "display_name": "Sesame Seeds", "category": "other", "default_unit": "tbsp", "is_staple": false, "aliases": ["sesame seeds", "til"]},
-    {"canonical_name": "raisin", "display_name": "Raisins", "category": "other", "default_unit": "g", "is_staple": false, "aliases": ["raisins", "sultanas"]},
-    {"canonical_name": "coconut-flakes", "display_name": "Shredded Coconut", "category": "other", "default_unit": "g", "is_staple": false, "aliases": ["desiccated coconut", "shredded coconut", "coconut flakes"]},
-    {"canonical_name": "olive", "display_name": "Olives", "category": "other", "default_unit": "g", "is_staple": false, "aliases": ["olives", "black olives", "green olives", "kalamata olives"]},
-    {"canonical_name": "wine", "display_name": "Wine", "category": "beverage", "default_unit": "ml", "is_staple": false, "aliases": ["white wine", "red wine", "dry white wine", "cooking wine"]}
+    {
+      "canonical_name": "salt",
+      "display_name": "Salt",
+      "category": "spice",
+      "default_unit": "tsp",
+      "is_staple": true,
+      "aliases": [
+        "coarse salt",
+        "fine salt",
+        "iodized salt",
+        "kosher salt",
+        "sea salt",
+        "table salt"
+      ]
+    },
+    {
+      "canonical_name": "black-pepper",
+      "display_name": "Black Pepper",
+      "category": "spice",
+      "default_unit": "tsp",
+      "is_staple": true,
+      "aliases": [
+        "black peppercorns",
+        "coarse ground black pepper",
+        "cracked black pepper",
+        "fresh ground black pepper",
+        "fresh ground pepper",
+        "freshly ground pepper",
+        "ground black pepper",
+        "ground pepper",
+        "pepper",
+        "peppercorn"
+      ]
+    },
+    {
+      "canonical_name": "water",
+      "display_name": "Water",
+      "category": "beverage",
+      "default_unit": "ml",
+      "is_staple": true,
+      "aliases": [
+        "boiling water",
+        "cold water",
+        "hot water",
+        "ice water",
+        "warm water"
+      ]
+    },
+    {
+      "canonical_name": "vegetable-oil",
+      "display_name": "Vegetable Oil",
+      "category": "oil",
+      "default_unit": "tbsp",
+      "is_staple": true,
+      "aliases": [
+        "canola oil",
+        "cooking oil",
+        "corn oil",
+        "neutral oil",
+        "sunflower oil"
+      ]
+    },
+    {
+      "canonical_name": "olive-oil",
+      "display_name": "Olive Oil",
+      "category": "oil",
+      "default_unit": "tbsp",
+      "is_staple": true,
+      "aliases": [
+        "evoo",
+        "extra virgin olive oil",
+        "light olive oil",
+        "virgin olive oil"
+      ]
+    },
+    {
+      "canonical_name": "sugar",
+      "display_name": "Sugar",
+      "category": "baking",
+      "default_unit": "g",
+      "is_staple": true,
+      "aliases": [
+        "cane sugar",
+        "caster sugar",
+        "granulated sugar",
+        "superfine sugar",
+        "white sugar"
+      ]
+    },
+    {
+      "canonical_name": "onion",
+      "display_name": "Onion",
+      "category": "produce",
+      "default_unit": "piece",
+      "is_staple": false,
+      "aliases": [
+        "brown onion",
+        "chopped onion",
+        "diced onion",
+        "onions",
+        "red onion",
+        "spanish onion",
+        "vidalia onion",
+        "white onion",
+        "yellow onion"
+      ]
+    },
+    {
+      "canonical_name": "garlic",
+      "display_name": "Garlic",
+      "category": "produce",
+      "default_unit": "clove",
+      "is_staple": false,
+      "aliases": [
+        "crushed garlic",
+        "fresh garlic",
+        "garlic clove",
+        "garlic cloves",
+        "minced garlic"
+      ]
+    },
+    {
+      "canonical_name": "ginger",
+      "display_name": "Ginger",
+      "category": "produce",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "fresh ginger",
+        "ginger piece",
+        "ginger root",
+        "gingerroot",
+        "grated ginger",
+        "minced ginger"
+      ]
+    },
+    {
+      "canonical_name": "tomato",
+      "display_name": "Tomato",
+      "category": "produce",
+      "default_unit": "piece",
+      "is_staple": false,
+      "aliases": [
+        "cherry tomato",
+        "fresh tomato",
+        "plum tomato",
+        "roma tomato",
+        "tomatoes",
+        "vine tomato"
+      ]
+    },
+    {
+      "canonical_name": "canned-tomato",
+      "display_name": "Canned Tomatoes",
+      "category": "produce",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "canned tomatoes",
+        "chopped tomatoes",
+        "crushed tomatoes",
+        "diced tomatoes",
+        "petite diced tomatoes",
+        "rotel tomatoes",
+        "stewed tomatoes",
+        "tinned tomatoes",
+        "tomato sauce",
+        "whole peeled tomatoes"
+      ]
+    },
+    {
+      "canonical_name": "tomato-paste",
+      "display_name": "Tomato Paste",
+      "category": "condiment",
+      "default_unit": "tbsp",
+      "is_staple": false,
+      "aliases": [
+        "tomato concentrate",
+        "tomato puree"
+      ]
+    },
+    {
+      "canonical_name": "potato",
+      "display_name": "Potato",
+      "category": "produce",
+      "default_unit": "piece",
+      "is_staple": false,
+      "aliases": [
+        "baking potato",
+        "boiling potatoes",
+        "new potatoes",
+        "potatoes",
+        "red potato",
+        "red potatoes",
+        "russet potato",
+        "white potato",
+        "yukon gold potato"
+      ]
+    },
+    {
+      "canonical_name": "sweet-potato",
+      "display_name": "Sweet Potato",
+      "category": "produce",
+      "default_unit": "piece",
+      "is_staple": false,
+      "aliases": [
+        "sweet potatoes",
+        "yam"
+      ]
+    },
+    {
+      "canonical_name": "carrot",
+      "display_name": "Carrot",
+      "category": "produce",
+      "default_unit": "piece",
+      "is_staple": false,
+      "aliases": [
+        "baby carrot",
+        "carrots",
+        "grated carrot",
+        "sliced carrot"
+      ]
+    },
+    {
+      "canonical_name": "celery",
+      "display_name": "Celery",
+      "category": "produce",
+      "default_unit": "piece",
+      "is_staple": false,
+      "aliases": [
+        "celery rib",
+        "celery ribs",
+        "celery stalk",
+        "celery stalks",
+        "chopped celery"
+      ]
+    },
+    {
+      "canonical_name": "bell-pepper",
+      "display_name": "Bell Pepper",
+      "category": "produce",
+      "default_unit": "piece",
+      "is_staple": false,
+      "aliases": [
+        "capsicum",
+        "green bell pepper",
+        "green pepper",
+        "green peppers",
+        "red bell pepper",
+        "red pepper",
+        "red peppers",
+        "sweet pepper",
+        "sweet red pepper",
+        "yellow bell pepper"
+      ]
+    },
+    {
+      "canonical_name": "chili-pepper",
+      "display_name": "Chilli Pepper",
+      "category": "produce",
+      "default_unit": "piece",
+      "is_staple": false,
+      "aliases": [
+        "bird eye chili",
+        "chili",
+        "chilli",
+        "chipotle",
+        "green chili",
+        "habanero",
+        "jalapeno",
+        "jalapeno pepper",
+        "jalapeno peppers",
+        "poblano",
+        "red chili",
+        "serrano pepper"
+      ]
+    },
+    {
+      "canonical_name": "mushroom",
+      "display_name": "Mushroom",
+      "category": "produce",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "button mushroom",
+        "cremini mushroom",
+        "mushrooms",
+        "portobello",
+        "shiitake"
+      ]
+    },
+    {
+      "canonical_name": "spinach",
+      "display_name": "Spinach",
+      "category": "produce",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "baby spinach",
+        "fresh spinach",
+        "frozen spinach"
+      ]
+    },
+    {
+      "canonical_name": "broccoli",
+      "display_name": "Broccoli",
+      "category": "produce",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "broccoli florets"
+      ]
+    },
+    {
+      "canonical_name": "cauliflower",
+      "display_name": "Cauliflower",
+      "category": "produce",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "cauliflower florets"
+      ]
+    },
+    {
+      "canonical_name": "cabbage",
+      "display_name": "Cabbage",
+      "category": "produce",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "green cabbage",
+        "napa cabbage",
+        "red cabbage",
+        "shredded cabbage"
+      ]
+    },
+    {
+      "canonical_name": "zucchini",
+      "display_name": "Zucchini",
+      "category": "produce",
+      "default_unit": "piece",
+      "is_staple": false,
+      "aliases": [
+        "courgette",
+        "summer squash"
+      ]
+    },
+    {
+      "canonical_name": "cucumber",
+      "display_name": "Cucumber",
+      "category": "produce",
+      "default_unit": "piece",
+      "is_staple": false,
+      "aliases": [
+        "cucumbers",
+        "english cucumber"
+      ]
+    },
+    {
+      "canonical_name": "lettuce",
+      "display_name": "Lettuce",
+      "category": "produce",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "iceberg lettuce",
+        "mixed greens",
+        "romaine lettuce",
+        "salad greens"
+      ]
+    },
+    {
+      "canonical_name": "green-bean",
+      "display_name": "Green Beans",
+      "category": "produce",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "french beans",
+        "frozen green beans",
+        "green beans",
+        "string beans"
+      ]
+    },
+    {
+      "canonical_name": "peas",
+      "display_name": "Peas",
+      "category": "produce",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "frozen peas",
+        "garden peas",
+        "green peas"
+      ]
+    },
+    {
+      "canonical_name": "corn",
+      "display_name": "Corn",
+      "category": "produce",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "canned corn",
+        "corn kernels",
+        "frozen corn",
+        "sweetcorn"
+      ]
+    },
+    {
+      "canonical_name": "eggplant",
+      "display_name": "Eggplant",
+      "category": "produce",
+      "default_unit": "piece",
+      "is_staple": false,
+      "aliases": [
+        "aubergine",
+        "brinjal"
+      ]
+    },
+    {
+      "canonical_name": "avocado",
+      "display_name": "Avocado",
+      "category": "produce",
+      "default_unit": "piece",
+      "is_staple": false,
+      "aliases": [
+        "avocados",
+        "ripe avocado"
+      ]
+    },
+    {
+      "canonical_name": "scallion",
+      "display_name": "Spring Onion",
+      "category": "produce",
+      "default_unit": "piece",
+      "is_staple": false,
+      "aliases": [
+        "green onion",
+        "green onions",
+        "scallions",
+        "spring onion"
+      ]
+    },
+    {
+      "canonical_name": "leek",
+      "display_name": "Leek",
+      "category": "produce",
+      "default_unit": "piece",
+      "is_staple": false,
+      "aliases": [
+        "leeks"
+      ]
+    },
+    {
+      "canonical_name": "shallot",
+      "display_name": "Shallot",
+      "category": "produce",
+      "default_unit": "piece",
+      "is_staple": false,
+      "aliases": [
+        "shallots"
+      ]
+    },
+    {
+      "canonical_name": "lemon",
+      "display_name": "Lemon",
+      "category": "produce",
+      "default_unit": "piece",
+      "is_staple": false,
+      "aliases": [
+        "fresh lemon juice",
+        "lemon juice",
+        "lemon peel",
+        "lemon rind",
+        "lemon zest",
+        "lemons"
+      ]
+    },
+    {
+      "canonical_name": "lime",
+      "display_name": "Lime",
+      "category": "produce",
+      "default_unit": "piece",
+      "is_staple": false,
+      "aliases": [
+        "fresh lime juice",
+        "lime juice",
+        "lime peel",
+        "lime rind",
+        "lime zest",
+        "limes"
+      ]
+    },
+    {
+      "canonical_name": "orange",
+      "display_name": "Orange",
+      "category": "produce",
+      "default_unit": "piece",
+      "is_staple": false,
+      "aliases": [
+        "mandarin oranges",
+        "orange juice",
+        "orange peel",
+        "orange rind",
+        "orange zest",
+        "oranges"
+      ]
+    },
+    {
+      "canonical_name": "apple",
+      "display_name": "Apple",
+      "category": "produce",
+      "default_unit": "piece",
+      "is_staple": false,
+      "aliases": [
+        "apples",
+        "granny smith apple",
+        "green apple"
+      ]
+    },
+    {
+      "canonical_name": "banana",
+      "display_name": "Banana",
+      "category": "produce",
+      "default_unit": "piece",
+      "is_staple": false,
+      "aliases": [
+        "bananas",
+        "ripe banana"
+      ]
+    },
+    {
+      "canonical_name": "strawberry",
+      "display_name": "Strawberry",
+      "category": "produce",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "fresh strawberries",
+        "frozen strawberries",
+        "strawberries"
+      ]
+    },
+    {
+      "canonical_name": "blueberry",
+      "display_name": "Blueberry",
+      "category": "produce",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "blueberries",
+        "fresh blueberries",
+        "frozen blueberries"
+      ]
+    },
+    {
+      "canonical_name": "cilantro",
+      "display_name": "Coriander Leaves",
+      "category": "produce",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "chinese parsley",
+        "coriander",
+        "coriander leaves",
+        "fresh cilantro",
+        "fresh coriander"
+      ]
+    },
+    {
+      "canonical_name": "parsley",
+      "display_name": "Parsley",
+      "category": "produce",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "chopped parsley",
+        "flat leaf parsley",
+        "fresh parsley",
+        "italian parsley"
+      ]
+    },
+    {
+      "canonical_name": "basil",
+      "display_name": "Basil",
+      "category": "produce",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "basil leaves",
+        "dried basil",
+        "fresh basil",
+        "sweet basil"
+      ]
+    },
+    {
+      "canonical_name": "mint",
+      "display_name": "Mint",
+      "category": "produce",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "fresh mint",
+        "mint leaves"
+      ]
+    },
+    {
+      "canonical_name": "thyme",
+      "display_name": "Thyme",
+      "category": "spice",
+      "default_unit": "tsp",
+      "is_staple": false,
+      "aliases": [
+        "dried thyme",
+        "fresh thyme"
+      ]
+    },
+    {
+      "canonical_name": "rosemary",
+      "display_name": "Rosemary",
+      "category": "spice",
+      "default_unit": "tsp",
+      "is_staple": false,
+      "aliases": [
+        "dried rosemary",
+        "fresh rosemary"
+      ]
+    },
+    {
+      "canonical_name": "oregano",
+      "display_name": "Oregano",
+      "category": "spice",
+      "default_unit": "tsp",
+      "is_staple": false,
+      "aliases": [
+        "dried oregano",
+        "fresh oregano"
+      ]
+    },
+    {
+      "canonical_name": "bay-leaf",
+      "display_name": "Bay Leaf",
+      "category": "spice",
+      "default_unit": "piece",
+      "is_staple": false,
+      "aliases": [
+        "bay leaves",
+        "dried bay leaf"
+      ]
+    },
+    {
+      "canonical_name": "cumin",
+      "display_name": "Cumin",
+      "category": "spice",
+      "default_unit": "tsp",
+      "is_staple": false,
+      "aliases": [
+        "cumin seeds",
+        "ground cumin",
+        "jeera"
+      ]
+    },
+    {
+      "canonical_name": "coriander-seed",
+      "display_name": "Coriander Powder",
+      "category": "spice",
+      "default_unit": "tsp",
+      "is_staple": false,
+      "aliases": [
+        "coriander powder",
+        "coriander seeds",
+        "dhania",
+        "ground coriander"
+      ]
+    },
+    {
+      "canonical_name": "turmeric",
+      "display_name": "Turmeric",
+      "category": "spice",
+      "default_unit": "tsp",
+      "is_staple": false,
+      "aliases": [
+        "ground turmeric",
+        "haldi",
+        "turmeric powder"
+      ]
+    },
+    {
+      "canonical_name": "paprika",
+      "display_name": "Paprika",
+      "category": "spice",
+      "default_unit": "tsp",
+      "is_staple": false,
+      "aliases": [
+        "smoked paprika",
+        "sweet paprika"
+      ]
+    },
+    {
+      "canonical_name": "chili-powder",
+      "display_name": "Chilli Powder",
+      "category": "spice",
+      "default_unit": "tsp",
+      "is_staple": false,
+      "aliases": [
+        "cayenne",
+        "cayenne pepper",
+        "chili powder",
+        "ground cayenne pepper",
+        "ground red pepper",
+        "red chili powder"
+      ]
+    },
+    {
+      "canonical_name": "garam-masala",
+      "display_name": "Garam Masala",
+      "category": "spice",
+      "default_unit": "tsp",
+      "is_staple": false,
+      "aliases": [
+        "garam masala powder"
+      ]
+    },
+    {
+      "canonical_name": "cinnamon",
+      "display_name": "Cinnamon",
+      "category": "spice",
+      "default_unit": "tsp",
+      "is_staple": false,
+      "aliases": [
+        "cinnamon powder",
+        "cinnamon stick",
+        "ground cinnamon"
+      ]
+    },
+    {
+      "canonical_name": "nutmeg",
+      "display_name": "Nutmeg",
+      "category": "spice",
+      "default_unit": "tsp",
+      "is_staple": false,
+      "aliases": [
+        "grated nutmeg",
+        "ground nutmeg"
+      ]
+    },
+    {
+      "canonical_name": "cardamom",
+      "display_name": "Cardamom",
+      "category": "spice",
+      "default_unit": "tsp",
+      "is_staple": false,
+      "aliases": [
+        "cardamom pods",
+        "elaichi",
+        "green cardamom",
+        "ground cardamom"
+      ]
+    },
+    {
+      "canonical_name": "clove-spice",
+      "display_name": "Cloves",
+      "category": "spice",
+      "default_unit": "tsp",
+      "is_staple": false,
+      "aliases": [
+        "ground cloves",
+        "whole cloves"
+      ]
+    },
+    {
+      "canonical_name": "mustard-seed",
+      "display_name": "Mustard Seeds",
+      "category": "spice",
+      "default_unit": "tsp",
+      "is_staple": false,
+      "aliases": [
+        "black mustard seeds",
+        "rai"
+      ]
+    },
+    {
+      "canonical_name": "curry-powder",
+      "display_name": "Curry Powder",
+      "category": "spice",
+      "default_unit": "tsp",
+      "is_staple": false,
+      "aliases": [
+        "madras curry powder"
+      ]
+    },
+    {
+      "canonical_name": "italian-seasoning",
+      "display_name": "Italian Seasoning",
+      "category": "spice",
+      "default_unit": "tsp",
+      "is_staple": false,
+      "aliases": [
+        "herbes de provence",
+        "mixed herbs"
+      ]
+    },
+    {
+      "canonical_name": "chicken-breast",
+      "display_name": "Chicken Breast",
+      "category": "meat",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "boneless skinless chicken breast",
+        "chicken breast halves",
+        "chicken breasts",
+        "skinless chicken breast"
+      ]
+    },
+    {
+      "canonical_name": "chicken-thigh",
+      "display_name": "Chicken Thigh",
+      "category": "meat",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "boneless chicken thighs",
+        "chicken drumstick",
+        "chicken thighs"
+      ]
+    },
+    {
+      "canonical_name": "chicken",
+      "display_name": "Chicken",
+      "category": "meat",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "chicken pieces",
+        "cooked chicken",
+        "shredded chicken",
+        "whole chicken"
+      ]
+    },
+    {
+      "canonical_name": "ground-beef",
+      "display_name": "Ground Beef",
+      "category": "meat",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "beef mince",
+        "hamburger meat",
+        "lean ground beef",
+        "minced beef"
+      ]
+    },
+    {
+      "canonical_name": "beef",
+      "display_name": "Beef",
+      "category": "meat",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "beef chuck",
+        "beef steak",
+        "sirloin",
+        "stewing beef"
+      ]
+    },
+    {
+      "canonical_name": "pork",
+      "display_name": "Pork",
+      "category": "meat",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "ground pork",
+        "pork butt",
+        "pork chop",
+        "pork chops",
+        "pork loin",
+        "pork roast",
+        "pork shoulder",
+        "pork tenderloin"
+      ]
+    },
+    {
+      "canonical_name": "bacon",
+      "display_name": "Bacon",
+      "category": "meat",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "bacon rashers",
+        "bacon strips",
+        "streaky bacon"
+      ]
+    },
+    {
+      "canonical_name": "sausage",
+      "display_name": "Sausage",
+      "category": "meat",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "chorizo",
+        "italian sausage",
+        "pork sausage"
+      ]
+    },
+    {
+      "canonical_name": "lamb",
+      "display_name": "Lamb",
+      "category": "meat",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "ground lamb",
+        "lamb chops",
+        "mutton"
+      ]
+    },
+    {
+      "canonical_name": "shrimp",
+      "display_name": "Shrimp",
+      "category": "seafood",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "peeled shrimp",
+        "prawn",
+        "prawns",
+        "shrimps"
+      ]
+    },
+    {
+      "canonical_name": "salmon",
+      "display_name": "Salmon",
+      "category": "seafood",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "salmon fillet",
+        "salmon fillets"
+      ]
+    },
+    {
+      "canonical_name": "tuna",
+      "display_name": "Tuna",
+      "category": "seafood",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "canned tuna",
+        "tuna steak"
+      ]
+    },
+    {
+      "canonical_name": "white-fish",
+      "display_name": "White Fish",
+      "category": "seafood",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "cod",
+        "fish fillet",
+        "haddock",
+        "tilapia",
+        "white fish fillet"
+      ]
+    },
+    {
+      "canonical_name": "egg",
+      "display_name": "Egg",
+      "category": "dairy",
+      "default_unit": "piece",
+      "is_staple": false,
+      "aliases": [
+        "beaten egg",
+        "egg white",
+        "egg whites",
+        "egg yolk",
+        "egg yolks",
+        "eggs",
+        "hard boiled eggs",
+        "large egg",
+        "large eggs"
+      ]
+    },
+    {
+      "canonical_name": "milk",
+      "display_name": "Milk",
+      "category": "dairy",
+      "default_unit": "ml",
+      "is_staple": false,
+      "aliases": [
+        "2 percent milk",
+        "fresh milk",
+        "low fat milk",
+        "nonfat milk",
+        "skim milk",
+        "whole milk"
+      ]
+    },
+    {
+      "canonical_name": "butter",
+      "display_name": "Butter",
+      "category": "dairy",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "melted butter",
+        "salted butter",
+        "softened butter",
+        "unsalted butter"
+      ]
+    },
+    {
+      "canonical_name": "heavy-cream",
+      "display_name": "Heavy Cream",
+      "category": "dairy",
+      "default_unit": "ml",
+      "is_staple": false,
+      "aliases": [
+        "double cream",
+        "heavy whipping cream",
+        "thickened cream",
+        "whipping cream"
+      ]
+    },
+    {
+      "canonical_name": "sour-cream",
+      "display_name": "Sour Cream",
+      "category": "dairy",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "creme fraiche"
+      ]
+    },
+    {
+      "canonical_name": "yogurt",
+      "display_name": "Yogurt",
+      "category": "dairy",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "curd",
+        "greek yogurt",
+        "natural yogurt",
+        "plain yogurt",
+        "yoghurt"
+      ]
+    },
+    {
+      "canonical_name": "cheddar",
+      "display_name": "Cheddar Cheese",
+      "category": "dairy",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "cheddar",
+        "cheddar cheese",
+        "grated cheddar",
+        "mild cheddar cheese",
+        "sharp cheddar",
+        "sharp cheddar cheese",
+        "shredded cheddar"
+      ]
+    },
+    {
+      "canonical_name": "mozzarella",
+      "display_name": "Mozzarella",
+      "category": "dairy",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "fresh mozzarella",
+        "mozzarella cheese",
+        "shredded mozzarella"
+      ]
+    },
+    {
+      "canonical_name": "parmesan",
+      "display_name": "Parmesan",
+      "category": "dairy",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "grated parmesan",
+        "parmesan cheese",
+        "parmigiano reggiano"
+      ]
+    },
+    {
+      "canonical_name": "cream-cheese",
+      "display_name": "Cream Cheese",
+      "category": "dairy",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "philadelphia cheese",
+        "soft cheese"
+      ]
+    },
+    {
+      "canonical_name": "feta",
+      "display_name": "Feta",
+      "category": "dairy",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "crumbled feta",
+        "feta cheese"
+      ]
+    },
+    {
+      "canonical_name": "paneer",
+      "display_name": "Paneer",
+      "category": "dairy",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "indian cottage cheese"
+      ]
+    },
+    {
+      "canonical_name": "all-purpose-flour",
+      "display_name": "All Purpose Flour",
+      "category": "grain",
+      "default_unit": "g",
+      "is_staple": true,
+      "aliases": [
+        "flour",
+        "maida",
+        "plain flour",
+        "white flour"
+      ]
+    },
+    {
+      "canonical_name": "whole-wheat-flour",
+      "display_name": "Whole Wheat Flour",
+      "category": "grain",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "atta",
+        "wheat flour",
+        "wholemeal flour"
+      ]
+    },
+    {
+      "canonical_name": "rice",
+      "display_name": "Rice",
+      "category": "grain",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "basmati rice",
+        "cooked rice",
+        "jasmine rice",
+        "long grain rice",
+        "white rice"
+      ]
+    },
+    {
+      "canonical_name": "brown-rice",
+      "display_name": "Brown Rice",
+      "category": "grain",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "wholegrain rice"
+      ]
+    },
+    {
+      "canonical_name": "pasta",
+      "display_name": "Pasta",
+      "category": "grain",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "angel hair pasta",
+        "elbow macaroni",
+        "farfalle",
+        "fusilli",
+        "linguine",
+        "macaroni",
+        "noodles",
+        "orzo",
+        "penne",
+        "rigatoni",
+        "shells",
+        "spaghetti"
+      ]
+    },
+    {
+      "canonical_name": "bread",
+      "display_name": "Bread",
+      "category": "grain",
+      "default_unit": "slice",
+      "is_staple": false,
+      "aliases": [
+        "bread slices",
+        "sandwich bread",
+        "sliced bread",
+        "white bread"
+      ]
+    },
+    {
+      "canonical_name": "breadcrumbs",
+      "display_name": "Breadcrumbs",
+      "category": "grain",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "bread crumbs",
+        "dry breadcrumbs",
+        "italian breadcrumbs",
+        "panko",
+        "panko breadcrumbs",
+        "seasoned breadcrumbs"
+      ]
+    },
+    {
+      "canonical_name": "oats",
+      "display_name": "Oats",
+      "category": "grain",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "oatmeal",
+        "old fashioned oats",
+        "porridge oats",
+        "rolled oats"
+      ]
+    },
+    {
+      "canonical_name": "quinoa",
+      "display_name": "Quinoa",
+      "category": "grain",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": []
+    },
+    {
+      "canonical_name": "tortilla",
+      "display_name": "Tortilla",
+      "category": "grain",
+      "default_unit": "piece",
+      "is_staple": false,
+      "aliases": [
+        "corn tortilla",
+        "flour tortilla",
+        "tortillas"
+      ]
+    },
+    {
+      "canonical_name": "cornstarch",
+      "display_name": "Cornstarch",
+      "category": "baking",
+      "default_unit": "tbsp",
+      "is_staple": false,
+      "aliases": [
+        "corn flour",
+        "corn starch",
+        "cornflour"
+      ]
+    },
+    {
+      "canonical_name": "black-bean",
+      "display_name": "Black Beans",
+      "category": "legume",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "black beans",
+        "canned black beans"
+      ]
+    },
+    {
+      "canonical_name": "chickpea",
+      "display_name": "Chickpeas",
+      "category": "legume",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "canned chickpeas",
+        "chana",
+        "chickpeas",
+        "garbanzo beans"
+      ]
+    },
+    {
+      "canonical_name": "kidney-bean",
+      "display_name": "Kidney Beans",
+      "category": "legume",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "kidney beans",
+        "rajma",
+        "red kidney beans"
+      ]
+    },
+    {
+      "canonical_name": "lentil",
+      "display_name": "Lentils",
+      "category": "legume",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "dal",
+        "green lentils",
+        "lentils",
+        "masoor dal",
+        "red lentils",
+        "toor dal"
+      ]
+    },
+    {
+      "canonical_name": "tofu",
+      "display_name": "Tofu",
+      "category": "legume",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "extra firm tofu",
+        "firm tofu",
+        "silken tofu"
+      ]
+    },
+    {
+      "canonical_name": "peanut-butter",
+      "display_name": "Peanut Butter",
+      "category": "condiment",
+      "default_unit": "tbsp",
+      "is_staple": false,
+      "aliases": [
+        "creamy peanut butter",
+        "crunchy peanut butter"
+      ]
+    },
+    {
+      "canonical_name": "soy-sauce",
+      "display_name": "Soy Sauce",
+      "category": "condiment",
+      "default_unit": "tbsp",
+      "is_staple": false,
+      "aliases": [
+        "dark soy sauce",
+        "light soy sauce",
+        "shoyu",
+        "tamari"
+      ]
+    },
+    {
+      "canonical_name": "vinegar",
+      "display_name": "Vinegar",
+      "category": "condiment",
+      "default_unit": "tbsp",
+      "is_staple": false,
+      "aliases": [
+        "distilled vinegar",
+        "white vinegar"
+      ]
+    },
+    {
+      "canonical_name": "balsamic-vinegar",
+      "display_name": "Balsamic Vinegar",
+      "category": "condiment",
+      "default_unit": "tbsp",
+      "is_staple": false,
+      "aliases": [
+        "balsamic"
+      ]
+    },
+    {
+      "canonical_name": "apple-cider-vinegar",
+      "display_name": "Apple Cider Vinegar",
+      "category": "condiment",
+      "default_unit": "tbsp",
+      "is_staple": false,
+      "aliases": [
+        "acv",
+        "cider vinegar"
+      ]
+    },
+    {
+      "canonical_name": "rice-vinegar",
+      "display_name": "Rice Vinegar",
+      "category": "condiment",
+      "default_unit": "tbsp",
+      "is_staple": false,
+      "aliases": [
+        "rice wine vinegar"
+      ]
+    },
+    {
+      "canonical_name": "mustard",
+      "display_name": "Mustard",
+      "category": "condiment",
+      "default_unit": "tsp",
+      "is_staple": false,
+      "aliases": [
+        "brown mustard",
+        "dijon mustard",
+        "spicy brown mustard",
+        "wholegrain mustard",
+        "yellow mustard"
+      ]
+    },
+    {
+      "canonical_name": "ketchup",
+      "display_name": "Ketchup",
+      "category": "condiment",
+      "default_unit": "tbsp",
+      "is_staple": false,
+      "aliases": [
+        "tomato ketchup"
+      ]
+    },
+    {
+      "canonical_name": "mayonnaise",
+      "display_name": "Mayonnaise",
+      "category": "condiment",
+      "default_unit": "tbsp",
+      "is_staple": false,
+      "aliases": [
+        "mayo"
+      ]
+    },
+    {
+      "canonical_name": "honey",
+      "display_name": "Honey",
+      "category": "condiment",
+      "default_unit": "tbsp",
+      "is_staple": false,
+      "aliases": [
+        "raw honey",
+        "runny honey"
+      ]
+    },
+    {
+      "canonical_name": "maple-syrup",
+      "display_name": "Maple Syrup",
+      "category": "condiment",
+      "default_unit": "tbsp",
+      "is_staple": false,
+      "aliases": [
+        "pure maple syrup"
+      ]
+    },
+    {
+      "canonical_name": "worcestershire",
+      "display_name": "Worcestershire Sauce",
+      "category": "condiment",
+      "default_unit": "tsp",
+      "is_staple": false,
+      "aliases": [
+        "worcestershire"
+      ]
+    },
+    {
+      "canonical_name": "hot-sauce",
+      "display_name": "Hot Sauce",
+      "category": "condiment",
+      "default_unit": "tsp",
+      "is_staple": false,
+      "aliases": [
+        "chili sauce",
+        "sriracha",
+        "tabasco"
+      ]
+    },
+    {
+      "canonical_name": "coconut-milk",
+      "display_name": "Coconut Milk",
+      "category": "condiment",
+      "default_unit": "ml",
+      "is_staple": false,
+      "aliases": [
+        "canned coconut milk",
+        "coconut cream",
+        "full fat coconut milk"
+      ]
+    },
+    {
+      "canonical_name": "stock",
+      "display_name": "Stock",
+      "category": "condiment",
+      "default_unit": "ml",
+      "is_staple": false,
+      "aliases": [
+        "beef broth",
+        "beef stock",
+        "broth",
+        "chicken broth",
+        "chicken stock",
+        "low sodium chicken broth",
+        "vegetable broth",
+        "vegetable stock"
+      ]
+    },
+    {
+      "canonical_name": "sesame-oil",
+      "display_name": "Sesame Oil",
+      "category": "oil",
+      "default_unit": "tsp",
+      "is_staple": false,
+      "aliases": [
+        "asian sesame oil",
+        "toasted sesame oil"
+      ]
+    },
+    {
+      "canonical_name": "baking-powder",
+      "display_name": "Baking Powder",
+      "category": "baking",
+      "default_unit": "tsp",
+      "is_staple": false,
+      "aliases": []
+    },
+    {
+      "canonical_name": "baking-soda",
+      "display_name": "Baking Soda",
+      "category": "baking",
+      "default_unit": "tsp",
+      "is_staple": false,
+      "aliases": [
+        "bicarb",
+        "bicarbonate of soda",
+        "sodium bicarbonate"
+      ]
+    },
+    {
+      "canonical_name": "yeast",
+      "display_name": "Yeast",
+      "category": "baking",
+      "default_unit": "tsp",
+      "is_staple": false,
+      "aliases": [
+        "active dry yeast",
+        "dried yeast",
+        "instant yeast"
+      ]
+    },
+    {
+      "canonical_name": "vanilla-extract",
+      "display_name": "Vanilla Extract",
+      "category": "baking",
+      "default_unit": "tsp",
+      "is_staple": false,
+      "aliases": [
+        "pure vanilla extract",
+        "vanilla",
+        "vanilla essence"
+      ]
+    },
+    {
+      "canonical_name": "brown-sugar",
+      "display_name": "Brown Sugar",
+      "category": "baking",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "dark brown sugar",
+        "light brown sugar",
+        "muscovado"
+      ]
+    },
+    {
+      "canonical_name": "powdered-sugar",
+      "display_name": "Powdered Sugar",
+      "category": "baking",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "confectioners sugar",
+        "icing sugar"
+      ]
+    },
+    {
+      "canonical_name": "cocoa-powder",
+      "display_name": "Cocoa Powder",
+      "category": "baking",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "baking cocoa",
+        "cacao powder",
+        "cocoa",
+        "dutch process cocoa",
+        "unsweetened cocoa powder"
+      ]
+    },
+    {
+      "canonical_name": "chocolate",
+      "display_name": "Chocolate",
+      "category": "baking",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "chocolate chips",
+        "chocolate syrup",
+        "dark chocolate",
+        "milk chocolate",
+        "semi sweet chocolate chips",
+        "semisweet chocolate",
+        "unsweetened chocolate",
+        "white chocolate"
+      ]
+    },
+    {
+      "canonical_name": "almond",
+      "display_name": "Almonds",
+      "category": "other",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "almond flakes",
+        "almond meal",
+        "almonds",
+        "blanched almonds",
+        "ground almonds",
+        "sliced almonds"
+      ]
+    },
+    {
+      "canonical_name": "walnut",
+      "display_name": "Walnuts",
+      "category": "other",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "chopped walnuts",
+        "walnuts"
+      ]
+    },
+    {
+      "canonical_name": "cashew",
+      "display_name": "Cashews",
+      "category": "other",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "cashew nuts",
+        "cashews"
+      ]
+    },
+    {
+      "canonical_name": "peanut",
+      "display_name": "Peanuts",
+      "category": "other",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "peanuts",
+        "roasted peanuts"
+      ]
+    },
+    {
+      "canonical_name": "sesame-seed",
+      "display_name": "Sesame Seeds",
+      "category": "other",
+      "default_unit": "tbsp",
+      "is_staple": false,
+      "aliases": [
+        "sesame seeds",
+        "til"
+      ]
+    },
+    {
+      "canonical_name": "raisin",
+      "display_name": "Raisins",
+      "category": "other",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "raisins",
+        "sultanas"
+      ]
+    },
+    {
+      "canonical_name": "coconut-flakes",
+      "display_name": "Shredded Coconut",
+      "category": "other",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "coconut flakes",
+        "desiccated coconut",
+        "flaked coconut",
+        "shredded coconut",
+        "sweetened flaked coconut"
+      ]
+    },
+    {
+      "canonical_name": "olive",
+      "display_name": "Olives",
+      "category": "other",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "black olives",
+        "green olives",
+        "kalamata olives",
+        "olives"
+      ]
+    },
+    {
+      "canonical_name": "wine",
+      "display_name": "Wine",
+      "category": "beverage",
+      "default_unit": "ml",
+      "is_staple": false,
+      "aliases": [
+        "burgundy",
+        "chardonnay",
+        "cooking wine",
+        "dry red wine",
+        "dry white wine",
+        "red wine",
+        "white wine"
+      ]
+    },
+    {
+      "canonical_name": "garlic-powder",
+      "display_name": "Garlic Powder",
+      "category": "spice",
+      "default_unit": "tsp",
+      "is_staple": false,
+      "aliases": [
+        "dried garlic",
+        "granulated garlic"
+      ]
+    },
+    {
+      "canonical_name": "onion-powder",
+      "display_name": "Onion Powder",
+      "category": "spice",
+      "default_unit": "tsp",
+      "is_staple": false,
+      "aliases": [
+        "dried onion",
+        "granulated onion"
+      ]
+    },
+    {
+      "canonical_name": "garlic-salt",
+      "display_name": "Garlic Salt",
+      "category": "spice",
+      "default_unit": "tsp",
+      "is_staple": false,
+      "aliases": []
+    },
+    {
+      "canonical_name": "seasoning-salt",
+      "display_name": "Seasoned Salt",
+      "category": "spice",
+      "default_unit": "tsp",
+      "is_staple": false,
+      "aliases": [
+        "lawry seasoned salt",
+        "season salt",
+        "seasoned salt"
+      ]
+    },
+    {
+      "canonical_name": "celery-salt",
+      "display_name": "Celery Salt",
+      "category": "spice",
+      "default_unit": "tsp",
+      "is_staple": false,
+      "aliases": [
+        "celery seed"
+      ]
+    },
+    {
+      "canonical_name": "ground-ginger",
+      "display_name": "Ground Ginger",
+      "category": "spice",
+      "default_unit": "tsp",
+      "is_staple": false,
+      "aliases": [
+        "dry ginger",
+        "ginger powder"
+      ]
+    },
+    {
+      "canonical_name": "white-pepper",
+      "display_name": "White Pepper",
+      "category": "spice",
+      "default_unit": "tsp",
+      "is_staple": false,
+      "aliases": [
+        "ground white pepper"
+      ]
+    },
+    {
+      "canonical_name": "red-pepper-flakes",
+      "display_name": "Red Pepper Flakes",
+      "category": "spice",
+      "default_unit": "tsp",
+      "is_staple": false,
+      "aliases": [
+        "chile flakes",
+        "crushed red pepper",
+        "crushed red pepper flakes",
+        "hot pepper flakes",
+        "red chili flakes"
+      ]
+    },
+    {
+      "canonical_name": "dry-mustard",
+      "display_name": "Dry Mustard",
+      "category": "spice",
+      "default_unit": "tsp",
+      "is_staple": false,
+      "aliases": [
+        "colman mustard",
+        "ground mustard",
+        "mustard powder",
+        "powdered mustard"
+      ]
+    },
+    {
+      "canonical_name": "allspice",
+      "display_name": "Allspice",
+      "category": "spice",
+      "default_unit": "tsp",
+      "is_staple": false,
+      "aliases": [
+        "ground allspice"
+      ]
+    },
+    {
+      "canonical_name": "dill",
+      "display_name": "Dill",
+      "category": "spice",
+      "default_unit": "tsp",
+      "is_staple": false,
+      "aliases": [
+        "dill weed",
+        "dillweed",
+        "dried dill",
+        "fresh dill"
+      ]
+    },
+    {
+      "canonical_name": "sage",
+      "display_name": "Sage",
+      "category": "spice",
+      "default_unit": "tsp",
+      "is_staple": false,
+      "aliases": [
+        "dried sage",
+        "fresh sage",
+        "rubbed sage"
+      ]
+    },
+    {
+      "canonical_name": "tarragon",
+      "display_name": "Tarragon",
+      "category": "spice",
+      "default_unit": "tsp",
+      "is_staple": false,
+      "aliases": [
+        "dried tarragon"
+      ]
+    },
+    {
+      "canonical_name": "chives",
+      "display_name": "Chives",
+      "category": "produce",
+      "default_unit": "tbsp",
+      "is_staple": false,
+      "aliases": [
+        "dried chives",
+        "fresh chives"
+      ]
+    },
+    {
+      "canonical_name": "marjoram",
+      "display_name": "Marjoram",
+      "category": "spice",
+      "default_unit": "tsp",
+      "is_staple": false,
+      "aliases": [
+        "dried marjoram"
+      ]
+    },
+    {
+      "canonical_name": "fennel-seed",
+      "display_name": "Fennel Seeds",
+      "category": "spice",
+      "default_unit": "tsp",
+      "is_staple": false,
+      "aliases": [
+        "fennel",
+        "fennel seeds"
+      ]
+    },
+    {
+      "canonical_name": "caraway-seed",
+      "display_name": "Caraway Seeds",
+      "category": "spice",
+      "default_unit": "tsp",
+      "is_staple": false,
+      "aliases": [
+        "caraway",
+        "caraway seeds"
+      ]
+    },
+    {
+      "canonical_name": "poppy-seed",
+      "display_name": "Poppy Seeds",
+      "category": "spice",
+      "default_unit": "tbsp",
+      "is_staple": false,
+      "aliases": [
+        "poppy seeds"
+      ]
+    },
+    {
+      "canonical_name": "cream-of-tartar",
+      "display_name": "Cream of Tartar",
+      "category": "baking",
+      "default_unit": "tsp",
+      "is_staple": false,
+      "aliases": []
+    },
+    {
+      "canonical_name": "old-bay",
+      "display_name": "Old Bay Seasoning",
+      "category": "spice",
+      "default_unit": "tsp",
+      "is_staple": false,
+      "aliases": [
+        "old bay"
+      ]
+    },
+    {
+      "canonical_name": "cajun-seasoning",
+      "display_name": "Cajun Seasoning",
+      "category": "spice",
+      "default_unit": "tsp",
+      "is_staple": false,
+      "aliases": [
+        "blackening seasoning",
+        "creole seasoning"
+      ]
+    },
+    {
+      "canonical_name": "taco-seasoning",
+      "display_name": "Taco Seasoning",
+      "category": "spice",
+      "default_unit": "tbsp",
+      "is_staple": false,
+      "aliases": [
+        "taco seasoning mix"
+      ]
+    },
+    {
+      "canonical_name": "chinese-five-spice",
+      "display_name": "Chinese Five Spice",
+      "category": "spice",
+      "default_unit": "tsp",
+      "is_staple": false,
+      "aliases": [
+        "five spice powder"
+      ]
+    },
+    {
+      "canonical_name": "pumpkin-pie-spice",
+      "display_name": "Pumpkin Pie Spice",
+      "category": "spice",
+      "default_unit": "tsp",
+      "is_staple": false,
+      "aliases": [
+        "apple pie spice",
+        "mixed spice"
+      ]
+    },
+    {
+      "canonical_name": "oil",
+      "display_name": "Oil",
+      "category": "oil",
+      "default_unit": "tbsp",
+      "is_staple": true,
+      "aliases": [
+        "any oil",
+        "frying oil",
+        "salad oil"
+      ]
+    },
+    {
+      "canonical_name": "cooking-spray",
+      "display_name": "Cooking Spray",
+      "category": "oil",
+      "default_unit": "piece",
+      "is_staple": false,
+      "aliases": [
+        "non stick spray",
+        "nonstick cooking spray",
+        "pam"
+      ]
+    },
+    {
+      "canonical_name": "shortening",
+      "display_name": "Shortening",
+      "category": "baking",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "crisco",
+        "vegetable shortening"
+      ]
+    },
+    {
+      "canonical_name": "margarine",
+      "display_name": "Margarine",
+      "category": "dairy",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "butter or margarine",
+        "oleo"
+      ]
+    },
+    {
+      "canonical_name": "lard",
+      "display_name": "Lard",
+      "category": "oil",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": []
+    },
+    {
+      "canonical_name": "peanut-oil",
+      "display_name": "Peanut Oil",
+      "category": "oil",
+      "default_unit": "tbsp",
+      "is_staple": false,
+      "aliases": [
+        "groundnut oil"
+      ]
+    },
+    {
+      "canonical_name": "coconut-oil",
+      "display_name": "Coconut Oil",
+      "category": "oil",
+      "default_unit": "tbsp",
+      "is_staple": false,
+      "aliases": []
+    },
+    {
+      "canonical_name": "cheese",
+      "display_name": "Cheese",
+      "category": "dairy",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "any cheese",
+        "grated cheese",
+        "shredded cheese"
+      ]
+    },
+    {
+      "canonical_name": "monterey-jack",
+      "display_name": "Monterey Jack",
+      "category": "dairy",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "jack cheese",
+        "monterey jack cheese",
+        "pepper jack"
+      ]
+    },
+    {
+      "canonical_name": "swiss-cheese",
+      "display_name": "Swiss Cheese",
+      "category": "dairy",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "emmental",
+        "gruyere"
+      ]
+    },
+    {
+      "canonical_name": "provolone",
+      "display_name": "Provolone",
+      "category": "dairy",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "provolone cheese"
+      ]
+    },
+    {
+      "canonical_name": "ricotta",
+      "display_name": "Ricotta",
+      "category": "dairy",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "ricotta cheese"
+      ]
+    },
+    {
+      "canonical_name": "cottage-cheese",
+      "display_name": "Cottage Cheese",
+      "category": "dairy",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": []
+    },
+    {
+      "canonical_name": "blue-cheese",
+      "display_name": "Blue Cheese",
+      "category": "dairy",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "gorgonzola",
+        "roquefort"
+      ]
+    },
+    {
+      "canonical_name": "velveeta",
+      "display_name": "Processed Cheese",
+      "category": "dairy",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "american cheese",
+        "processed cheese",
+        "velveeta cheese"
+      ]
+    },
+    {
+      "canonical_name": "mascarpone",
+      "display_name": "Mascarpone",
+      "category": "dairy",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "mascarpone cheese"
+      ]
+    },
+    {
+      "canonical_name": "buttermilk",
+      "display_name": "Buttermilk",
+      "category": "dairy",
+      "default_unit": "ml",
+      "is_staple": false,
+      "aliases": []
+    },
+    {
+      "canonical_name": "evaporated-milk",
+      "display_name": "Evaporated Milk",
+      "category": "dairy",
+      "default_unit": "ml",
+      "is_staple": false,
+      "aliases": [
+        "canned milk"
+      ]
+    },
+    {
+      "canonical_name": "condensed-milk",
+      "display_name": "Sweetened Condensed Milk",
+      "category": "dairy",
+      "default_unit": "ml",
+      "is_staple": false,
+      "aliases": [
+        "sweetened condensed milk"
+      ]
+    },
+    {
+      "canonical_name": "half-and-half",
+      "display_name": "Half and Half",
+      "category": "dairy",
+      "default_unit": "ml",
+      "is_staple": false,
+      "aliases": [
+        "half and half cream",
+        "half n half",
+        "single cream"
+      ]
+    },
+    {
+      "canonical_name": "cream",
+      "display_name": "Cream",
+      "category": "dairy",
+      "default_unit": "ml",
+      "is_staple": false,
+      "aliases": [
+        "light cream",
+        "table cream"
+      ]
+    },
+    {
+      "canonical_name": "whipped-topping",
+      "display_name": "Whipped Topping",
+      "category": "dairy",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "cool whip",
+        "non dairy whipped topping",
+        "whipped cream"
+      ]
+    },
+    {
+      "canonical_name": "ice-cream",
+      "display_name": "Ice Cream",
+      "category": "dairy",
+      "default_unit": "ml",
+      "is_staple": false,
+      "aliases": [
+        "vanilla ice cream"
+      ]
+    },
+    {
+      "canonical_name": "milk-powder",
+      "display_name": "Powdered Milk",
+      "category": "dairy",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "dry milk",
+        "nonfat dry milk",
+        "powdered milk"
+      ]
+    },
+    {
+      "canonical_name": "pecan",
+      "display_name": "Pecans",
+      "category": "other",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "chopped pecans",
+        "pecan halves",
+        "pecans"
+      ]
+    },
+    {
+      "canonical_name": "nuts",
+      "display_name": "Nuts",
+      "category": "other",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "any nuts",
+        "chopped nuts",
+        "mixed nuts"
+      ]
+    },
+    {
+      "canonical_name": "pine-nut",
+      "display_name": "Pine Nuts",
+      "category": "other",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "pignoli",
+        "pine nuts"
+      ]
+    },
+    {
+      "canonical_name": "hazelnut",
+      "display_name": "Hazelnuts",
+      "category": "other",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "filberts",
+        "hazelnuts"
+      ]
+    },
+    {
+      "canonical_name": "pistachio",
+      "display_name": "Pistachios",
+      "category": "other",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "pistachios"
+      ]
+    },
+    {
+      "canonical_name": "macadamia",
+      "display_name": "Macadamia Nuts",
+      "category": "other",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "macadamia nuts"
+      ]
+    },
+    {
+      "canonical_name": "sunflower-seed",
+      "display_name": "Sunflower Seeds",
+      "category": "other",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "sunflower seeds"
+      ]
+    },
+    {
+      "canonical_name": "salsa",
+      "display_name": "Salsa",
+      "category": "condiment",
+      "default_unit": "ml",
+      "is_staple": false,
+      "aliases": [
+        "picante sauce",
+        "taco sauce"
+      ]
+    },
+    {
+      "canonical_name": "tabasco",
+      "display_name": "Tabasco Sauce",
+      "category": "condiment",
+      "default_unit": "tsp",
+      "is_staple": false,
+      "aliases": [
+        "pepper sauce",
+        "tabasco sauce"
+      ]
+    },
+    {
+      "canonical_name": "bbq-sauce",
+      "display_name": "Barbecue Sauce",
+      "category": "condiment",
+      "default_unit": "ml",
+      "is_staple": false,
+      "aliases": [
+        "barbecue sauce",
+        "bbq sauce"
+      ]
+    },
+    {
+      "canonical_name": "ranch-dressing",
+      "display_name": "Ranch Dressing",
+      "category": "condiment",
+      "default_unit": "ml",
+      "is_staple": false,
+      "aliases": [
+        "ranch dressing mix",
+        "ranch salad dressing"
+      ]
+    },
+    {
+      "canonical_name": "italian-dressing",
+      "display_name": "Italian Dressing",
+      "category": "condiment",
+      "default_unit": "ml",
+      "is_staple": false,
+      "aliases": [
+        "italian dressing mix",
+        "italian salad dressing"
+      ]
+    },
+    {
+      "canonical_name": "relish",
+      "display_name": "Pickle Relish",
+      "category": "condiment",
+      "default_unit": "tbsp",
+      "is_staple": false,
+      "aliases": [
+        "dill relish",
+        "sweet pickle relish"
+      ]
+    },
+    {
+      "canonical_name": "pickle",
+      "display_name": "Pickles",
+      "category": "condiment",
+      "default_unit": "piece",
+      "is_staple": false,
+      "aliases": [
+        "dill pickle",
+        "gherkin",
+        "pickles"
+      ]
+    },
+    {
+      "canonical_name": "caper",
+      "display_name": "Capers",
+      "category": "condiment",
+      "default_unit": "tbsp",
+      "is_staple": false,
+      "aliases": [
+        "capers"
+      ]
+    },
+    {
+      "canonical_name": "horseradish",
+      "display_name": "Horseradish",
+      "category": "condiment",
+      "default_unit": "tbsp",
+      "is_staple": false,
+      "aliases": [
+        "prepared horseradish"
+      ]
+    },
+    {
+      "canonical_name": "tahini",
+      "display_name": "Tahini",
+      "category": "condiment",
+      "default_unit": "tbsp",
+      "is_staple": false,
+      "aliases": [
+        "sesame paste"
+      ]
+    },
+    {
+      "canonical_name": "miso",
+      "display_name": "Miso",
+      "category": "condiment",
+      "default_unit": "tbsp",
+      "is_staple": false,
+      "aliases": [
+        "miso paste"
+      ]
+    },
+    {
+      "canonical_name": "teriyaki-sauce",
+      "display_name": "Teriyaki Sauce",
+      "category": "condiment",
+      "default_unit": "tbsp",
+      "is_staple": false,
+      "aliases": []
+    },
+    {
+      "canonical_name": "hoisin",
+      "display_name": "Hoisin Sauce",
+      "category": "condiment",
+      "default_unit": "tbsp",
+      "is_staple": false,
+      "aliases": [
+        "hoisin sauce"
+      ]
+    },
+    {
+      "canonical_name": "oyster-sauce",
+      "display_name": "Oyster Sauce",
+      "category": "condiment",
+      "default_unit": "tbsp",
+      "is_staple": false,
+      "aliases": []
+    },
+    {
+      "canonical_name": "fish-sauce",
+      "display_name": "Fish Sauce",
+      "category": "condiment",
+      "default_unit": "tbsp",
+      "is_staple": false,
+      "aliases": [
+        "nam pla"
+      ]
+    },
+    {
+      "canonical_name": "corn-syrup",
+      "display_name": "Corn Syrup",
+      "category": "baking",
+      "default_unit": "ml",
+      "is_staple": false,
+      "aliases": [
+        "dark corn syrup",
+        "golden syrup",
+        "karo syrup",
+        "light corn syrup"
+      ]
+    },
+    {
+      "canonical_name": "applesauce",
+      "display_name": "Applesauce",
+      "category": "produce",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "apple sauce",
+        "unsweetened applesauce"
+      ]
+    },
+    {
+      "canonical_name": "cream-of-mushroom-soup",
+      "display_name": "Cream of Mushroom Soup",
+      "category": "condiment",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "condensed cream of mushroom soup"
+      ]
+    },
+    {
+      "canonical_name": "cream-of-chicken-soup",
+      "display_name": "Cream of Chicken Soup",
+      "category": "condiment",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "condensed cream of chicken soup"
+      ]
+    },
+    {
+      "canonical_name": "cream-of-celery-soup",
+      "display_name": "Cream of Celery Soup",
+      "category": "condiment",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "condensed cream of celery soup"
+      ]
+    },
+    {
+      "canonical_name": "tomato-soup",
+      "display_name": "Tomato Soup",
+      "category": "condiment",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "condensed tomato soup"
+      ]
+    },
+    {
+      "canonical_name": "bouillon",
+      "display_name": "Bouillon",
+      "category": "condiment",
+      "default_unit": "piece",
+      "is_staple": false,
+      "aliases": [
+        "beef bouillon",
+        "bouillon cube",
+        "chicken bouillon",
+        "chicken bouillon granules",
+        "stock cube"
+      ]
+    },
+    {
+      "canonical_name": "pasta-sauce",
+      "display_name": "Pasta Sauce",
+      "category": "condiment",
+      "default_unit": "ml",
+      "is_staple": false,
+      "aliases": [
+        "marinara",
+        "marinara sauce",
+        "spaghetti sauce"
+      ]
+    },
+    {
+      "canonical_name": "green-chilies",
+      "display_name": "Green Chilies",
+      "category": "produce",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "canned green chilies",
+        "diced green chilies",
+        "green chilies"
+      ]
+    },
+    {
+      "canonical_name": "almond-extract",
+      "display_name": "Almond Extract",
+      "category": "baking",
+      "default_unit": "tsp",
+      "is_staple": false,
+      "aliases": []
+    },
+    {
+      "canonical_name": "lemon-extract",
+      "display_name": "Lemon Extract",
+      "category": "baking",
+      "default_unit": "tsp",
+      "is_staple": false,
+      "aliases": []
+    },
+    {
+      "canonical_name": "peppermint-extract",
+      "display_name": "Peppermint Extract",
+      "category": "baking",
+      "default_unit": "tsp",
+      "is_staple": false,
+      "aliases": [
+        "mint extract"
+      ]
+    },
+    {
+      "canonical_name": "food-coloring",
+      "display_name": "Food Colouring",
+      "category": "baking",
+      "default_unit": "tsp",
+      "is_staple": false,
+      "aliases": [
+        "food coloring",
+        "food colouring"
+      ]
+    },
+    {
+      "canonical_name": "gelatin",
+      "display_name": "Gelatin",
+      "category": "baking",
+      "default_unit": "tsp",
+      "is_staple": false,
+      "aliases": [
+        "gelatine",
+        "jell o",
+        "jello",
+        "unflavored gelatin"
+      ]
+    },
+    {
+      "canonical_name": "pudding-mix",
+      "display_name": "Pudding Mix",
+      "category": "baking",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "instant pudding",
+        "instant vanilla pudding",
+        "vanilla pudding mix"
+      ]
+    },
+    {
+      "canonical_name": "cake-mix",
+      "display_name": "Cake Mix",
+      "category": "baking",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "chocolate cake mix",
+        "devil food cake mix",
+        "white cake mix",
+        "yellow cake mix"
+      ]
+    },
+    {
+      "canonical_name": "bisquick",
+      "display_name": "Baking Mix",
+      "category": "baking",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "biscuit mix",
+        "bisquick"
+      ]
+    },
+    {
+      "canonical_name": "pie-crust",
+      "display_name": "Pie Crust",
+      "category": "baking",
+      "default_unit": "piece",
+      "is_staple": false,
+      "aliases": [
+        "graham cracker crust",
+        "pastry shell",
+        "pie shell",
+        "unbaked pie crust"
+      ]
+    },
+    {
+      "canonical_name": "puff-pastry",
+      "display_name": "Puff Pastry",
+      "category": "baking",
+      "default_unit": "piece",
+      "is_staple": false,
+      "aliases": [
+        "filo pastry",
+        "phyllo dough",
+        "puff pastry sheets"
+      ]
+    },
+    {
+      "canonical_name": "graham-cracker",
+      "display_name": "Graham Crackers",
+      "category": "grain",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "digestive biscuits",
+        "graham cracker crumbs",
+        "graham crackers"
+      ]
+    },
+    {
+      "canonical_name": "marshmallow",
+      "display_name": "Marshmallows",
+      "category": "other",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "marshmallow cream",
+        "marshmallows",
+        "mini marshmallows"
+      ]
+    },
+    {
+      "canonical_name": "cornmeal",
+      "display_name": "Cornmeal",
+      "category": "grain",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "polenta",
+        "yellow cornmeal"
+      ]
+    },
+    {
+      "canonical_name": "self-rising-flour",
+      "display_name": "Self-Rising Flour",
+      "category": "grain",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "self raising flour",
+        "self rising flour"
+      ]
+    },
+    {
+      "canonical_name": "bread-flour",
+      "display_name": "Bread Flour",
+      "category": "grain",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "strong flour"
+      ]
+    },
+    {
+      "canonical_name": "cake-flour",
+      "display_name": "Cake Flour",
+      "category": "grain",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": []
+    },
+    {
+      "canonical_name": "egg-noodle",
+      "display_name": "Egg Noodles",
+      "category": "grain",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "egg noodles",
+        "wide egg noodles"
+      ]
+    },
+    {
+      "canonical_name": "lasagna-noodle",
+      "display_name": "Lasagna Noodles",
+      "category": "grain",
+      "default_unit": "piece",
+      "is_staple": false,
+      "aliases": [
+        "lasagna noodles",
+        "lasagne sheets"
+      ]
+    },
+    {
+      "canonical_name": "couscous",
+      "display_name": "Couscous",
+      "category": "grain",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": []
+    },
+    {
+      "canonical_name": "barley",
+      "display_name": "Barley",
+      "category": "grain",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "pearl barley"
+      ]
+    },
+    {
+      "canonical_name": "cornflakes",
+      "display_name": "Corn Flakes",
+      "category": "grain",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "corn flakes",
+        "cornflake crumbs"
+      ]
+    },
+    {
+      "canonical_name": "crackers",
+      "display_name": "Crackers",
+      "category": "grain",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "cracker crumbs",
+        "ritz crackers",
+        "saltine crackers"
+      ]
+    },
+    {
+      "canonical_name": "hamburger-bun",
+      "display_name": "Hamburger Buns",
+      "category": "grain",
+      "default_unit": "piece",
+      "is_staple": false,
+      "aliases": [
+        "buns",
+        "burger buns",
+        "hamburger buns",
+        "hot dog buns"
+      ]
+    },
+    {
+      "canonical_name": "crescent-roll",
+      "display_name": "Crescent Rolls",
+      "category": "grain",
+      "default_unit": "piece",
+      "is_staple": false,
+      "aliases": [
+        "crescent rolls",
+        "refrigerated biscuits",
+        "refrigerated crescent rolls"
+      ]
+    },
+    {
+      "canonical_name": "wonton-wrapper",
+      "display_name": "Wonton Wrappers",
+      "category": "grain",
+      "default_unit": "piece",
+      "is_staple": false,
+      "aliases": [
+        "spring roll wrappers",
+        "wonton wrappers"
+      ]
+    },
+    {
+      "canonical_name": "pita",
+      "display_name": "Pita Bread",
+      "category": "grain",
+      "default_unit": "piece",
+      "is_staple": false,
+      "aliases": [
+        "naan",
+        "pita bread",
+        "pita rounds"
+      ]
+    },
+    {
+      "canonical_name": "ham",
+      "display_name": "Ham",
+      "category": "meat",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "cooked ham",
+        "diced ham",
+        "ham steak",
+        "prosciutto"
+      ]
+    },
+    {
+      "canonical_name": "turkey",
+      "display_name": "Turkey",
+      "category": "meat",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "cooked turkey",
+        "ground turkey",
+        "turkey breast"
+      ]
+    },
+    {
+      "canonical_name": "pepperoni",
+      "display_name": "Pepperoni",
+      "category": "meat",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "salami"
+      ]
+    },
+    {
+      "canonical_name": "hot-dog",
+      "display_name": "Hot Dogs",
+      "category": "meat",
+      "default_unit": "piece",
+      "is_staple": false,
+      "aliases": [
+        "frankfurters",
+        "hot dogs",
+        "wieners"
+      ]
+    },
+    {
+      "canonical_name": "corned-beef",
+      "display_name": "Corned Beef",
+      "category": "meat",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": []
+    },
+    {
+      "canonical_name": "veal",
+      "display_name": "Veal",
+      "category": "meat",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "veal cutlets"
+      ]
+    },
+    {
+      "canonical_name": "crab",
+      "display_name": "Crab",
+      "category": "seafood",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "crab meat",
+        "crabmeat",
+        "imitation crab"
+      ]
+    },
+    {
+      "canonical_name": "scallop",
+      "display_name": "Scallops",
+      "category": "seafood",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "scallops",
+        "sea scallops"
+      ]
+    },
+    {
+      "canonical_name": "clam",
+      "display_name": "Clams",
+      "category": "seafood",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "canned clams",
+        "clams",
+        "mussels"
+      ]
+    },
+    {
+      "canonical_name": "anchovy",
+      "display_name": "Anchovies",
+      "category": "seafood",
+      "default_unit": "piece",
+      "is_staple": false,
+      "aliases": [
+        "anchovies",
+        "anchovy fillets",
+        "anchovy paste"
+      ]
+    },
+    {
+      "canonical_name": "lobster",
+      "display_name": "Lobster",
+      "category": "seafood",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "lobster meat",
+        "lobster tail"
+      ]
+    },
+    {
+      "canonical_name": "asparagus",
+      "display_name": "Asparagus",
+      "category": "produce",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "asparagus spears"
+      ]
+    },
+    {
+      "canonical_name": "brussels-sprout",
+      "display_name": "Brussels Sprouts",
+      "category": "produce",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "brussel sprouts",
+        "brussels sprouts"
+      ]
+    },
+    {
+      "canonical_name": "beet",
+      "display_name": "Beets",
+      "category": "produce",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "beetroot",
+        "beets"
+      ]
+    },
+    {
+      "canonical_name": "radish",
+      "display_name": "Radish",
+      "category": "produce",
+      "default_unit": "piece",
+      "is_staple": false,
+      "aliases": [
+        "radishes"
+      ]
+    },
+    {
+      "canonical_name": "turnip",
+      "display_name": "Turnip",
+      "category": "produce",
+      "default_unit": "piece",
+      "is_staple": false,
+      "aliases": [
+        "parsnip",
+        "parsnips",
+        "rutabaga",
+        "turnips"
+      ]
+    },
+    {
+      "canonical_name": "butternut-squash",
+      "display_name": "Butternut Squash",
+      "category": "produce",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "acorn squash",
+        "winter squash",
+        "yellow squash"
+      ]
+    },
+    {
+      "canonical_name": "pumpkin",
+      "display_name": "Pumpkin",
+      "category": "produce",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "canned pumpkin",
+        "pumpkin puree"
+      ]
+    },
+    {
+      "canonical_name": "artichoke",
+      "display_name": "Artichoke",
+      "category": "produce",
+      "default_unit": "piece",
+      "is_staple": false,
+      "aliases": [
+        "artichoke hearts",
+        "artichokes"
+      ]
+    },
+    {
+      "canonical_name": "okra",
+      "display_name": "Okra",
+      "category": "produce",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": []
+    },
+    {
+      "canonical_name": "snow-pea",
+      "display_name": "Snow Peas",
+      "category": "produce",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "snap peas",
+        "snow peas",
+        "sugar snap peas"
+      ]
+    },
+    {
+      "canonical_name": "water-chestnut",
+      "display_name": "Water Chestnuts",
+      "category": "produce",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "bamboo shoots",
+        "water chestnuts"
+      ]
+    },
+    {
+      "canonical_name": "bean-sprout",
+      "display_name": "Bean Sprouts",
+      "category": "produce",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "bean sprouts"
+      ]
+    },
+    {
+      "canonical_name": "pumpkin-seed",
+      "display_name": "Pumpkin Seeds",
+      "category": "other",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "pepitas",
+        "pumpkin seeds"
+      ]
+    },
+    {
+      "canonical_name": "cranberry",
+      "display_name": "Cranberries",
+      "category": "produce",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "craisins",
+        "cranberries",
+        "cranberry sauce",
+        "dried cranberries"
+      ]
+    },
+    {
+      "canonical_name": "raspberry",
+      "display_name": "Raspberries",
+      "category": "produce",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "blackberries",
+        "blackberry",
+        "raspberries"
+      ]
+    },
+    {
+      "canonical_name": "cherry",
+      "display_name": "Cherries",
+      "category": "produce",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "cherries",
+        "cherry pie filling",
+        "maraschino cherries"
+      ]
+    },
+    {
+      "canonical_name": "peach",
+      "display_name": "Peaches",
+      "category": "produce",
+      "default_unit": "piece",
+      "is_staple": false,
+      "aliases": [
+        "canned peaches",
+        "nectarine",
+        "peaches"
+      ]
+    },
+    {
+      "canonical_name": "pear",
+      "display_name": "Pears",
+      "category": "produce",
+      "default_unit": "piece",
+      "is_staple": false,
+      "aliases": [
+        "pears"
+      ]
+    },
+    {
+      "canonical_name": "pineapple",
+      "display_name": "Pineapple",
+      "category": "produce",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "canned pineapple",
+        "crushed pineapple",
+        "pineapple chunks",
+        "pineapple juice"
+      ]
+    },
+    {
+      "canonical_name": "grape",
+      "display_name": "Grapes",
+      "category": "produce",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "grapes",
+        "seedless grapes"
+      ]
+    },
+    {
+      "canonical_name": "mango",
+      "display_name": "Mango",
+      "category": "produce",
+      "default_unit": "piece",
+      "is_staple": false,
+      "aliases": [
+        "mangoes",
+        "mangos"
+      ]
+    },
+    {
+      "canonical_name": "date-fruit",
+      "display_name": "Dates",
+      "category": "produce",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "dates",
+        "figs",
+        "pitted dates",
+        "prunes"
+      ]
+    },
+    {
+      "canonical_name": "coconut",
+      "display_name": "Coconut",
+      "category": "other",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "fresh coconut"
+      ]
+    },
+    {
+      "canonical_name": "beer",
+      "display_name": "Beer",
+      "category": "beverage",
+      "default_unit": "ml",
+      "is_staple": false,
+      "aliases": [
+        "ale",
+        "lager"
+      ]
+    },
+    {
+      "canonical_name": "rum",
+      "display_name": "Rum",
+      "category": "beverage",
+      "default_unit": "ml",
+      "is_staple": false,
+      "aliases": [
+        "dark rum",
+        "light rum"
+      ]
+    },
+    {
+      "canonical_name": "brandy",
+      "display_name": "Brandy",
+      "category": "beverage",
+      "default_unit": "ml",
+      "is_staple": false,
+      "aliases": [
+        "cognac"
+      ]
+    },
+    {
+      "canonical_name": "vodka",
+      "display_name": "Vodka",
+      "category": "beverage",
+      "default_unit": "ml",
+      "is_staple": false,
+      "aliases": []
+    },
+    {
+      "canonical_name": "whiskey",
+      "display_name": "Whiskey",
+      "category": "beverage",
+      "default_unit": "ml",
+      "is_staple": false,
+      "aliases": [
+        "bourbon",
+        "scotch",
+        "whisky"
+      ]
+    },
+    {
+      "canonical_name": "sherry",
+      "display_name": "Sherry",
+      "category": "beverage",
+      "default_unit": "ml",
+      "is_staple": false,
+      "aliases": [
+        "cooking sherry",
+        "dry sherry",
+        "marsala",
+        "sherry wine",
+        "vermouth"
+      ]
+    },
+    {
+      "canonical_name": "amaretto",
+      "display_name": "Amaretto",
+      "category": "beverage",
+      "default_unit": "ml",
+      "is_staple": false,
+      "aliases": [
+        "grand marnier",
+        "kahlua",
+        "triple sec"
+      ]
+    },
+    {
+      "canonical_name": "apple-juice",
+      "display_name": "Apple Juice",
+      "category": "beverage",
+      "default_unit": "ml",
+      "is_staple": false,
+      "aliases": [
+        "apple cider"
+      ]
+    },
+    {
+      "canonical_name": "cranberry-juice",
+      "display_name": "Cranberry Juice",
+      "category": "beverage",
+      "default_unit": "ml",
+      "is_staple": false,
+      "aliases": []
+    },
+    {
+      "canonical_name": "tomato-juice",
+      "display_name": "Tomato Juice",
+      "category": "beverage",
+      "default_unit": "ml",
+      "is_staple": false,
+      "aliases": [
+        "v8 juice",
+        "vegetable juice"
+      ]
+    },
+    {
+      "canonical_name": "coffee",
+      "display_name": "Coffee",
+      "category": "beverage",
+      "default_unit": "ml",
+      "is_staple": false,
+      "aliases": [
+        "brewed coffee",
+        "espresso",
+        "instant coffee"
+      ]
+    },
+    {
+      "canonical_name": "tea",
+      "display_name": "Tea",
+      "category": "beverage",
+      "default_unit": "ml",
+      "is_staple": false,
+      "aliases": [
+        "black tea",
+        "green tea",
+        "tea bags"
+      ]
+    },
+    {
+      "canonical_name": "soda",
+      "display_name": "Soda",
+      "category": "beverage",
+      "default_unit": "ml",
+      "is_staple": false,
+      "aliases": [
+        "club soda",
+        "cola",
+        "ginger ale",
+        "lemon lime soda",
+        "sprite"
+      ]
+    },
+    {
+      "canonical_name": "molasses",
+      "display_name": "Molasses",
+      "category": "baking",
+      "default_unit": "tbsp",
+      "is_staple": false,
+      "aliases": [
+        "blackstrap molasses",
+        "treacle"
+      ]
+    },
+    {
+      "canonical_name": "ice",
+      "display_name": "Ice",
+      "category": "beverage",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "cracked ice",
+        "crushed ice",
+        "ice cubes"
+      ]
+    },
+    {
+      "canonical_name": "sugar-substitute",
+      "display_name": "Sugar Substitute",
+      "category": "baking",
+      "default_unit": "tsp",
+      "is_staple": false,
+      "aliases": [
+        "artificial sweetener",
+        "splenda",
+        "splenda sugar substitute",
+        "stevia",
+        "sweetener"
+      ]
+    },
+    {
+      "canonical_name": "tortilla-chips",
+      "display_name": "Tortilla Chips",
+      "category": "grain",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "corn chips",
+        "nacho chips"
+      ]
+    },
+    {
+      "canonical_name": "white-wine-vinegar",
+      "display_name": "White Wine Vinegar",
+      "category": "condiment",
+      "default_unit": "tbsp",
+      "is_staple": false,
+      "aliases": [
+        "red wine vinegar",
+        "wine vinegar"
+      ]
+    },
+    {
+      "canonical_name": "baked-beans",
+      "display_name": "Baked Beans",
+      "category": "legume",
+      "default_unit": "g",
+      "is_staple": false,
+      "aliases": [
+        "pork and beans",
+        "pork n beans"
+      ]
+    }
   ]
 }
