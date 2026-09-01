@@ -74,6 +74,11 @@ class RecommendationQuerySerializer(serializers.Serializer):
         required=False, default="best", choices=["best", "quickest", "simplest"]
     )
     mood = serializers.CharField(required=False, allow_blank=True)
+    # Escape hatch for benchmarking. Normal requests omit it and let the
+    # view pick whichever backend is reachable.
+    backend = serializers.ChoiceField(
+        required=False, allow_null=True, default=None, choices=["sql", "es"]
+    )
 
     def validate_mood(self, value):
         """

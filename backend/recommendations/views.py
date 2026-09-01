@@ -1,20 +1,30 @@
 """
 Recommendation endpoints.
 
-Thin, as with pantry: validate, delegate to the service, serialize.
+Thin, as with pantry: validate, delegate to a service, serialize.
+
+Two things happen here beyond that:
+
+  * Backend selection. Elasticsearch is used when reachable and the SQL
+    implementation is the fallback. Both return the same SearchResult, and
+    the comparison command shows they agree, so falling back degrades
+    latency rather than correctness.
+  * Caching. The fully serialised payload is cached, not the SearchResult.
+    On a hit there is no database access, no Elasticsearch call, and no
+    serialisation — which is most of the work.
 
 Pagination is assembled by hand rather than through DRF's paginator. The
 service returns a dataclass, not a queryset, because the ranking is
-computed in SQL the ORM cannot express — so there is nothing for
-PageNumberPagination to slice. The response shape still matches the rest
-of the API so clients need no special case.
+computed in SQL and Painless that the ORM cannot express. The response
+shape still matches the rest of the API so clients need no special case.
 """
 
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from . import moods
+from . import cache, moods
+from .es_service import ElasticCoverageSearch
 from .serializers import RecipeMatchSerializer, RecommendationQuerySerializer
 from .services import CoverageSearch
 
@@ -23,8 +33,8 @@ class MoodCatalogView(APIView):
     """
     GET /api/v1/recommendations/moods/
 
-    Public: the client needs this to render filter options before the user
-    has logged in, and it exposes nothing about anyone's data.
+    Public: the client needs this to render filter options before login,
+    and it exposes nothing about anyone's data.
     """
 
     permission_classes = [AllowAny]
@@ -47,6 +57,7 @@ class RecommendationView(APIView):
           mood          comma-separated mood keys, AND-ed together
           order         best | quickest | simplest
           limit, offset
+          backend       sql | es  (override, for benchmarking)
         """
         query = RecommendationQuerySerializer(data=request.query_params)
         query.is_valid(raise_exception=True)
@@ -55,12 +66,13 @@ class RecommendationView(APIView):
         limit = params.pop("limit")
         offset = params.pop("offset")
         mood_keys = params.pop("mood", [])
+        backend_override = params.pop("backend", None)
 
         pantry_ids = CoverageSearch.pantry_ingredient_ids(request.user)
 
         # An empty pantry is not an error, but it is worth distinguishing
         # from "we searched and found nothing" — the client should prompt
-        # the user to add ingredients rather than suggest loosening filters.
+        # the user to add ingredients rather than loosen filters.
         if not pantry_ids:
             return Response(
                 {
@@ -74,7 +86,23 @@ class RecommendationView(APIView):
                 }
             )
 
-        result = CoverageSearch.search(
+        cache_params = {
+            **params,
+            "limit": limit,
+            "offset": offset,
+            "mood": mood_keys,
+            "backend": backend_override,
+        }
+        cache_key = cache.build_key(request.user.pk, pantry_ids, cache_params)
+
+        cached = cache.get(cache_key)
+        if cached is not None:
+            # Reported so the effect is observable rather than asserted.
+            return Response({**cached, "cached": True})
+
+        backend, backend_name = self._select_backend(backend_override)
+
+        result = backend.search(
             pantry_ids,
             limit=limit,
             offset=offset,
@@ -82,22 +110,42 @@ class RecommendationView(APIView):
             **params,
         )
 
-        return Response(
-            {
-                "count": result.total,
-                "next": self._page_url(request, offset + limit, limit, result.total),
-                "previous": (
-                    self._page_url(request, max(offset - limit, 0), limit, result.total)
-                    if offset > 0
-                    else None
-                ),
-                "pantry_size": len(pantry_ids),
-                # Echoed back so the client can show which filters are
-                # active without re-parsing the query string.
-                "moods_applied": mood_keys,
-                "results": RecipeMatchSerializer(result.matches, many=True).data,
-            }
-        )
+        payload = {
+            "count": result.total,
+            "next": self._page_url(request, offset + limit, limit, result.total),
+            "previous": (
+                self._page_url(request, max(offset - limit, 0), limit, result.total)
+                if offset > 0
+                else None
+            ),
+            "pantry_size": len(pantry_ids),
+            # Echoed back so the client can show active filters without
+            # re-parsing the query string.
+            "moods_applied": mood_keys,
+            "backend": backend_name,
+            "results": RecipeMatchSerializer(result.matches, many=True).data,
+        }
+
+        cache.set(cache_key, payload)
+        return Response({**payload, "cached": False})
+
+    @staticmethod
+    def _select_backend(override):
+        """
+        Elasticsearch when available, SQL otherwise.
+
+        The availability check is a ping, so a dead cluster costs one failed
+        connection rather than a 500. The comparison command establishes
+        that both backends return the same results, which is what makes an
+        automatic fallback safe.
+        """
+        if override == "sql":
+            return CoverageSearch, "sql"
+        if override == "es":
+            return ElasticCoverageSearch, "es"
+        if ElasticCoverageSearch.available():
+            return ElasticCoverageSearch, "es"
+        return CoverageSearch, "sql"
 
     @staticmethod
     def _page_url(request, new_offset, limit, total):
