@@ -43,4 +43,5 @@ htmlcov/
 .docker/
 
 # ── Migrations (keep these — they're intentional) ─────────────────────────────
-# !*/migrations/*.py
+# !*/migrations/*.pydata/raw/
+data/raw/
