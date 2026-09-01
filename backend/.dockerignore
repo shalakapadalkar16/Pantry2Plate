@@ -1,0 +1,30 @@
+# Anything not needed to run the app. Keeps the build context small and
+# stops local state leaking into the image.
+
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+.git/
+.gitignore
+.dockerignore
+Dockerfile
+
+# Secrets must come from the environment, never from a baked-in file.
+.env
+
+# The raw corpus is 280MB. It is mounted at runtime, not copied in.
+data/raw/
+
+.pytest_cache/
+.coverage
+htmlcov/
+staticfiles/
+
+.vscode/
+.idea/
+.DS_Store
+
+*.md

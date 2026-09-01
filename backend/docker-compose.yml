@@ -1,4 +1,5 @@
-version: "3.9"
+# `version` removed - obsolete in Compose V2 and it printed a warning on
+# every single command.
 
 services:
   db:
@@ -12,7 +13,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
       interval: 5s
       timeout: 5s
       retries: 5
@@ -47,6 +48,54 @@ services:
       timeout: 10s
       retries: 10
 
+  web:
+    build: .
+    environment:
+      DJANGO_SETTINGS_MODULE: config.settings.prod
+      DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY}
+      # Service names, not localhost - inside the network each container is
+      # its own localhost.
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+      REDIS_URL: redis://redis:6379/0
+      ELASTICSEARCH_URL: http://elasticsearch:9200
+      DJANGO_ALLOWED_HOSTS: ${DJANGO_ALLOWED_HOSTS:-localhost,127.0.0.1,web,nginx}
+      CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:-http://localhost,http://localhost:5173}
+      # Off by default: this runs over plain HTTP locally, and prod
+      # settings with SSL redirect enabled produce an infinite redirect
+      # loop the moment you open the site.
+      SECURE_SSL_REDIRECT: ${SECURE_SSL_REDIRECT:-False}
+    volumes:
+      # Static files are written by the web container and read by nginx.
+      - static_files:/app/staticfiles
+      # The 280MB corpus stays on the host. Copying it into the image would
+      # make every rebuild slow for a file only two commands ever read.
+      - ./data/raw:/app/data/raw:ro
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      elasticsearch:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://localhost:8000/api/v1/recommendations/moods/ || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 40s
+
+  nginx:
+    image: nginx:1.27-alpine
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - static_files:/var/www/static:ro
+    depends_on:
+      web:
+        condition: service_started
+
 volumes:
   postgres_data:
   es_data:
+  static_files:
