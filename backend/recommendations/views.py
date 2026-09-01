@@ -5,18 +5,32 @@ Thin, as with pantry: validate, delegate to the service, serialize.
 
 Pagination is assembled by hand rather than through DRF's paginator. The
 service returns a dataclass, not a queryset, because the ranking is
-computed in SQL that the ORM cannot express — so there is nothing for
+computed in SQL the ORM cannot express — so there is nothing for
 PageNumberPagination to slice. The response shape still matches the rest
 of the API so clients need no special case.
 """
 
-from rest_framework import status
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from . import moods
 from .serializers import RecipeMatchSerializer, RecommendationQuerySerializer
-from .services import CoverageSearch, RecommendationService
+from .services import CoverageSearch
+
+
+class MoodCatalogView(APIView):
+    """
+    GET /api/v1/recommendations/moods/
+
+    Public: the client needs this to render filter options before the user
+    has logged in, and it exposes nothing about anyone's data.
+    """
+
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        return Response({"moods": moods.catalog()})
 
 
 class RecommendationView(APIView):
@@ -30,8 +44,8 @@ class RecommendationView(APIView):
           max_missing   how many ingredients you are willing to buy (default 0)
           min_required  ignore recipes with fewer required ingredients (default 3)
           max_minutes   cook time ceiling
+          mood          comma-separated mood keys, AND-ed together
           order         best | quickest | simplest
-          tags          comma-separated tag filter
           limit, offset
         """
         query = RecommendationQuerySerializer(data=request.query_params)
@@ -40,6 +54,7 @@ class RecommendationView(APIView):
 
         limit = params.pop("limit")
         offset = params.pop("offset")
+        mood_keys = params.pop("mood", [])
 
         pantry_ids = CoverageSearch.pantry_ingredient_ids(request.user)
 
@@ -53,25 +68,33 @@ class RecommendationView(APIView):
                     "next": None,
                     "previous": None,
                     "pantry_size": 0,
+                    "moods_applied": [],
                     "results": [],
                     "detail": "Add ingredients to your pantry to get recommendations.",
                 }
             )
 
         result = CoverageSearch.search(
-            pantry_ids, limit=limit, offset=offset, **params
+            pantry_ids,
+            limit=limit,
+            offset=offset,
+            tag_groups=moods.resolve(mood_keys),
+            **params,
         )
 
         return Response(
             {
                 "count": result.total,
                 "next": self._page_url(request, offset + limit, limit, result.total),
-                "previous": self._page_url(
-                    request, max(offset - limit, 0), limit, result.total
-                )
-                if offset > 0
-                else None,
+                "previous": (
+                    self._page_url(request, max(offset - limit, 0), limit, result.total)
+                    if offset > 0
+                    else None
+                ),
                 "pantry_size": len(pantry_ids),
+                # Echoed back so the client can show which filters are
+                # active without re-parsing the query string.
+                "moods_applied": mood_keys,
                 "results": RecipeMatchSerializer(result.matches, many=True).data,
             }
         )
@@ -145,6 +168,5 @@ class RecipeDetailView(APIView):
                     "missing": sum(1 for i in ingredients if i["state"] == "missing"),
                     "unknown": sum(1 for i in ingredients if i["state"] == "unknown"),
                 },
-            },
-            status=status.HTTP_200_OK,
+            }
         )

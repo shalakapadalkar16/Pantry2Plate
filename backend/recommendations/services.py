@@ -53,9 +53,9 @@ class SearchResult:
 
 # Fewest missing first, then GREATEST OVERLAP.
 #
-# Ordering by coverage was the first attempt and it was wrong: once
+# Ordering by coverage ratio was the first attempt and it was wrong: once
 # missing = 0, every recipe has coverage exactly 1.0, so the ratio carries
-# no information and the tiebreak decided everything. The results were
+# no information and the tiebreak decided everything. Results were
 # two-ingredient recipes — "roast onions", "salty milk biscuits" — which
 # are technically cookable and useless as recommendations.
 #
@@ -83,22 +83,28 @@ class CoverageSearch:
     # ----------------------------------------------------------------- sql
 
     @staticmethod
-    def _where_clause(*, tags, max_minutes, min_required) -> str:
+    def _where_clause(*, tag_groups, max_minutes, min_required) -> str:
         filters = [
             "(r.n_required - m.have) <= %(max_missing)s",
             "r.n_required > 0",
             # Candidate pruning. A recipe needing more ingredients than the
             # pantry can possibly cover cannot qualify, and n_required is
-            # indexed — so this is a cheap filter that removes most of the
-            # corpus before the expensive sort.
+            # indexed — a cheap filter that removes most of the corpus
+            # before the expensive sort.
             "r.n_required <= %(max_possible_required)s",
         ]
         if min_required:
             filters.append("r.n_required >= %(min_required)s")
-        if tags:
-            # Array overlap — the recipe carries at least one of the mood's
-            # tags. Uses the GIN index on recipes_recipe.tags.
-            filters.append("r.tags && %(tags)s")
+
+        # One overlap test per mood. Tags within a mood are OR (array
+        # overlap); moods are AND (separate conditions). Someone asking for
+        # quick AND vegetarian means both, not either.
+        for index in range(len(tag_groups or [])):
+            # Explicit cast required: r.tags is varchar[] (ArrayField of
+            # CharField) while psycopg2 sends a Python list as text[],
+            # and Postgres has no varchar[] && text[] operator.
+            filters.append(f"r.tags && %(tags_{index})s::varchar[]")
+
         if max_minutes:
             filters.append("r.minutes IS NOT NULL AND r.minutes <= %(max_minutes)s")
         return " AND ".join(filters)
@@ -111,7 +117,7 @@ class CoverageSearch:
         max_missing: int = 0,
         limit: int = 20,
         offset: int = 0,
-        tags: list[str] | None = None,
+        tag_groups: list[list[str]] | None = None,
         max_minutes: int | None = None,
         min_required: int | None = 3,
         order: str = "best",
@@ -128,15 +134,17 @@ class CoverageSearch:
         if not pantry_ids:
             return SearchResult([], 0, offset, limit)
 
+        tag_groups = tag_groups or []
         where = cls._where_clause(
-            tags=tags, max_minutes=max_minutes, min_required=min_required
+            tag_groups=tag_groups,
+            max_minutes=max_minutes,
+            min_required=min_required,
         )
         order_by = ORDERINGS.get(order, ORDERINGS["best"])
 
-        # COUNT(*) OVER () gives the total in the same pass as the page.
-        # The previous version ran the aggregate twice — once for rows, once
-        # for a count — which doubled the work for a number shown in a
-        # pagination header.
+        # COUNT(*) OVER () gives the total in the same pass as the page. An
+        # earlier version ran the aggregate twice — once for rows, once for
+        # a count — doubling the work for a number in a pagination header.
         sql = f"""
             WITH matches AS (
                 SELECT recipe_id, COUNT(*) AS have
@@ -163,11 +171,12 @@ class CoverageSearch:
             "max_missing": max_missing,
             "max_possible_required": len(pantry_ids) + max_missing,
             "min_required": min_required,
-            "tags": tags or [],
             "max_minutes": max_minutes,
             "limit": limit,
             "offset": offset,
         }
+        for index, group in enumerate(tag_groups):
+            params[f"tags_{index}"] = group
 
         with connection.cursor() as cursor:
             cursor.execute(sql, params)

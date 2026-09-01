@@ -2,7 +2,10 @@ from rest_framework import serializers
 
 from recipes.models import Recipe
 
+from . import moods
+
 MAX_LIMIT = 50
+MAX_MOODS = 4
 
 
 class RecipeSummarySerializer(serializers.ModelSerializer):
@@ -70,10 +73,29 @@ class RecommendationQuerySerializer(serializers.Serializer):
     order = serializers.ChoiceField(
         required=False, default="best", choices=["best", "quickest", "simplest"]
     )
-    tags = serializers.CharField(required=False, allow_blank=True)
+    mood = serializers.CharField(required=False, allow_blank=True)
 
-    def validate_tags(self, value):
-        """Comma-separated in the URL, a list internally."""
+    def validate_mood(self, value):
+        """
+        Comma-separated mood keys in the URL, tag groups internally.
+
+        An unknown key is rejected rather than ignored. Silently dropping a
+        filter returns results the user did not ask for, with no way for
+        them to tell it happened.
+        """
         if not value:
             return []
-        return [t.strip() for t in value.split(",") if t.strip()][:10]
+
+        keys = [k.strip() for k in value.split(",") if k.strip()]
+        if len(keys) > MAX_MOODS:
+            raise serializers.ValidationError(
+                f"At most {MAX_MOODS} moods at once."
+            )
+
+        unknown = [k for k in keys if k not in moods.MOODS]
+        if unknown:
+            raise serializers.ValidationError(
+                f"Unknown mood: {', '.join(unknown)}. "
+                f"See /api/v1/recommendations/moods/ for valid keys."
+            )
+        return keys
