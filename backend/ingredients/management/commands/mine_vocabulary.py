@@ -2,22 +2,24 @@
 Measure the gap between the current vocabulary and real recipe text.
 
 Streams the corpus, counts every distinct ingredient string, runs each one
-through the matcher, and reports coverage two ways:
+through the matcher, and reports coverage.
 
-  * occurrence-weighted — the number that matters. 'salt' appearing 90,000
-    times counts 90,000 times. This is what a user experiences.
-  * distinct-string     — how much of the long tail is covered. Always
-    much lower, and mostly not worth chasing.
+Since compound splitting landed, a string has three possible outcomes
+rather than two, and collapsing them would hide which problem is which:
 
-Also writes the highest-frequency unmatched strings to a JSON file so
-curation is driven by data rather than guesswork.
+  * full     — every part resolved
+  * partial  — some parts resolved, at least one did not ("salt and
+               unobtainium"). Counted as a miss for coverage, because a
+               recipe with an unknown fragment can never be fully cooked
+               from a pantry.
+  * none     — nothing resolved
 
     python manage.py mine_vocabulary
-    python manage.py mine_vocabulary --limit 20000 --top 500
+    python manage.py mine_vocabulary --limit 20000 --no-fuzzy
 
-Uses only the standard library. Pandas would be convenient for a one-off
-analysis, but it is a large dependency to add to a production requirements
-file for a script that streams a CSV once.
+Uses only the standard library. Pandas would be convenient, but it is a
+large dependency to add to a production requirements file for a script
+that streams a CSV once.
 """
 
 import ast
@@ -33,7 +35,6 @@ from django.core.management.base import BaseCommand, CommandError
 DEFAULT_SOURCE = "data/raw/RAW_recipes.csv"
 DEFAULT_OUTPUT = "data/vocabulary_report.json"
 
-# Steps and descriptions blow past the default CSV field limit.
 csv.field_size_limit(sys.maxsize)
 
 
@@ -43,16 +44,12 @@ class Command(BaseCommand):
     def add_arguments(self, parser):
         parser.add_argument("--path", default=DEFAULT_SOURCE)
         parser.add_argument("--output", default=DEFAULT_OUTPUT)
-        parser.add_argument(
-            "--limit", type=int, default=0, help="Stop after N recipes (0 = all)."
-        )
-        parser.add_argument(
-            "--top", type=int, default=400, help="How many unmatched strings to report."
-        )
+        parser.add_argument("--limit", type=int, default=0)
+        parser.add_argument("--top", type=int, default=400)
         parser.add_argument(
             "--no-fuzzy",
             action="store_true",
-            help="Measure deterministic rungs only. The honest lower bound.",
+            help="Deterministic rungs only. The honest lower bound.",
         )
 
     def handle(self, *args, **options):
@@ -63,7 +60,6 @@ class Command(BaseCommand):
             raise CommandError(f"Corpus not found: {path}")
 
         counts, recipes, malformed, samples = self._read(path, options["limit"])
-
         if not counts:
             raise CommandError("No ingredients parsed. Check the column name.")
 
@@ -74,34 +70,54 @@ class Command(BaseCommand):
         matcher.load()
         allow_fuzzy = not options["no_fuzzy"]
 
-        matched_distinct = 0
-        matched_occurrences = 0
+        full_occ = partial_occ = none_occ = 0
+        full_distinct = partial_distinct = 0
         by_method = Counter()
+        compound_occ = 0
         unmatched: list[tuple[str, int]] = []
+        partial_examples: list[tuple[str, int]] = []
 
         for raw, count in counts.items():
-            result = matcher.match(raw, allow_fuzzy=allow_fuzzy)
-            if result.matched:
-                matched_distinct += 1
-                matched_occurrences += count
-                by_method[result.method] += count
+            results = matcher.match_all(raw, allow_fuzzy=allow_fuzzy)
+            resolved = [r for r in results if r.matched]
+
+            if len(results) > 1:
+                compound_occ += count
+
+            for r in resolved:
+                by_method[r.method] += count
+
+            if resolved and len(resolved) == len(results):
+                full_occ += count
+                full_distinct += 1
+            elif resolved:
+                partial_occ += count
+                partial_distinct += 1
+                partial_examples.append((raw, count))
             else:
+                none_occ += count
                 unmatched.append((raw, count))
 
         total_distinct = len(counts)
-        total_occurrences = sum(counts.values())
-        unmatched.sort(key=lambda pair: -pair[1])
+        total_occ = sum(counts.values())
+        unmatched.sort(key=lambda p: -p[1])
+        partial_examples.sort(key=lambda p: -p[1])
 
         self._report(
             recipes=recipes,
             malformed=malformed,
             total_distinct=total_distinct,
-            total_occurrences=total_occurrences,
-            matched_distinct=matched_distinct,
-            matched_occurrences=matched_occurrences,
+            total_occ=total_occ,
+            full_occ=full_occ,
+            partial_occ=partial_occ,
+            none_occ=none_occ,
+            full_distinct=full_distinct,
+            partial_distinct=partial_distinct,
+            compound_occ=compound_occ,
             by_method=by_method,
             counts=counts,
             unmatched=unmatched,
+            partial_examples=partial_examples,
         )
 
         out_path = Path(settings.BASE_DIR) / options["output"]
@@ -111,13 +127,17 @@ class Command(BaseCommand):
                 {
                     "recipes": recipes,
                     "distinct_strings": total_distinct,
-                    "total_occurrences": total_occurrences,
-                    "matched_distinct": matched_distinct,
-                    "matched_occurrences": matched_occurrences,
+                    "total_occurrences": total_occ,
+                    "fully_resolved_occurrences": full_occ,
+                    "partially_resolved_occurrences": partial_occ,
+                    "unresolved_occurrences": none_occ,
+                    "compound_occurrences": compound_occ,
                     "fuzzy_enabled": allow_fuzzy,
                     "unmatched_top": [
-                        {"text": text, "count": count}
-                        for text, count in unmatched[: options["top"]]
+                        {"text": t, "count": c} for t, c in unmatched[: options["top"]]
+                    ],
+                    "partial_top": [
+                        {"text": t, "count": c} for t, c in partial_examples[:100]
                     ],
                 },
                 indent=2,
@@ -135,15 +155,12 @@ class Command(BaseCommand):
         with path.open(newline="", encoding="utf-8") as handle:
             reader = csv.DictReader(handle)
             if "ingredients" not in reader.fieldnames:
-                raise CommandError(
-                    f"No 'ingredients' column. Found: {reader.fieldnames}"
-                )
+                raise CommandError(f"No 'ingredients' column: {reader.fieldnames}")
 
             for row in reader:
                 try:
-                    # The dump stores lists as Python literals inside CSV
-                    # cells, so this is literal_eval rather than a split.
-                    # literal_eval, never eval — the file is untrusted input.
+                    # Lists are stored as Python literals inside CSV cells.
+                    # literal_eval, never eval — this is untrusted input.
                     items = ast.literal_eval(row["ingredients"])
                 except (ValueError, SyntaxError):
                     malformed += 1
@@ -166,67 +183,60 @@ class Command(BaseCommand):
 
     # -------------------------------------------------------------- report
 
-    def _report(
-        self,
-        *,
-        recipes,
-        malformed,
-        total_distinct,
-        total_occurrences,
-        matched_distinct,
-        matched_occurrences,
-        by_method,
-        counts,
-        unmatched,
-    ):
+    def _report(self, **k):
         w = self.stdout.write
+        total_occ = k["total_occ"]
 
         w(f"\n{'=' * 62}")
         w("CORPUS")
         w(f"{'=' * 62}")
-        w(f"  recipes parsed        {recipes:,}")
-        w(f"  malformed rows        {malformed:,}")
-        w(f"  ingredient mentions   {total_occurrences:,}")
-        w(f"  distinct strings      {total_distinct:,}")
-        w(f"  mean per recipe       {total_occurrences / max(recipes, 1):.1f}")
+        w(f"  recipes parsed        {k['recipes']:,}")
+        w(f"  malformed rows        {k['malformed']:,}")
+        w(f"  ingredient mentions   {total_occ:,}")
+        w(f"  distinct strings      {k['total_distinct']:,}")
 
         w(f"\n{'=' * 62}")
-        w("MATCH RATE")
+        w("RESOLUTION (by occurrence)")
         w(f"{'=' * 62}")
-        occ_pct = 100 * matched_occurrences / total_occurrences
-        dist_pct = 100 * matched_distinct / total_distinct
-        w(f"  by occurrence         {occ_pct:5.1f}%  ({matched_occurrences:,})")
-        w(f"  by distinct string    {dist_pct:5.1f}%  ({matched_distinct:,})")
+        for label, value in (
+            ("fully resolved", k["full_occ"]),
+            ("partially resolved", k["partial_occ"]),
+            ("unresolved", k["none_occ"]),
+        ):
+            w(f"  {label:20} {100 * value / total_occ:5.1f}%  ({value:,})")
 
-        if by_method:
+        w(f"\n  compound strings     {100 * k['compound_occ'] / total_occ:5.1f}%"
+          f"  ({k['compound_occ']:,})")
+
+        if k["by_method"]:
+            resolved_total = sum(k["by_method"].values())
             w("\n  resolved via:")
-            for method, count in by_method.most_common():
-                share = 100 * count / matched_occurrences
-                w(f"    {method:14} {share:5.1f}%")
+            for method, count in k["by_method"].most_common():
+                w(f"    {method:14} {100 * count / resolved_total:5.1f}%")
 
-        # How much of real usage a curated vocabulary of size N would cover.
-        # Ingredient frequency is heavily skewed, so this curve is the
-        # argument for curating hundreds rather than thousands.
         w(f"\n{'=' * 62}")
         w("HEAD/TAIL — distinct strings needed for X% of all mentions")
         w(f"{'=' * 62}")
-        ordered = sorted(counts.values(), reverse=True)
-        running = 0
+        ordered = sorted(k["counts"].values(), reverse=True)
+        running, idx = 0, 0
         targets = [50, 80, 90, 95, 99]
-        idx = 0
         for rank, count in enumerate(ordered, start=1):
             running += count
-            while idx < len(targets) and running >= total_occurrences * targets[idx] / 100:
+            while idx < len(targets) and running >= total_occ * targets[idx] / 100:
                 w(f"  {targets[idx]:3d}%  →  {rank:,} strings")
                 idx += 1
             if idx >= len(targets):
                 break
 
+        if k["partial_examples"]:
+            w(f"\n{'=' * 62}")
+            w("PARTIALLY RESOLVED — one fragment still unknown")
+            w(f"{'=' * 62}")
+            for text, count in k["partial_examples"][:15]:
+                w(f"  {count:7,}  {text}")
+
         w(f"\n{'=' * 62}")
         w("TOP UNMATCHED — curate these first")
         w(f"{'=' * 62}")
-        for text, count in unmatched[:30]:
+        for text, count in k["unmatched"][:30]:
             w(f"  {count:7,}  {text}")
-
-        missed = sum(c for _, c in unmatched)
-        w(f"\n  top 30 cover {100 * sum(c for _, c in unmatched[:30]) / max(missed, 1):.1f}% of all misses")

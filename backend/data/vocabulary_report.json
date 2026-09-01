@@ -2,529 +2,19 @@
   "recipes": 231637,
   "distinct_strings": 14942,
   "total_occurrences": 2096582,
-  "matched_distinct": 1219,
-  "matched_occurrences": 1434800,
-  "fuzzy_enabled": false,
+  "fully_resolved_occurrences": 1814217,
+  "partially_resolved_occurrences": 2201,
+  "unresolved_occurrences": 280164,
+  "compound_occurrences": 24964,
+  "fuzzy_enabled": true,
   "unmatched_top": [
-    {
-      "text": "salt and pepper",
-      "count": 15415
-    },
-    {
-      "text": "garlic powder",
-      "count": 10887
-    },
-    {
-      "text": "oil",
-      "count": 9925
-    },
-    {
-      "text": "pecans",
-      "count": 5752
-    },
-    {
-      "text": "margarine",
-      "count": 5077
-    },
-    {
-      "text": "green pepper",
-      "count": 4301
-    },
-    {
-      "text": "buttermilk",
-      "count": 3825
-    },
-    {
-      "text": "ground ginger",
-      "count": 3655
-    },
-    {
-      "text": "onion powder",
-      "count": 3598
-    },
-    {
-      "text": "red wine vinegar",
-      "count": 3223
-    },
-    {
-      "text": "fresh ground pepper",
-      "count": 3220
-    },
-    {
-      "text": "salt & freshly ground black pepper",
-      "count": 3123
-    },
-    {
-      "text": "crushed red pepper flakes",
-      "count": 2936
-    },
-    {
-      "text": "dry mustard",
-      "count": 2839
-    },
-    {
-      "text": "white pepper",
-      "count": 2837
-    },
-    {
-      "text": "shortening",
-      "count": 2744
-    },
-    {
-      "text": "cheese",
-      "count": 2712
-    },
-    {
-      "text": "salsa",
-      "count": 2703
-    },
-    {
-      "text": "garlic salt",
-      "count": 2636
-    },
-    {
-      "text": "semi-sweet chocolate chips",
-      "count": 2606
-    },
-    {
-      "text": "red pepper flakes",
-      "count": 2602
-    },
-    {
-      "text": "sharp cheddar cheese",
-      "count": 2483
-    },
-    {
-      "text": "nuts",
-      "count": 2421
-    },
-    {
-      "text": "monterey jack cheese",
-      "count": 2411
-    },
-    {
-      "text": "half-and-half",
-      "count": 2265
-    },
-    {
-      "text": "seasoning salt",
-      "count": 2261
-    },
-    {
-      "text": "red pepper",
-      "count": 2252
-    },
-    {
-      "text": "tabasco sauce",
-      "count": 2188
-    },
-    {
-      "text": "salt & pepper",
-      "count": 2156
-    },
-    {
-      "text": "cream of mushroom soup",
-      "count": 2138
-    },
-    {
-      "text": "evaporated milk",
-      "count": 2129
-    },
-    {
-      "text": "cream",
-      "count": 2100
-    },
-    {
-      "text": "cooking spray",
-      "count": 2091
-    },
-    {
-      "text": "almond extract",
-      "count": 2046
-    },
-    {
-      "text": "swiss cheese",
-      "count": 2043
-    },
-    {
-      "text": "sweetened condensed milk",
-      "count": 1811
-    },
-    {
-      "text": "green chilies",
-      "count": 1810
-    },
-    {
-      "text": "cocoa",
-      "count": 1791
-    },
-    {
-      "text": "chives",
-      "count": 1757
-    },
-    {
-      "text": "molasses",
-      "count": 1740
-    },
-    {
-      "text": "pine nuts",
-      "count": 1663
-    },
-    {
-      "text": "ham",
-      "count": 1642
-    },
-    {
-      "text": "peanut oil",
-      "count": 1626
-    },
-    {
-      "text": "capers",
-      "count": 1623
-    },
-    {
-      "text": "allspice",
-      "count": 1588
-    },
-    {
-      "text": "ice",
-      "count": 1568
-    },
-    {
-      "text": "barbecue sauce",
-      "count": 1547
-    },
-    {
-      "text": "cream of chicken soup",
-      "count": 1531
-    },
-    {
-      "text": "pineapple juice",
-      "count": 1527
-    },
-    {
-      "text": "cornmeal",
-      "count": 1522
-    },
-    {
-      "text": "crushed pineapple",
-      "count": 1512
-    },
-    {
-      "text": "coconut",
-      "count": 1506
-    },
-    {
-      "text": "fresh dill",
-      "count": 1502
-    },
-    {
-      "text": "ricotta cheese",
-      "count": 1455
-    },
-    {
-      "text": "white wine vinegar",
-      "count": 1426
-    },
-    {
-      "text": "gingerroot",
-      "count": 1416
-    },
-    {
-      "text": "fresh chives",
-      "count": 1410
-    },
-    {
-      "text": "red potatoes",
-      "count": 1400
-    },
-    {
-      "text": "beer",
-      "count": 1373
-    },
-    {
-      "text": "whipped cream",
-      "count": 1365
-    },
-    {
-      "text": "cool whip",
-      "count": 1345
-    },
-    {
-      "text": "jalapeno pepper",
-      "count": 1333
-    },
-    {
-      "text": "dried cranberries",
-      "count": 1324
-    },
-    {
-      "text": "vodka",
-      "count": 1291
-    },
-    {
-      "text": "sweet onion",
-      "count": 1286
-    },
-    {
-      "text": "ground allspice",
-      "count": 1277
-    },
-    {
-      "text": "fish sauce",
-      "count": 1267
-    },
-    {
-      "text": "slivered almonds",
-      "count": 1259
-    },
-    {
-      "text": "bread flour",
-      "count": 1253
-    },
-    {
-      "text": "hot pepper sauce",
-      "count": 1228
-    },
-    {
-      "text": "blue cheese",
-      "count": 1196
-    },
-    {
-      "text": "applesauce",
-      "count": 1185
-    },
-    {
-      "text": "prepared mustard",
-      "count": 1178
-    },
-    {
-      "text": "dry sherry",
-      "count": 1177
-    },
-    {
-      "text": "low sodium chicken broth",
-      "count": 1166
-    },
-    {
-      "text": "vanilla ice cream",
-      "count": 1164
-    },
-    {
-      "text": "light corn syrup",
-      "count": 1164
-    },
-    {
-      "text": "hard-boiled eggs",
-      "count": 1150
-    },
-    {
-      "text": "ground pepper",
-      "count": 1078
-    },
-    {
-      "text": "cream of tartar",
-      "count": 1076
-    },
-    {
-      "text": "pork tenderloin",
-      "count": 1044
-    },
-    {
-      "text": "asparagus",
-      "count": 1040
-    },
-    {
-      "text": "french bread",
-      "count": 1037
-    },
-    {
-      "text": "apple juice",
-      "count": 1025
-    },
-    {
-      "text": "elbow macaroni",
-      "count": 1007
-    },
-    {
-      "text": "spaghetti sauce",
-      "count": 1001
-    },
-    {
-      "text": "celery seed",
-      "count": 994
-    },
-    {
-      "text": "splenda sugar substitute",
-      "count": 994
-    },
-    {
-      "text": "dry breadcrumbs",
-      "count": 990
-    },
-    {
-      "text": "dry red wine",
-      "count": 985
-    },
-    {
-      "text": "ground turkey",
-      "count": 971
-    },
-    {
-      "text": "brandy",
-      "count": 955
-    },
-    {
-      "text": "ground red pepper",
-      "count": 946
-    },
-    {
-      "text": "pumpkin",
-      "count": 944
-    },
-    {
-      "text": "peaches",
-      "count": 928
-    },
-    {
-      "text": "graham cracker crumbs",
-      "count": 913
-    },
-    {
-      "text": "green peppers",
-      "count": 899
-    },
-    {
-      "text": "yellow cake mix",
-      "count": 898
-    },
-    {
-      "text": "salt and black pepper",
-      "count": 898
-    },
-    {
-      "text": "ice cubes",
-      "count": 884
-    },
-    {
-      "text": "cottage cheese",
-      "count": 876
-    },
-    {
-      "text": "velveeta cheese",
-      "count": 869
-    },
-    {
-      "text": "stewed tomatoes",
-      "count": 868
-    },
-    {
-      "text": "sherry wine",
-      "count": 862
-    },
-    {
-      "text": "taco seasoning",
-      "count": 861
-    },
-    {
-      "text": "orange rind",
-      "count": 860
-    },
-    {
-      "text": "hoisin sauce",
-      "count": 859
-    },
-    {
-      "text": "nonfat milk",
-      "count": 855
-    },
-    {
-      "text": "low sodium soy sauce",
-      "count": 852
-    },
-    {
-      "text": "tortilla chips",
-      "count": 851
-    },
-    {
-      "text": "flaked coconut",
-      "count": 848
-    },
-    {
-      "text": "jalapeno peppers",
-      "count": 848
-    },
-    {
-      "text": "rum",
-      "count": 844
-    },
-    {
-      "text": "ground cardamom",
-      "count": 839
-    },
-    {
-      "text": "cake flour",
-      "count": 838
-    },
-    {
-      "text": "butternut squash",
-      "count": 825
-    },
-    {
-      "text": "celery salt",
-      "count": 820
-    },
-    {
-      "text": "cooked ham",
-      "count": 819
-    },
-    {
-      "text": "half-and-half cream",
-      "count": 817
-    },
-    {
-      "text": "dates",
-      "count": 813
-    },
-    {
-      "text": "fresh coarse ground black pepper",
-      "count": 790
-    },
-    {
-      "text": "lemon peel",
-      "count": 788
-    },
-    {
-      "text": "yellow cornmeal",
-      "count": 776
-    },
     {
       "text": "fresh basil leaf",
       "count": 766
     },
     {
-      "text": "dill weed",
-      "count": 764
-    },
-    {
-      "text": "pineapple",
-      "count": 756
-    },
-    {
-      "text": "provolone cheese",
-      "count": 755
-    },
-    {
-      "text": "sage",
-      "count": 753
-    },
-    {
       "text": "goat cheese",
       "count": 751
-    },
-    {
-      "text": "black peppercorns",
-      "count": 749
     },
     {
       "text": "poultry seasoning",
@@ -535,132 +25,32 @@
       "count": 738
     },
     {
-      "text": "unsweetened applesauce",
-      "count": 734
-    },
-    {
-      "text": "prepared horseradish",
-      "count": 728
-    },
-    {
       "text": "quick-cooking oats",
       "count": 728
-    },
-    {
-      "text": "american cheese",
-      "count": 725
-    },
-    {
-      "text": "sunflower seeds",
-      "count": 719
-    },
-    {
-      "text": "unbleached all-purpose flour",
-      "count": 715
     },
     {
       "text": "golden raisin",
       "count": 715
     },
     {
-      "text": "tomato juice",
-      "count": 712
-    },
-    {
       "text": "liquid smoke",
       "count": 709
-    },
-    {
-      "text": "egg noodles",
-      "count": 709
-    },
-    {
-      "text": "hamburger buns",
-      "count": 708
     },
     {
       "text": "pinto beans",
       "count": 702
     },
     {
-      "text": "pumpkin pie spice",
-      "count": 701
-    },
-    {
-      "text": "mango",
-      "count": 700
-    },
-    {
-      "text": "cajun seasoning",
-      "count": 699
-    },
-    {
-      "text": "dill",
-      "count": 699
-    },
-    {
-      "text": "crabmeat",
-      "count": 698
-    },
-    {
       "text": "penne pasta",
       "count": 695
-    },
-    {
-      "text": "nonstick cooking spray",
-      "count": 693
-    },
-    {
-      "text": "artichoke hearts",
-      "count": 688
     },
     {
       "text": "bittersweet chocolate",
       "count": 682
     },
     {
-      "text": "corn syrup",
-      "count": 681
-    },
-    {
-      "text": "pepperoni",
-      "count": 677
-    },
-    {
-      "text": "prosciutto",
-      "count": 675
-    },
-    {
-      "text": "lemon rind",
-      "count": 672
-    },
-    {
-      "text": "apple cider",
-      "count": 672
-    },
-    {
-      "text": "light cream",
-      "count": 671
-    },
-    {
-      "text": "sweet red pepper",
-      "count": 668
-    },
-    {
       "text": "parmigiano-reggiano cheese",
       "count": 665
-    },
-    {
-      "text": "ice cube",
-      "count": 664
-    },
-    {
-      "text": "couscous",
-      "count": 664
-    },
-    {
-      "text": "pecan halves",
-      "count": 664
     },
     {
       "text": "sauerkraut",
@@ -683,24 +73,12 @@
       "count": 655
     },
     {
-      "text": "fresh gingerroot",
-      "count": 655
-    },
-    {
       "text": "white chocolate chips",
       "count": 654
     },
     {
-      "text": "taco seasoning mix",
-      "count": 651
-    },
-    {
       "text": "catsup",
       "count": 649
-    },
-    {
-      "text": "dark rum",
-      "count": 641
     },
     {
       "text": "romano cheese",
@@ -709,10 +87,6 @@
     {
       "text": "dried apricot",
       "count": 636
-    },
-    {
-      "text": "pumpkin puree",
-      "count": 635
     },
     {
       "text": "egg substitute",
@@ -727,32 +101,12 @@
       "count": 630
     },
     {
-      "text": "caraway seed",
-      "count": 628
-    },
-    {
       "text": "onion soup mix",
       "count": 626
     },
     {
-      "text": "dry yeast",
-      "count": 621
-    },
-    {
-      "text": "chocolate syrup",
-      "count": 619
-    },
-    {
       "text": "chicken wings",
       "count": 619
-    },
-    {
-      "text": "mustard powder",
-      "count": 618
-    },
-    {
-      "text": "oyster sauce",
-      "count": 616
     },
     {
       "text": "lemon pepper",
@@ -763,35 +117,15 @@
       "count": 608
     },
     {
-      "text": "old bay seasoning",
-      "count": 608
-    },
-    {
       "text": "fresh parsley leaves",
       "count": 607
-    },
-    {
-      "text": "yellow squash",
-      "count": 606
-    },
-    {
-      "text": "cranberry juice",
-      "count": 606
     },
     {
       "text": "refried beans",
       "count": 599
     },
     {
-      "text": "diced green chilies",
-      "count": 594
-    },
-    {
       "text": "orange marmalade",
-      "count": 592
-    },
-    {
-      "text": "corn flakes",
       "count": 592
     },
     {
@@ -803,80 +137,16 @@
       "count": 589
     },
     {
-      "text": "cranberries",
-      "count": 587
-    },
-    {
-      "text": "raspberries",
-      "count": 585
-    },
-    {
-      "text": "fennel seed",
-      "count": 584
-    },
-    {
-      "text": "mandarin oranges",
-      "count": 581
-    },
-    {
-      "text": "vegetable shortening",
-      "count": 580
-    },
-    {
       "text": "grape tomatoes",
       "count": 579
-    },
-    {
-      "text": "bean sprouts",
-      "count": 574
-    },
-    {
-      "text": "kahlua",
-      "count": 565
-    },
-    {
-      "text": "light sour cream",
-      "count": 564
-    },
-    {
-      "text": "horseradish",
-      "count": 563
-    },
-    {
-      "text": "fresh cranberries",
-      "count": 563
-    },
-    {
-      "text": "fresh sage",
-      "count": 561
-    },
-    {
-      "text": "marjoram",
-      "count": 560
     },
     {
       "text": "wheat germ",
       "count": 556
     },
     {
-      "text": "pears",
-      "count": 551
-    },
-    {
       "text": "gruyere cheese",
       "count": 549
-    },
-    {
-      "text": "canned pumpkin",
-      "count": 546
-    },
-    {
-      "text": "whipped topping",
-      "count": 545
-    },
-    {
-      "text": "tomato soup",
-      "count": 543
     },
     {
       "text": "pizza sauce",
@@ -885,10 +155,6 @@
     {
       "text": "sun-dried tomato",
       "count": 543
-    },
-    {
-      "text": "light mayonnaise",
-      "count": 542
     },
     {
       "text": "orzo pasta",
@@ -903,88 +169,20 @@
       "count": 531
     },
     {
-      "text": "tahini",
-      "count": 530
-    },
-    {
-      "text": "lasagna noodles",
-      "count": 529
-    },
-    {
-      "text": "red peppers",
-      "count": 526
-    },
-    {
-      "text": "white chocolate",
-      "count": 525
-    },
-    {
       "text": "lemon wedge",
       "count": 524
-    },
-    {
-      "text": "unsweetened cocoa",
-      "count": 522
     },
     {
       "text": "fresh cilantro leaves",
       "count": 521
     },
     {
-      "text": "dried marjoram",
-      "count": 521
-    },
-    {
-      "text": "italian dressing",
-      "count": 520
-    },
-    {
-      "text": "marshmallows",
-      "count": 515
-    },
-    {
-      "text": "unflavored gelatin",
-      "count": 514
-    },
-    {
-      "text": "self-rising flour",
-      "count": 514
-    },
-    {
-      "text": "roasted red peppers",
-      "count": 511
-    },
-    {
       "text": "milk chocolate chips",
       "count": 511
     },
     {
-      "text": "pineapple chunks",
-      "count": 509
-    },
-    {
-      "text": "bourbon",
-      "count": 509
-    },
-    {
-      "text": "salad oil",
-      "count": 508
-    },
-    {
-      "text": "snow peas",
-      "count": 506
-    },
-    {
       "text": "red food coloring",
       "count": 502
-    },
-    {
-      "text": "roasted red pepper",
-      "count": 500
-    },
-    {
-      "text": "dried sage",
-      "count": 500
     },
     {
       "text": "whole wheat bread",
@@ -999,52 +197,12 @@
       "count": 496
     },
     {
-      "text": "ranch dressing",
-      "count": 495
-    },
-    {
       "text": "dried parsley flakes",
       "count": 488
     },
     {
-      "text": "dried tarragon",
-      "count": 488
-    },
-    {
-      "text": "quick oats",
-      "count": 487
-    },
-    {
-      "text": "reduced-sodium chicken broth",
-      "count": 487
-    },
-    {
-      "text": "mangoes",
-      "count": 481
-    },
-    {
-      "text": "chicken bouillon cubes",
-      "count": 479
-    },
-    {
-      "text": "teriyaki sauce",
-      "count": 478
-    },
-    {
-      "text": "maraschino cherry",
-      "count": 478
-    },
-    {
-      "text": "unbleached flour",
-      "count": 478
-    },
-    {
       "text": "miracle whip",
       "count": 477
-    },
-    {
-      "text": "coffee",
-      "count": 476
     },
     {
       "text": "dry onion soup mix",
@@ -1055,84 +213,28 @@
       "count": 472
     },
     {
-      "text": "marinara sauce",
-      "count": 471
-    },
-    {
-      "text": "fresh tarragon",
-      "count": 471
-    },
-    {
       "text": "asiago cheese",
       "count": 466
-    },
-    {
-      "text": "cherry pie filling",
-      "count": 464
     },
     {
       "text": "sun-dried tomatoes",
       "count": 463
     },
     {
-      "text": "sweetened flaked coconut",
-      "count": 462
-    },
-    {
       "text": "lime wedge",
       "count": 461
-    },
-    {
-      "text": "poppy seed",
-      "count": 459
     },
     {
       "text": "frozen mixed vegetables",
       "count": 459
     },
     {
-      "text": "cream of celery soup",
-      "count": 458
-    },
-    {
-      "text": "angel hair pasta",
-      "count": 457
-    },
-    {
-      "text": "macadamia nuts",
-      "count": 457
-    },
-    {
-      "text": "self raising flour",
-      "count": 454
-    },
-    {
-      "text": "instant vanilla pudding",
-      "count": 453
-    },
-    {
-      "text": "pasta sauce",
-      "count": 453
-    },
-    {
       "text": "cilantro leaf",
       "count": 453
     },
     {
-      "text": "salt & fresh ground pepper",
-      "count": 452
-    },
-    {
-      "text": "orange peel",
-      "count": 449
-    },
-    {
       "text": "lemongrass",
       "count": 448
-    },
-    {
-      "text": "bisquick",
-      "count": 444
     },
     {
       "text": "vegetable oil cooking spray",
@@ -1143,24 +245,8 @@
       "count": 442
     },
     {
-      "text": "powdered milk",
-      "count": 441
-    },
-    {
-      "text": "tarragon",
-      "count": 439
-    },
-    {
       "text": "part-skim mozzarella cheese",
       "count": 439
-    },
-    {
-      "text": "instant coffee",
-      "count": 438
-    },
-    {
-      "text": "hazelnuts",
-      "count": 438
     },
     {
       "text": "rhubarb",
@@ -1171,32 +257,8 @@
       "count": 436
     },
     {
-      "text": "lemon, rind of",
-      "count": 434
-    },
-    {
-      "text": "water chestnuts",
-      "count": 434
-    },
-    {
-      "text": "ground mustard",
-      "count": 433
-    },
-    {
-      "text": "dried dill",
-      "count": 428
-    },
-    {
       "text": "refrigerated crescent dinner rolls",
       "count": 422
-    },
-    {
-      "text": "new potatoes",
-      "count": 421
-    },
-    {
-      "text": "ginger ale",
-      "count": 420
     },
     {
       "text": "vegetables",
@@ -1207,20 +269,8 @@
       "count": 416
     },
     {
-      "text": "ground cayenne pepper",
-      "count": 415
-    },
-    {
-      "text": "triple sec",
-      "count": 412
-    },
-    {
       "text": "portabella mushrooms",
       "count": 412
-    },
-    {
-      "text": "condensed cream of mushroom soup",
-      "count": 411
     },
     {
       "text": "creamed corn",
@@ -1231,18 +281,6 @@
       "count": 410
     },
     {
-      "text": "reduced sodium soy sauce",
-      "count": 408
-    },
-    {
-      "text": "plain breadcrumbs",
-      "count": 408
-    },
-    {
-      "text": "self-raising flour",
-      "count": 407
-    },
-    {
       "text": "grenadine",
       "count": 407
     },
@@ -1251,16 +289,8 @@
       "count": 407
     },
     {
-      "text": "dark sesame oil",
-      "count": 407
-    },
-    {
       "text": "italian bread",
       "count": 405
-    },
-    {
-      "text": "club soda",
-      "count": 404
     },
     {
       "text": "smoked sausage",
@@ -1271,14 +301,6 @@
       "count": 402
     },
     {
-      "text": "lemon extract",
-      "count": 400
-    },
-    {
-      "text": "maraschino cherries",
-      "count": 399
-    },
-    {
       "text": "rice flour",
       "count": 399
     },
@@ -1287,24 +309,12 @@
       "count": 399
     },
     {
-      "text": "brewed coffee",
-      "count": 398
-    },
-    {
       "text": "ground chicken",
       "count": 396
     },
     {
-      "text": "nonfat sour cream",
-      "count": 395
-    },
-    {
       "text": "frozen orange juice concentrate",
       "count": 395
-    },
-    {
-      "text": "miniature marshmallows",
-      "count": 391
     },
     {
       "text": "smoked salmon",
@@ -1315,55 +325,11 @@
       "count": 391
     },
     {
-      "text": "creole seasoning",
-      "count": 389
-    },
-    {
-      "text": "fresh lemon rind",
-      "count": 389
-    },
-    {
-      "text": "amaretto",
-      "count": 388
-    },
-    {
-      "text": "mini marshmallows",
-      "count": 386
-    },
-    {
-      "text": "grand marnier",
-      "count": 385
-    },
-    {
       "text": "dried thyme leaves",
       "count": 382
     },
     {
-      "text": "fresh pineapple",
-      "count": 382
-    },
-    {
-      "text": "light cream cheese",
-      "count": 381
-    },
-    {
-      "text": "pistachios",
-      "count": 381
-    },
-    {
-      "text": "cooked turkey",
-      "count": 381
-    },
-    {
-      "text": "pie crusts",
-      "count": 377
-    },
-    {
       "text": "mexican blend cheese",
-      "count": 377
-    },
-    {
-      "text": "fresh asparagus",
       "count": 377
     },
     {
@@ -1377,22 +343,6 @@
     {
       "text": "mint leaf",
       "count": 375
-    },
-    {
-      "text": "poppy seeds",
-      "count": 373
-    },
-    {
-      "text": "beef bouillon cubes",
-      "count": 372
-    },
-    {
-      "text": "vanilla instant pudding mix",
-      "count": 371
-    },
-    {
-      "text": "gorgonzola",
-      "count": 370
     },
     {
       "text": "frozen whipped topping",
@@ -1415,20 +365,12 @@
       "count": 365
     },
     {
-      "text": "red chilies",
-      "count": 365
-    },
-    {
       "text": "mirin",
       "count": 364
     },
     {
       "text": "dried oregano leaves",
       "count": 364
-    },
-    {
-      "text": "sweet onions",
-      "count": 363
     },
     {
       "text": "pizza dough",
@@ -1447,20 +389,12 @@
       "count": 360
     },
     {
-      "text": "beets",
-      "count": 359
-    },
-    {
       "text": "kale",
       "count": 359
     },
     {
       "text": "pancetta",
       "count": 358
-    },
-    {
-      "text": "dried dill weed",
-      "count": 356
     },
     {
       "text": "ghee",
@@ -1475,10 +409,6 @@
       "count": 351
     },
     {
-      "text": "white cake mix",
-      "count": 351
-    },
-    {
       "text": "tart apples",
       "count": 349
     },
@@ -1487,44 +417,16 @@
       "count": 348
     },
     {
-      "text": "sweet pickle relish",
-      "count": 347
-    },
-    {
-      "text": "mascarpone cheese",
-      "count": 347
-    },
-    {
       "text": "currants",
       "count": 346
-    },
-    {
-      "text": "ground almonds",
-      "count": 344
     },
     {
       "text": "baguette",
       "count": 343
     },
     {
-      "text": "condensed cream of chicken soup",
-      "count": 341
-    },
-    {
       "text": "fettuccine",
       "count": 341
-    },
-    {
-      "text": "pearl barley",
-      "count": 341
-    },
-    {
-      "text": "vidalia onion",
-      "count": 339
-    },
-    {
-      "text": "parsnips",
-      "count": 339
     },
     {
       "text": "bow tie pasta",
@@ -1535,24 +437,8 @@
       "count": 333
     },
     {
-      "text": "wide egg noodles",
-      "count": 333
-    },
-    {
-      "text": "soft breadcrumbs",
-      "count": 332
-    },
-    {
-      "text": "nonfat dry milk powder",
-      "count": 332
-    },
-    {
       "text": "colby-monterey jack cheese",
       "count": 332
-    },
-    {
-      "text": "italian salad dressing",
-      "count": 330
     },
     {
       "text": "alfredo sauce",
@@ -1567,28 +453,12 @@
       "count": 330
     },
     {
-      "text": "puff pastry",
-      "count": 329
-    },
-    {
       "text": "crystallized ginger",
       "count": 329
     },
     {
       "text": "sherry wine vinegar",
       "count": 328
-    },
-    {
-      "text": "asparagus spears",
-      "count": 328
-    },
-    {
-      "text": "turkey",
-      "count": 327
-    },
-    {
-      "text": "lard",
-      "count": 327
     },
     {
       "text": "bisquick baking mix",
@@ -1599,12 +469,1546 @@
       "count": 326
     },
     {
-      "text": "sliced water chestnuts",
-      "count": 324
+      "text": "oat bran",
+      "count": 322
     },
     {
-      "text": "graham crackers",
-      "count": 323
+      "text": "oregano leaves",
+      "count": 318
+    },
+    {
+      "text": "rice wine",
+      "count": 317
+    },
+    {
+      "text": "marinated artichoke hearts",
+      "count": 316
+    },
+    {
+      "text": "flank steaks",
+      "count": 315
+    },
+    {
+      "text": "deli ham",
+      "count": 312
+    },
+    {
+      "text": "whole wheat pastry flour",
+      "count": 312
+    },
+    {
+      "text": "instant coffee granules",
+      "count": 312
+    },
+    {
+      "text": "white beans",
+      "count": 310
+    },
+    {
+      "text": "sourdough bread",
+      "count": 310
+    },
+    {
+      "text": "smooth peanut butter",
+      "count": 306
+    },
+    {
+      "text": "dijon-style mustard",
+      "count": 306
+    },
+    {
+      "text": "vanilla yogurt",
+      "count": 305
+    },
+    {
+      "text": "guacamole",
+      "count": 304
+    },
+    {
+      "text": "green food coloring",
+      "count": 302
+    },
+    {
+      "text": "berries",
+      "count": 300
+    },
+    {
+      "text": "beef stew meat",
+      "count": 299
+    },
+    {
+      "text": "olive oil flavored cooking spray",
+      "count": 297
+    },
+    {
+      "text": "great northern beans",
+      "count": 297
+    },
+    {
+      "text": "wild rice",
+      "count": 297
+    },
+    {
+      "text": "whole berry cranberry sauce",
+      "count": 293
+    },
+    {
+      "text": "rotini pasta",
+      "count": 292
+    },
+    {
+      "text": "instant chocolate pudding mix",
+      "count": 291
+    },
+    {
+      "text": "saffron thread",
+      "count": 291
+    },
+    {
+      "text": "cantaloupe",
+      "count": 291
+    },
+    {
+      "text": "chunky salsa",
+      "count": 288
+    },
+    {
+      "text": "tuna in water",
+      "count": 286
+    },
+    {
+      "text": "apricot jam",
+      "count": 284
+    },
+    {
+      "text": "mixed salad greens",
+      "count": 284
+    },
+    {
+      "text": "part-skim ricotta cheese",
+      "count": 283
+    },
+    {
+      "text": "black-eyed peas",
+      "count": 282
+    },
+    {
+      "text": "diced tomatoes with juice",
+      "count": 282
+    },
+    {
+      "text": "red capsicum",
+      "count": 280
+    },
+    {
+      "text": "ground flax seeds",
+      "count": 279
+    },
+    {
+      "text": "coleslaw mix",
+      "count": 277
+    },
+    {
+      "text": "bok choy",
+      "count": 277
+    },
+    {
+      "text": "pineapple tidbits",
+      "count": 276
+    },
+    {
+      "text": "xanthan gum",
+      "count": 276
+    },
+    {
+      "text": "thyme leaves",
+      "count": 276
+    },
+    {
+      "text": "chuck roast",
+      "count": 272
+    },
+    {
+      "text": "lump crabmeat",
+      "count": 268
+    },
+    {
+      "text": "roasting chickens",
+      "count": 268
+    },
+    {
+      "text": "mixed vegetables",
+      "count": 267
+    },
+    {
+      "text": "rigatoni pasta",
+      "count": 262
+    },
+    {
+      "text": "watermelon",
+      "count": 261
+    },
+    {
+      "text": "fettuccine pasta",
+      "count": 260
+    },
+    {
+      "text": "beef brisket",
+      "count": 260
+    },
+    {
+      "text": "fresh thyme leaves",
+      "count": 260
+    },
+    {
+      "text": "chinese five spice powder",
+      "count": 258
+    },
+    {
+      "text": "fruit",
+      "count": 256
+    },
+    {
+      "text": "long-grain white rice",
+      "count": 256
+    },
+    {
+      "text": "chili paste",
+      "count": 255
+    },
+    {
+      "text": "red chili pepper",
+      "count": 254
+    },
+    {
+      "text": "french-fried onions",
+      "count": 254
+    },
+    {
+      "text": "sun-dried tomato packed in oil",
+      "count": 253
+    },
+    {
+      "text": "sake",
+      "count": 252
+    },
+    {
+      "text": "fontina cheese",
+      "count": 252
+    },
+    {
+      "text": "raspberry jam",
+      "count": 249
+    },
+    {
+      "text": "agave nectar",
+      "count": 248
+    },
+    {
+      "text": "star anise",
+      "count": 247
+    },
+    {
+      "text": "devil's food cake mix",
+      "count": 247
+    },
+    {
+      "text": "round steaks",
+      "count": 247
+    },
+    {
+      "text": "english muffins",
+      "count": 246
+    },
+    {
+      "text": "liquid honey",
+      "count": 244
+    },
+    {
+      "text": "rolls",
+      "count": 243
+    },
+    {
+      "text": "crouton",
+      "count": 242
+    },
+    {
+      "text": "honey mustard",
+      "count": 242
+    },
+    {
+      "text": "flax seed meal",
+      "count": 242
+    },
+    {
+      "text": "ground sage",
+      "count": 240
+    },
+    {
+      "text": "shiitake mushrooms",
+      "count": 239
+    },
+    {
+      "text": "fine dry breadcrumb",
+      "count": 238
+    },
+    {
+      "text": "strong coffee",
+      "count": 237
+    },
+    {
+      "text": "nutritional yeast",
+      "count": 236
+    },
+    {
+      "text": "pimientos",
+      "count": 236
+    },
+    {
+      "text": "chili-garlic sauce",
+      "count": 235
+    },
+    {
+      "text": "chilies",
+      "count": 234
+    },
+    {
+      "text": "adobo sauce",
+      "count": 233
+    },
+    {
+      "text": "carbonated lemon-lime beverage",
+      "count": 233
+    },
+    {
+      "text": "vanilla wafers",
+      "count": 232
+    },
+    {
+      "text": "fresh spinach leaves",
+      "count": 232
+    },
+    {
+      "text": "chili beans",
+      "count": 232
+    },
+    {
+      "text": "potato starch",
+      "count": 232
+    },
+    {
+      "text": "potato chips",
+      "count": 232
+    },
+    {
+      "text": "ziti pasta",
+      "count": 231
+    },
+    {
+      "text": "pecorino romano cheese",
+      "count": 231
+    },
+    {
+      "text": "green chili peppers",
+      "count": 230
+    },
+    {
+      "text": "caramels",
+      "count": 229
+    },
+    {
+      "text": "aluminum foil",
+      "count": 227
+    },
+    {
+      "text": "bread machine yeast",
+      "count": 227
+    },
+    {
+      "text": "whole grain mustard",
+      "count": 227
+    },
+    {
+      "text": "port wine",
+      "count": 227
+    },
+    {
+      "text": "beans",
+      "count": 226
+    },
+    {
+      "text": "coconut extract",
+      "count": 226
+    },
+    {
+      "text": "smoked ham",
+      "count": 226
+    },
+    {
+      "text": "champagne",
+      "count": 226
+    },
+    {
+      "text": "white mushrooms",
+      "count": 225
+    },
+    {
+      "text": "ramen noodles",
+      "count": 224
+    },
+    {
+      "text": "herbs",
+      "count": 223
+    },
+    {
+      "text": "sun-dried tomatoes packed in oil",
+      "count": 223
+    },
+    {
+      "text": "rose water",
+      "count": 223
+    },
+    {
+      "text": "flax seed",
+      "count": 223
+    },
+    {
+      "text": "kiwi fruits",
+      "count": 223
+    },
+    {
+      "text": "fennel bulb",
+      "count": 222
+    },
+    {
+      "text": "salad dressing",
+      "count": 221
+    },
+    {
+      "text": "baileys irish cream",
+      "count": 221
+    },
+    {
+      "text": "ground sirloin",
+      "count": 220
+    },
+    {
+      "text": "mango chutney",
+      "count": 220
+    },
+    {
+      "text": "curry leaves",
+      "count": 219
+    },
+    {
+      "text": "distilled white vinegar",
+      "count": 218
+    },
+    {
+      "text": "orange juice concentrate",
+      "count": 218
+    },
+    {
+      "text": "miniature semisweet chocolate chips",
+      "count": 217
+    },
+    {
+      "text": "chow mein noodles",
+      "count": 217
+    },
+    {
+      "text": "gin",
+      "count": 216
+    },
+    {
+      "text": "walnut halves",
+      "count": 216
+    },
+    {
+      "text": "unsweetened chocolate squares",
+      "count": 214
+    },
+    {
+      "text": "caramel ice cream topping",
+      "count": 214
+    },
+    {
+      "text": "pimiento",
+      "count": 214
+    },
+    {
+      "text": "ground thyme",
+      "count": 213
+    },
+    {
+      "text": "beef bouillon granules",
+      "count": 213
+    },
+    {
+      "text": "coarse grain mustard",
+      "count": 212
+    },
+    {
+      "text": "wheat bran",
+      "count": 212
+    },
+    {
+      "text": "jam",
+      "count": 211
+    },
+    {
+      "text": "coconut rum",
+      "count": 211
+    },
+    {
+      "text": "steak sauce",
+      "count": 210
+    },
+    {
+      "text": "watercress",
+      "count": 210
+    },
+    {
+      "text": "dried chili pepper flakes",
+      "count": 210
+    },
+    {
+      "text": "jicama",
+      "count": 210
+    },
+    {
+      "text": "philadelphia cream cheese",
+      "count": 209
+    },
+    {
+      "text": "rice noodles",
+      "count": 209
+    },
+    {
+      "text": "strawberry jam",
+      "count": 209
+    },
+    {
+      "text": "chicken tenders",
+      "count": 208
+    },
+    {
+      "text": "low-fat vanilla yogurt",
+      "count": 208
+    },
+    {
+      "text": "dried chipotle powder",
+      "count": 207
+    },
+    {
+      "text": "cracked pepper",
+      "count": 207
+    },
+    {
+      "text": "steak",
+      "count": 207
+    },
+    {
+      "text": "smoked bacon",
+      "count": 206
+    },
+    {
+      "text": "rye flour",
+      "count": 206
+    },
+    {
+      "text": "red curry paste",
+      "count": 206
+    },
+    {
+      "text": "papaya",
+      "count": 205
+    },
+    {
+      "text": "tomatillos",
+      "count": 205
+    },
+    {
+      "text": "rye bread",
+      "count": 205
+    },
+    {
+      "text": "red seedless grapes",
+      "count": 205
+    },
+    {
+      "text": "egg beaters egg substitute",
+      "count": 204
+    },
+    {
+      "text": "red chili pepper flakes",
+      "count": 204
+    },
+    {
+      "text": "graham cracker pie crust",
+      "count": 204
+    },
+    {
+      "text": "basil pesto",
+      "count": 203
+    },
+    {
+      "text": "long grain white rice",
+      "count": 203
+    },
+    {
+      "text": "peanut butter chips",
+      "count": 202
+    },
+    {
+      "text": "grapefruit juice",
+      "count": 202
+    },
+    {
+      "text": "canadian bacon",
+      "count": 202
+    },
+    {
+      "text": "quick-cooking rolled oats",
+      "count": 202
+    },
+    {
+      "text": "onion flakes",
+      "count": 201
+    },
+    {
+      "text": "swiss chard",
+      "count": 201
+    },
+    {
+      "text": "whole wheat tortillas",
+      "count": 201
+    },
+    {
+      "text": "orange extract",
+      "count": 200
+    },
+    {
+      "text": "chicken legs",
+      "count": 200
+    },
+    {
+      "text": "clam juice",
+      "count": 200
+    },
+    {
+      "text": "coarse black pepper",
+      "count": 200
+    },
+    {
+      "text": "mace",
+      "count": 199
+    },
+    {
+      "text": "popped popcorn",
+      "count": 199
+    },
+    {
+      "text": "pork loin chops",
+      "count": 198
+    },
+    {
+      "text": "accent seasoning",
+      "count": 198
+    },
+    {
+      "text": "fresh fruit",
+      "count": 198
+    },
+    {
+      "text": "green chili pepper",
+      "count": 198
+    },
+    {
+      "text": "yellow food coloring",
+      "count": 197
+    },
+    {
+      "text": "marsala wine",
+      "count": 197
+    },
+    {
+      "text": "dried ancho chile powder",
+      "count": 197
+    },
+    {
+      "text": "meat",
+      "count": 197
+    },
+    {
+      "text": "semi-sweet chocolate baking squares",
+      "count": 197
+    },
+    {
+      "text": "fresh sage leaves",
+      "count": 197
+    },
+    {
+      "text": "frozen lemonade concentrate",
+      "count": 197
+    },
+    {
+      "text": "angel food cake",
+      "count": 196
+    },
+    {
+      "text": "tasty cheese",
+      "count": 196
+    },
+    {
+      "text": "prepared pizza crust",
+      "count": 195
+    },
+    {
+      "text": "a.1. original sauce",
+      "count": 195
+    },
+    {
+      "text": "white rum",
+      "count": 195
+    },
+    {
+      "text": "frozen hash brown potatoes",
+      "count": 195
+    },
+    {
+      "text": "lawry's seasoned salt",
+      "count": 195
+    },
+    {
+      "text": "orange liqueur",
+      "count": 195
+    },
+    {
+      "text": "irish cream",
+      "count": 195
+    },
+    {
+      "text": "granola cereal",
+      "count": 194
+    },
+    {
+      "text": "frozen hash browns",
+      "count": 194
+    },
+    {
+      "text": "pam cooking spray",
+      "count": 193
+    },
+    {
+      "text": "purple onion",
+      "count": 193
+    },
+    {
+      "text": "cointreau liqueur",
+      "count": 193
+    },
+    {
+      "text": "italian salad dressing mix",
+      "count": 192
+    },
+    {
+      "text": "neufchatel cheese",
+      "count": 192
+    },
+    {
+      "text": "apple pie filling",
+      "count": 190
+    },
+    {
+      "text": "lipton onion soup mix",
+      "count": 190
+    },
+    {
+      "text": "small curd cottage cheese",
+      "count": 190
+    },
+    {
+      "text": "candy sprinkles",
+      "count": 190
+    },
+    {
+      "text": "navy beans",
+      "count": 189
+    },
+    {
+      "text": "gouda cheese",
+      "count": 189
+    },
+    {
+      "text": "white cheddar cheese",
+      "count": 189
+    },
+    {
+      "text": "crushed pineapple in juice",
+      "count": 189
+    },
+    {
+      "text": "coarse sea salt",
+      "count": 189
+    },
+    {
+      "text": "minute rice",
+      "count": 188
+    },
+    {
+      "text": "beef roast",
+      "count": 188
+    },
+    {
+      "text": "fast rising yeast",
+      "count": 187
+    },
+    {
+      "text": "seasoned stuffing mix",
+      "count": 187
+    },
+    {
+      "text": "white bread flour",
+      "count": 187
+    },
+    {
+      "text": "cod fish fillets",
+      "count": 186
+    },
+    {
+      "text": "cinnamon sugar",
+      "count": 185
+    },
+    {
+      "text": "grainy mustard",
+      "count": 185
+    },
+    {
+      "text": "dried fruit",
+      "count": 185
+    },
+    {
+      "text": "garlic granules",
+      "count": 185
+    },
+    {
+      "text": "meatballs",
+      "count": 184
+    },
+    {
+      "text": "anise seed",
+      "count": 184
+    },
+    {
+      "text": "garlic paste",
+      "count": 183
+    },
+    {
+      "text": "raspberry vinegar",
+      "count": 183
+    },
+    {
+      "text": "small shell pasta",
+      "count": 181
+    },
+    {
+      "text": "cheese tortellini",
+      "count": 181
+    },
+    {
+      "text": "sourdough starter",
+      "count": 181
+    },
+    {
+      "text": "fine sea salt",
+      "count": 180
+    },
+    {
+      "text": "mushroom stems and pieces",
+      "count": 180
+    },
+    {
+      "text": "ground round",
+      "count": 179
+    },
+    {
+      "text": "toffee pieces",
+      "count": 178
+    },
+    {
+      "text": "pimento stuffed olive",
+      "count": 177
+    },
+    {
+      "text": "kaiser rolls",
+      "count": 177
+    },
+    {
+      "text": "corn flake crumbs",
+      "count": 177
+    },
+    {
+      "text": "vanilla vodka",
+      "count": 177
+    },
+    {
+      "text": "chopped pimiento",
+      "count": 177
+    },
+    {
+      "text": "strawberry jell-o gelatin dessert",
+      "count": 176
+    },
+    {
+      "text": "tomatoes with juice",
+      "count": 176
+    },
+    {
+      "text": "fresh herb",
+      "count": 175
+    },
+    {
+      "text": "pomegranate juice",
+      "count": 174
+    },
+    {
+      "text": "vermicelli",
+      "count": 173
+    },
+    {
+      "text": "butter beans",
+      "count": 173
+    },
+    {
+      "text": "white button mushrooms",
+      "count": 173
+    },
+    {
+      "text": "sirloin steaks",
+      "count": 173
+    },
+    {
+      "text": "cooking apples",
+      "count": 172
+    },
+    {
+      "text": "orange bell pepper",
+      "count": 172
+    },
+    {
+      "text": "nutella",
+      "count": 172
+    },
+    {
+      "text": "ground mace",
+      "count": 171
+    },
+    {
+      "text": "beef gravy",
+      "count": 170
+    },
+    {
+      "text": "dutch-processed cocoa powder",
+      "count": 170
+    },
+    {
+      "text": "rotel",
+      "count": 170
+    },
+    {
+      "text": "blue curacao",
+      "count": 170
+    },
+    {
+      "text": "frozen whole kernel corn",
+      "count": 170
+    },
+    {
+      "text": "crusty bread",
+      "count": 170
+    },
+    {
+      "text": "peach schnapps",
+      "count": 169
+    },
+    {
+      "text": "flank steak",
+      "count": 169
+    },
+    {
+      "text": "cream of coconut",
+      "count": 169
+    },
+    {
+      "text": "fine breadcrumbs",
+      "count": 169
+    },
+    {
+      "text": "cheddar cheese soup",
+      "count": 168
+    },
+    {
+      "text": "lemonade",
+      "count": 168
+    },
+    {
+      "text": "grapeseed oil",
+      "count": 168
+    },
+    {
+      "text": "refrigerated buttermilk biscuits",
+      "count": 167
+    },
+    {
+      "text": "bulk pork sausage",
+      "count": 167
+    },
+    {
+      "text": "brownie mix",
+      "count": 167
+    },
+    {
+      "text": "coffee liqueur",
+      "count": 167
+    },
+    {
+      "text": "natural-style peanut butter",
+      "count": 165
+    },
+    {
+      "text": "roast beef",
+      "count": 165
+    },
+    {
+      "text": "diced tomatoes with green chilies",
+      "count": 165
+    },
+    {
+      "text": "creme de cacao",
+      "count": 165
+    },
+    {
+      "text": "powdered ginger",
+      "count": 165
+    },
+    {
+      "text": "golden brown sugar",
+      "count": 165
+    },
+    {
+      "text": "syrup",
+      "count": 163
+    },
+    {
+      "text": "rum extract",
+      "count": 163
+    },
+    {
+      "text": "bacon drippings",
+      "count": 162
+    },
+    {
+      "text": "thousand island dressing",
+      "count": 161
+    },
+    {
+      "text": "eggnog",
+      "count": 161
+    },
+    {
+      "text": "kiwi",
+      "count": 161
+    },
+    {
+      "text": "hoagie rolls",
+      "count": 161
+    },
+    {
+      "text": "poblano chiles",
+      "count": 161
+    },
+    {
+      "text": "mccormick's montreal brand steak seasoning",
+      "count": 160
+    },
+    {
+      "text": "beef tenderloin",
+      "count": 160
+    },
+    {
+      "text": "walnut oil",
+      "count": 160
+    },
+    {
+      "text": "serrano chilies",
+      "count": 160
+    },
+    {
+      "text": "chili oil",
+      "count": 160
+    },
+    {
+      "text": "mixed mushrooms",
+      "count": 159
+    },
+    {
+      "text": "ground turkey breast",
+      "count": 159
+    },
+    {
+      "text": "gluten-free flour",
+      "count": 159
+    },
+    {
+      "text": "splenda brown sugar blend",
+      "count": 158
+    },
+    {
+      "text": "curry paste",
+      "count": 158
+    },
+    {
+      "text": "ginger paste",
+      "count": 158
+    },
+    {
+      "text": "lemon pepper seasoning",
+      "count": 158
+    },
+    {
+      "text": "pineapple chunks in juice",
+      "count": 158
+    },
+    {
+      "text": "quick-cooking oatmeal",
+      "count": 157
+    },
+    {
+      "text": "leg of lamb",
+      "count": 157
+    },
+    {
+      "text": "adobo seasoning",
+      "count": 156
+    },
+    {
+      "text": "kaffir lime leaves",
+      "count": 156
+    },
+    {
+      "text": "chocolate ice cream",
+      "count": 156
+    },
+    {
+      "text": "all-bran cereal",
+      "count": 156
+    },
+    {
+      "text": "hungarian paprika",
+      "count": 156
+    }
+  ],
+  "partial_top": [
+    {
+      "text": "lemon, juice and zest of",
+      "count": 296
+    },
+    {
+      "text": "rotel tomatoes & chilies",
+      "count": 161
+    },
+    {
+      "text": "lime, juice and zest of",
+      "count": 123
+    },
+    {
+      "text": "celery & leaves",
+      "count": 108
+    },
+    {
+      "text": "monterey jack and cheddar cheese blend",
+      "count": 99
+    },
+    {
+      "text": "orange, juice and zest of",
+      "count": 76
+    },
+    {
+      "text": "chive & onion cream cheese",
+      "count": 75
+    },
+    {
+      "text": "macaroni and cheese mix",
+      "count": 66
+    },
+    {
+      "text": "lemons, juice and zest of",
+      "count": 66
+    },
+    {
+      "text": "diced tomatoes with basil oregano and garlic",
+      "count": 58
+    },
+    {
+      "text": "kraft macaroni and cheese",
+      "count": 50
+    },
+    {
+      "text": "lemon, juice and rind of",
+      "count": 48
+    },
+    {
+      "text": "pork & beans",
+      "count": 43
+    },
+    {
+      "text": "macaroni & cheese dinner mix",
+      "count": 42
+    },
+    {
+      "text": "tomato and basil pasta sauce",
+      "count": 41
+    },
+    {
+      "text": "limes, juice and zest of",
+      "count": 40
+    },
+    {
+      "text": "garlic and herb seasoning",
+      "count": 35
+    },
+    {
+      "text": "garlic & herb spreadable cheese",
+      "count": 34
+    },
+    {
+      "text": "garlic and red chile paste",
+      "count": 29
+    },
+    {
+      "text": "tomatoes with onion and garlic",
+      "count": 29
+    },
+    {
+      "text": "cabbage and carrot coleslaw mix",
+      "count": 26
+    },
+    {
+      "text": "tomatoes seasoned with basil garlic & oregano",
+      "count": 26
+    },
+    {
+      "text": "bread and butter pickles",
+      "count": 25
+    },
+    {
+      "text": "pork and beans in tomato sauce",
+      "count": 24
+    },
+    {
+      "text": "oranges, juice and zest of",
+      "count": 21
+    },
+    {
+      "text": "onion and mushroom soup mix",
+      "count": 20
+    },
+    {
+      "text": "peanut butter and milk chocolate chips",
+      "count": 20
+    },
+    {
+      "text": "lemon & herb seasoning",
+      "count": 19
+    },
+    {
+      "text": "feta cheese with dried basil and tomato",
+      "count": 19
+    },
+    {
+      "text": "macaroni shells and cheese",
+      "count": 17
+    },
+    {
+      "text": "chicken and rice soup",
+      "count": 16
+    },
+    {
+      "text": "orange, juice and rind of",
+      "count": 16
+    },
+    {
+      "text": "garlic & herb salad dressing mix",
+      "count": 12
+    },
+    {
+      "text": "cream cheese with chives and onions",
+      "count": 11
+    },
+    {
+      "text": "diced tomatoes with lime and cilantro",
+      "count": 11
+    },
+    {
+      "text": "diced tomatoes with green pepper and onion",
+      "count": 11
+    },
+    {
+      "text": "celery & tops",
+      "count": 10
+    },
+    {
+      "text": "diced tomatoes with basil and garlic",
+      "count": 10
+    },
+    {
+      "text": "potato & cheese pierogies",
+      "count": 10
+    },
+    {
+      "text": "red wine and vinegar salad dressing",
+      "count": 9
+    },
+    {
+      "text": "frozen hash browns with onions and peppers",
+      "count": 9
+    },
+    {
+      "text": "olive oil and vinegar dressing",
+      "count": 9
+    },
+    {
+      "text": "diced tomatoes with garlic and olive oil",
+      "count": 9
+    },
+    {
+      "text": "garlic and herb goat cheese",
+      "count": 8
+    },
+    {
+      "text": "onion and garlic croutons",
+      "count": 8
+    },
+    {
+      "text": "sour cream and onion potato chips",
+      "count": 7
+    },
+    {
+      "text": "lemons, juice and rind of",
+      "count": 7
+    },
+    {
+      "text": "broccoli and cheese flavored rice mix",
+      "count": 7
+    },
+    {
+      "text": "diced tomatoes with basil and oregano",
+      "count": 5
+    },
+    {
+      "text": "peas and pearl onions",
+      "count": 5
+    },
+    {
+      "text": "sweet onion and pepper relish",
+      "count": 5
+    },
+    {
+      "text": "beef and onion soup mix",
+      "count": 5
+    },
+    {
+      "text": "roasted garlic and red pepper spice mix",
+      "count": 4
+    },
+    {
+      "text": "garlic and cheese flavored croutons",
+      "count": 4
+    },
+    {
+      "text": "tomato sauce with basil garlic and oregano",
+      "count": 4
+    },
+    {
+      "text": "frozen potato and onion pierogies",
+      "count": 4
+    },
+    {
+      "text": "diced tomatoes with sweet onions and roasted garlic",
+      "count": 4
+    },
+    {
+      "text": "black bean and rice mix",
+      "count": 4
+    },
+    {
+      "text": "potato & cheese pierogi",
+      "count": 4
+    },
+    {
+      "text": "garlic and herb spaghetti sauce",
+      "count": 4
+    },
+    {
+      "text": "garlic and herb marinade",
+      "count": 3
+    },
+    {
+      "text": "diced tomatoes with balsamic vinegar basil and oil",
+      "count": 3
+    },
+    {
+      "text": "instant apple and cinnamon oatmeal",
+      "count": 3
+    },
+    {
+      "text": "rice and sauce mix",
+      "count": 3
+    },
+    {
+      "text": "canned spaghetti and sauce",
+      "count": 3
+    },
+    {
+      "text": "coffee and chicory blend",
+      "count": 3
+    },
+    {
+      "text": "cheddar and american blend cheese",
+      "count": 3
+    },
+    {
+      "text": "frozen corn broccoli and red pepper",
+      "count": 3
+    },
+    {
+      "text": "roasted garlic and sweet onion jam",
+      "count": 3
+    },
+    {
+      "text": "light chive & onion cream cheese",
+      "count": 3
+    },
+    {
+      "text": "oranges, juice and rind of",
+      "count": 3
+    },
+    {
+      "text": "bread and butter pickle juice",
+      "count": 3
+    },
+    {
+      "text": "tomato paste with basil garlic and oregano",
+      "count": 3
+    },
+    {
+      "text": "diced tomatoes with green pepper celery and onion",
+      "count": 3
+    },
+    {
+      "text": "garlic and herb sauce mix",
+      "count": 3
+    },
+    {
+      "text": "garlic and herb butter",
+      "count": 3
+    },
+    {
+      "text": "ghirardelli sweet ground chocolate and cocoa",
+      "count": 3
+    },
+    {
+      "text": "chocolate and mint cookies",
+      "count": 3
+    },
+    {
+      "text": "simply macaroni & cheese",
+      "count": 3
+    },
+    {
+      "text": "sour cream and chive dip",
+      "count": 3
+    },
+    {
+      "text": "garlic and herb-seasoned breadcrumbs",
+      "count": 3
+    },
+    {
+      "text": "limes, juice and rind of",
+      "count": 3
+    },
+    {
+      "text": "diced tomatoes with onion garlic and basil",
+      "count": 3
+    },
+    {
+      "text": "stewed tomatoes with onion and green pepper",
+      "count": 3
+    },
+    {
+      "text": "cheddar and colby cheese",
+      "count": 3
+    },
+    {
+      "text": "spinach and cheese tortellini",
+      "count": 3
+    },
+    {
+      "text": "stove top stuffing mix monterey style with mushroom and onion",
+      "count": 2
+    },
+    {
+      "text": "roasted red pepper and eggplant spread",
+      "count": 2
+    },
+    {
+      "text": "stewed tomatoes with basil and garlic",
+      "count": 2
+    },
+    {
+      "text": "mixed green and yellow beans",
+      "count": 2
+    },
+    {
+      "text": "ro*tel original diced tomatoes & green chilies",
+      "count": 2
+    },
+    {
+      "text": "stir-fry sauce with garlic and ginger",
+      "count": 2
+    },
+    {
+      "text": "corn and black bean salsa",
+      "count": 2
+    },
+    {
+      "text": "ro-tel tomatoes and onions",
+      "count": 2
+    },
+    {
+      "text": "chicken and herb couscous mix",
+      "count": 2
+    },
+    {
+      "text": "cream cheese with tomato and basil",
+      "count": 2
+    },
+    {
+      "text": "cheese and salsa dip",
+      "count": 2
+    },
+    {
+      "text": "garlic and onion pasta sauce",
+      "count": 2
+    },
+    {
+      "text": "sour cream and chive potato topping",
+      "count": 2
+    },
+    {
+      "text": "chili paste with garlic and ginger",
+      "count": 2
     }
   ]
 }
