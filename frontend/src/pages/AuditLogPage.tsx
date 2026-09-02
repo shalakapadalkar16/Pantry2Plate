@@ -1,50 +1,61 @@
-// Shows a paginated, color-coded table of every ADD/REMOVE/UPDATE action that has happened in the pantry.
-// It calls getLogs from pantryApi.ts directly — we don't need a store for this because logs are read-only, no optimistic updates or shared state needed.
-// Local useState is enough.
-// Why no store here: The pantry store exists because multiple components need to share and mutate the same ingredient list. 
-// Logs are just a display — fetched once per page load, never mutated by the frontend. 
-// Using a store for this would be overkill.
+// Paginated view of every ADDED/REMOVED/UPDATED action on the pantry.
+//
+// No store: logs are read-only and fetched per page, with no shared state
+// or optimistic updates to coordinate. Local useState is enough.
 
-import { useEffect, useState } from "react";
-import { getLogs } from "../api/pantryApi";
-import { Spinner, ErrorBanner, PageHeader } from "../components/ui";
-import type { IngredientLog } from "../types";
+import { useEffect, useState } from 'react'
 
-// Color coding per action type — makes the log easy to scan at a glance
-const ACTION_STYLES: Record<IngredientLog["action"], string> = {
-  ADD: "bg-green-100 text-green-700",
-  REMOVE: "bg-red-100 text-red-600",
-  UPDATE: "bg-yellow-100 text-yellow-700",
-};
+import { getLogs } from '../api/pantryApi'
+import { ErrorBanner, PageHeader, Spinner } from '../components/ui'
+import type { IngredientLog, LogAction } from '../types'
+
+// Keys must match the backend's IngredientLog.Action values exactly. They
+// were ADD/REMOVE/UPDATE here against ADDED/REMOVED/UPDATED on the server,
+// so every lookup returned undefined and the badge rendered unstyled.
+const ACTION_STYLES: Record<LogAction, string> = {
+  ADDED: 'bg-green-100 text-green-700',
+  REMOVED: 'bg-red-100 text-red-600',
+  UPDATED: 'bg-yellow-100 text-yellow-700',
+}
+
+// Matches PAGE_SIZE in config/settings/base.py. It was 10 here, so the page
+// count was double the real one and the last pages were empty.
+const PAGE_SIZE = 20
 
 export default function AuditLogPage() {
-  const [logs, setLogs] = useState<IngredientLog[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [page, setPage] = useState(1);
-  const [totalCount, setTotalCount] = useState(0);
+  const [logs, setLogs] = useState<IngredientLog[]>([])
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const [page, setPage] = useState(1)
+  const [totalCount, setTotalCount] = useState(0)
 
-  const PAGE_SIZE = 10; // matches backend's StandardResultsPagination
-
-  // Fetch logs whenever the page number changes
   useEffect(() => {
-    const fetch = async () => {
-      setLoading(true);
-      setError(null);
-      try {
-        const res = await getLogs(page);
-        setLogs(res.data.results);
-        setTotalCount(res.data.count);
-      } catch {
-        setError("Failed to load audit logs.");
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetch();
-  }, [page]);
+    let cancelled = false
 
-  const totalPages = Math.ceil(totalCount / PAGE_SIZE);
+    const load = async () => {
+      setLoading(true)
+      setError(null)
+      try {
+        const res = await getLogs(page)
+        // Guard against a slower earlier request landing after a newer one
+        // and overwriting the current page.
+        if (cancelled) return
+        setLogs(res.data.results)
+        setTotalCount(res.data.count)
+      } catch {
+        if (!cancelled) setError('Failed to load audit logs.')
+      } finally {
+        if (!cancelled) setLoading(false)
+      }
+    }
+
+    load()
+    return () => {
+      cancelled = true
+    }
+  }, [page])
+
+  const totalPages = Math.max(1, Math.ceil(totalCount / PAGE_SIZE))
 
   return (
     <div>
@@ -76,7 +87,7 @@ export default function AuditLogPage() {
                     Ingredient
                   </th>
                   <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">
-                    Change
+                    Quantity
                   </th>
                   <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">
                     Date
@@ -89,7 +100,6 @@ export default function AuditLogPage() {
                     key={log.id}
                     className="border-b border-gray-100 hover:bg-gray-50 transition-colors"
                   >
-                    {/* Color-coded action badge */}
                     <td className="px-4 py-3">
                       <span
                         className={`text-xs font-semibold px-2 py-1 rounded-full ${ACTION_STYLES[log.action]}`}
@@ -98,12 +108,13 @@ export default function AuditLogPage() {
                       </span>
                     </td>
                     <td className="px-4 py-3 text-sm text-gray-800">
-                      {log.ingredient_name}
+                      {/* The log keeps the text as written at the time, which
+                          may differ from the ingredient's current name. */}
+                      {log.ingredient?.display_name ?? log.ingredient_name}
                     </td>
-                    {/* Shows + for additions, - for removals */}
                     <td className="px-4 py-3 text-sm text-gray-600">
-                      {log.action === "REMOVE" ? "-" : "+"}
-                      {log.quantity_change} {log.unit}
+                      {log.action === 'REMOVED' ? '−' : ''}
+                      {parseFloat(log.quantity)} {log.unit}
                     </td>
                     <td className="px-4 py-3 text-sm text-gray-400">
                       {new Date(log.created_at).toLocaleString()}
@@ -114,11 +125,10 @@ export default function AuditLogPage() {
             </table>
           </div>
 
-          {/* Pagination controls — only shown if more than one page */}
           {totalPages > 1 && (
             <div className="flex justify-center items-center gap-4 mt-6 text-sm">
               <button
-                onClick={() => setPage((p) => p - 1)}
+                onClick={() => setPage((p) => Math.max(1, p - 1))}
                 disabled={page === 1}
                 className="px-3 py-1 rounded-lg bg-gray-100 hover:bg-gray-200 disabled:opacity-40"
               >
@@ -128,8 +138,8 @@ export default function AuditLogPage() {
                 Page {page} of {totalPages}
               </span>
               <button
-                onClick={() => setPage((p) => p + 1)}
-                disabled={page === totalPages}
+                onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                disabled={page >= totalPages}
                 className="px-3 py-1 rounded-lg bg-gray-100 hover:bg-gray-200 disabled:opacity-40"
               >
                 Next →
@@ -139,5 +149,5 @@ export default function AuditLogPage() {
         </>
       )}
     </div>
-  );
+  )
 }

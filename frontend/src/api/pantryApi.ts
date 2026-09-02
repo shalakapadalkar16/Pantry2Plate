@@ -1,35 +1,42 @@
-// single place where all pantry-related HTTP calls live.
-// Every function here talks to one specific backend endpoint. 
-// Your store and components will call these functions — they never call client directly. 
-// This keeps your API logic in one place, so if an endpoint URL changes, you fix it here and nowhere else.
+// Every pantry-related HTTP call lives here. Stores and components call
+// these functions, never apiClient directly, so an endpoint change is a
+// one-file edit.
+//
+// Paths are relative to the client's baseURL of '/api/v1'. They previously
+// repeated that prefix, which resolved to /api/v1/api/v1/pantry/ and 404'd
+// on every call.
 
-import { apiClient as client } from "./client";
+import { apiClient as client } from './client'
 
 import type {
+  IngredientLog,
+  Paginated,
   PantryItem,
   PantryItemCreatePayload,
   PantryItemUpdatePayload,
-  IngredientLog,
-} from "../types";
+} from '../types'
 
-// Fetches all pantry items belonging to the logged-in user
-export const getPantryItems = () =>
-  client.get<PantryItem[]>("/api/v1/pantry/");
+// The list endpoint is paginated. page_size is raised because the pantry is
+// filtered client-side and a partial list would filter incorrectly - the
+// user would type "onion" and see nothing because their onion is on page 2.
+export const getPantryItems = (pageSize = 100) =>
+  client.get<Paginated<PantryItem>>(`/pantry/?page_size=${pageSize}`)
 
-// Sends a new ingredient to the backend; returns the created item
 export const createPantryItem = (payload: PantryItemCreatePayload) =>
-  client.post<PantryItem>("/api/v1/pantry/", payload);
+  client.post<PantryItem>('/pantry/', payload)
 
-// Updates quantity/unit/expiry for one item by id; returns the updated item
-export const updatePantryItem = (id: string, payload: PantryItemUpdatePayload) =>
-  client.patch<PantryItem>(`/api/v1/pantry/${id}/`, payload);
+export const updatePantryItem = (
+  id: number,
+  payload: PantryItemUpdatePayload
+) => client.patch<PantryItem>(`/pantry/${id}/`, payload)
 
-// Deletes one item by id; backend returns 204 so no response body
-export const deletePantryItem = (id: string) =>
-  client.delete(`/api/v1/pantry/${id}/`);
+// Returns 204 with no body.
+export const deletePantryItem = (id: number) => client.delete(`/pantry/${id}/`)
 
-// Fetches paginated audit logs of all add/remove/update actions
 export const getLogs = (page = 1) =>
-  client.get<{ results: IngredientLog[]; count: number }>(
-    `/api/v1/pantry/logs/?page=${page}`
-  );
+  client.get<Paginated<IngredientLog>>(`/pantry/logs/?page=${page}`)
+
+// Items approaching expiry. Not wired into the UI yet, but the endpoint
+// exists and this is where it belongs.
+export const getExpiringItems = (days = 7) =>
+  client.get<Paginated<PantryItem>>(`/pantry/expiring/?days=${days}`)
