@@ -5,6 +5,7 @@ import { LoginPage, RegisterPage } from './pages/AuthPages'
 import PantryPage from './pages/PantryPage'
 import AuditLogPage from './pages/AuditLogPage'
 import Layout from './components/layout/Layout'
+import SearchPage from './pages/SearchPage'
 
 // If the user is not authenticated, redirect to /login
 function RequireAuth({ children }: { children: React.ReactNode }) {
@@ -46,6 +47,7 @@ export default function App() {
           </RequireAuth>
         }>
           <Route path="/pantry" element={<PantryPage />} />
+          <Route path="/search" element={<SearchPage />} />
           <Route path="/logs" element={<AuditLogPage />} />
         </Route>
 

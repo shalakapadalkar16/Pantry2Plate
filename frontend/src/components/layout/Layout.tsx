@@ -7,6 +7,7 @@ import { useAuthStore } from "../../store/authStore";
 
 // Each nav item — path is the route, label is display text, icon is an emoji
 const NAV_ITEMS = [
+  { path: "/search", label: "Find Recipes", icon: "🔍" },
   { path: "/pantry", label: "My Pantry", icon: "🥦" },
   { path: "/logs", label: "Audit Log", icon: "📋" },
 ];
