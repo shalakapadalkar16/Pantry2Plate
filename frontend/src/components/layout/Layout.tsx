@@ -10,6 +10,7 @@ const NAV_ITEMS = [
   { path: "/search", label: "Find Recipes", icon: "🔍" },
   { path: "/pantry", label: "My Pantry", icon: "🥦" },
   { path: "/logs", label: "Audit Log", icon: "📋" },
+  { path: "/saved", label: "My Recipes", icon: "📖" },
 ];
 
 export default function Layout() {

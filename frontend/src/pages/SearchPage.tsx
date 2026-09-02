@@ -6,7 +6,7 @@
 
 import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
-
+import { titleCase } from '../utils/text'
 import { PAGE_SIZE, useSearchStore } from '../store/searchStore'
 import { EmptyState, ErrorBanner, PageHeader, Spinner } from '../components/ui'
 import type { RecipeMatch } from '../types'
