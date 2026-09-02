@@ -10,12 +10,11 @@ are missing, so the things you can cook tonight are at the top.
 
 ## Status
 
-Backend complete, containerized, and measured. No frontend for the recipe
-search yet.
+Complete and measured. Runs locally; not publicly deployed.
 
 | Area | State |
 |---|---|
-| Accounts, JWT auth | Working |
+| Accounts, JWT auth, password validation, throttling | Working |
 | Pantry CRUD, audit log, expiry tracking | Working |
 | Ingredient vocabulary and matcher | Working — 87% corpus coverage |
 | Recipe corpus | 231,637 recipes, 2.09M ingredient rows |
@@ -24,10 +23,10 @@ search yet.
 | Elasticsearch retrieval | Working — 5x faster than SQL, verified equivalent |
 | Redis caching | Working — 105ms to 1.5ms |
 | Saved recipe book | Working |
+| React frontend | Working — pantry, search, recipe detail, recipe book |
 | Containerized stack | Working — `docker compose up` runs everything |
 | Tests | 120 |
-| Frontend for search | Not built |
-| Public deployment | Not deployed — runs locally |
+| Public deployment | Not deployed, deliberately — see below |
 
 ---
 
@@ -53,7 +52,7 @@ missing    = n_required - have
 ```
 
 Results are one ranked list sorted by `missing`, with a threshold the user
-controls. "Pantry only" is just the threshold at zero.
+controls. "Only what I have" is that threshold at zero, not a separate mode.
 
 ### Resolving free text
 
@@ -78,13 +77,16 @@ protects `cream of mushroom soup` and `pork and beans`.
 Fuzzy matching is last and strict. A wrong match tells a user they can cook
 something they cannot, which is worse than admitting a miss. Anything that
 fails every rung is recorded in `UnmatchedIngredient` with a hit count, so
-vocabulary gaps are measurable rather than invisible.
+vocabulary gaps are measurable rather than invisible. Unresolved pantry
+items are shown with a badge rather than hidden, because an unmatched item
+will never appear in a result and the user should be able to see why.
 
 ### Three rules that decide what you see
 
 **Staples are excluded from the denominator.** Nobody lists salt in their
 pantry but nearly every recipe needs it. Counting staples would make every
-recipe read as less cookable than it is.
+recipe read as less cookable than it is. The recipe detail page shows them
+in their own section so this is visible rather than mysterious.
 
 **Unresolved ingredients always count as missing.** They have no id, so
 nothing in a pantry can satisfy them. That is correct — the user cannot
@@ -138,7 +140,9 @@ Past ~1,500 each entry buys about 0.03%.
 | 3+ | 31,928 | 13.8% |
 
 31.2% is the pool for a zero-missing search. The rest still work when the
-user is willing to buy something.
+user is willing to buy something. This distribution was measured *before*
+the recipe schema was written — it is what made `n_unresolved` a real
+column rather than a diagnostic afterthought.
 
 ### Search latency
 
@@ -186,7 +190,9 @@ Quantities are excluded from that hash — coverage is presence-based, so
 
 **Elasticsearch is selected when reachable, SQL is the fallback.** The
 comparison command establishes they agree, which is what makes automatic
-fallback a latency change rather than a correctness one.
+fallback a latency change rather than a correctness one. The UI shows which
+backend answered and whether the response was cached, so both are
+observable rather than asserted.
 
 **Coverage counters are denormalised onto `Recipe`.** They sit in the
 ranking query, and counting across 2.09M rows per request would be the
@@ -202,6 +208,19 @@ Two tag classes were deliberately avoided: taxonomy headers like
 corpus, so filtering on them is a no-op that looks like a filter; and
 near-universal values like `easy` (54% of the corpus) would swamp any mood
 containing them.
+
+**The search store carries a request sequence counter.** Dragging the
+threshold slider fires several requests, and whichever the server finishes
+last would otherwise win — which is not necessarily the one matching the
+current filters. Filter changes are debounced to reduce how many requests
+are sent; the counter discards the ones that still overlap. Either alone
+leaves a gap.
+
+**A saved-recipe flag is deliberately absent from search results.** The
+recommendation payload is cached on a key accounting for the pantry and
+query but not per-user state, so `/recipes/saved/ids/` returns a bare id
+list the client merges instead. One small uncached call is cheaper than
+making the expensive cached one user-specific.
 
 **nginx serves static files and proxies the rest to gunicorn.** Serving
 assets through an application server wastes a worker slot per request.
@@ -240,13 +259,25 @@ pepper, since `red pepper flakes` has its own entry. `tomato sauce` →
 canned tomato, not ketchup. All chosen for American usage, matching the
 corpus, and all one line to change.
 
+**Recipe titles are reconstructed.** The corpus stripped apostrophes before
+storing, so `Ree Ree's Chicken` arrives as `ree ree s chicken`.
+Reattaching the apostrophe is a guess — right often enough here to be worth
+making, wrong for any recipe legitimately containing a standalone "s".
+
 **Migrations run on container start.** Convenient for one instance, wrong
 for several — two containers booting together would both attempt it. In a
-real deployment this belongs in a release step, not the app entrypoint.
+real deployment this belongs in a release step.
 
 **Login throttling is a global anon rate**, not a scoped throttle on the
 login view. 30/min is generous for password guessing; tightening it needs
 per-view configuration.
+
+**Not deployed, deliberately.** No free tier fits the stack: the
+Elasticsearch container alone is configured with a 512MB JVM heap, which
+equals Render's entire free-tier memory budget, and Railway and Fly no
+longer offer usable free tiers. Running locally is also better for a
+walkthrough — full corpus, 30ms searches, no cold starts. The SQL fallback
+means a deployment without Elasticsearch would still work, at 170ms.
 
 ---
 
@@ -255,12 +286,12 @@ per-view configuration.
 - **Backend** — Django 5, DRF, service-layer architecture, split settings
 - **Data** — PostgreSQL 16, Elasticsearch 8.13, Redis 7
 - **Serving** — gunicorn behind nginx, all in Docker Compose
-- **Frontend** — React, TypeScript, Vite, Zustand (auth and pantry only)
+- **Frontend** — React 19, TypeScript, Vite, Zustand, Tailwind 4
 
 ```
 backend/
 ├── config/          settings (base/dev/prod), root urls
-├── core/            base models, pagination, typed exceptions
+├── core/            base models, pagination, typed exceptions, seed_demo
 ├── users/           custom user model, JWT auth
 ├── ingredients/     vocabulary, units, matcher, corpus mining
 ├── pantry/          pantry items and audit log
@@ -269,11 +300,20 @@ backend/
 ├── nginx/           reverse proxy config
 ├── data/            seed vocabulary (raw corpus gitignored)
 └── tests/           120 tests
+
+frontend/src/
+├── api/             axios client with JWT refresh, per-domain modules
+├── store/           zustand: auth, pantry, search
+├── pages/           auth, pantry, audit log, search, recipe detail, book
+├── components/      layout shell and shared UI primitives
+└── utils/
 ```
 
 ---
 
 ## Running it
+
+### Everything in containers
 
 ```bash
 cd backend
@@ -281,9 +321,9 @@ cp .env.example .env          # fill in the values
 docker compose up -d --build
 ```
 
-That starts Postgres, Redis, Elasticsearch, the Django app under gunicorn,
-and nginx. The app container waits for Postgres, runs migrations, loads the
-ingredient vocabulary, and collects static files before serving.
+Starts Postgres, Redis, Elasticsearch, Django under gunicorn, and nginx.
+The app container waits for Postgres, migrates, loads the ingredient
+vocabulary, and collects static files before serving.
 
 **http://localhost:8080**
 
@@ -293,6 +333,25 @@ Wait for `docker compose ps` to show `web` as healthy.
 `docker compose down` preserves the named volumes. `down -v` wipes them and
 means reimporting the corpus.
 
+### Development
+
+Dependencies in containers, app and frontend on the host:
+
+```bash
+cd backend
+docker compose up -d db redis elasticsearch
+source venv/bin/activate
+python manage.py runserver
+```
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Vite proxies `/api` to port 8000.
+
 ### Recipe corpus
 
 Needs `RAW_recipes.csv` from the
@@ -301,28 +360,29 @@ at `backend/data/raw/`. The directory is mounted read-only into the
 container rather than baked into the image.
 
 ```bash
-docker compose exec web python manage.py import_recipes    # ~108s
-docker compose exec web python manage.py index_recipes     # ~9s
+python manage.py import_recipes      # ~108s
+python manage.py index_recipes       # ~9s
 ```
 
 The app works without the corpus — search just returns nothing.
 
-### Development
+### Demo account
 
 ```bash
-source venv/bin/activate
-pytest
-python manage.py runserver
+python manage.py seed_demo --reset
 ```
 
-### Measurement
+Creates a user with an 18-item pantry written the way a person types, so
+the matcher is visibly doing work rather than assumed to. One entry is
+deliberately unresolvable. Prints credentials and a suggested walkthrough.
+
+### Tests and measurement
 
 ```bash
+pytest                               # 120 tests
 python manage.py mine_vocabulary     # matcher coverage against the corpus
-python manage.py compare_search      # SQL vs Elasticsearch, correctness and latency
+python manage.py compare_search      # SQL vs Elasticsearch
 ```
-
-Both work through the container too, via `docker compose exec web`.
 
 ---
 
@@ -333,9 +393,11 @@ Both work through the container too, via `docker compose exec web`.
 |---|---|
 | POST | `/api/v1/auth/register/` |
 | POST | `/api/v1/auth/login/` |
+| POST | `/api/v1/auth/token/refresh/` |
+| GET | `/api/v1/auth/profile/` |
 
 Passwords are checked against Django's configured validators. Anonymous
-requests are throttled.
+requests are throttled. Refresh tokens rotate and old ones are blacklisted.
 
 ### Pantry
 | Method | Path | Purpose |
